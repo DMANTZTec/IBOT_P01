@@ -1,0 +1,16 @@
+{
+  "DUT":"ESR",
+  "TestCases":[
+    {
+      "TCID":1,
+      "TCSHORTNM":"ESR01",
+      "DESC":"Relay Voltage Test",
+      "TYPE":"Auto",
+      "Steps" : [
+        {
+          "StepNumber": 1,
+          "StepPromptText":"Check if HDMI Cable is Connected",
+          "StepInputText":["Value1","Value2","Value3"]
+        }]
+    }]
+}

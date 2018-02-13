@@ -1,0 +1,7 @@
+{
+  "DUT_ID":"IRNFC",
+  "DUT_NM":"IR NFC Card",
+  "HW_VER": "1.2.3",
+  "SW_VER": "1.0.3",
+  "TestCaseFile":"./config/IRNFC_TJ_TestCases_V1.0.json"
+}

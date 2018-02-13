@@ -1,0 +1,7 @@
+{
+  "DUT_ID":"M10",
+  "DUT_NM":"M10 Card",
+  "HW_VER": "1.2.3",
+  "SW_VER": "1.0.3",
+  "TestCaseFile":"M10_TestCases_V1.0.json"
+}

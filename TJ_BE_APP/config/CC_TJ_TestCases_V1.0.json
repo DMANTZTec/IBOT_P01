@@ -1,0 +1,35 @@
+{
+  "DUT":"CC",
+  "TestCases":[
+    {
+      "TCID":1,
+      "TCSHORTNM":"CCHDM01",
+      "DESC":"CC Test HDMI Interface",
+      "TYPE":"Manual",
+      "Steps" : [
+        {
+          "StepNumber": 1,
+          "StepPromptText":"CC Check if HDMI Cable is Connected",
+          "StepInputText":["Value1","Value2","Value3"]
+        }]
+    },
+    {
+      "TCID":2,
+      "TCSHORTNM":"CCPMIC",
+      "DESC":"CC PM IC Voltage Test",
+      "TYPE":"Manual",
+      "Steps" : [
+        {
+          "StepNumber": 1,
+          "StepPromptText":"Push the power button",
+          "StepInputText":["Value1","Value2","Value3"]
+        },
+
+        {
+          "StepNumber": 2,
+          "StepPromptText":"Is the Power LED Turned Green?",
+          "StepInputText":["Value1","Value2","Value3"]
+        }]
+    }
+  ]
+}

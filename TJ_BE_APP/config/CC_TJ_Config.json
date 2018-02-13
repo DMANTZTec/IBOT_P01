@@ -1,0 +1,7 @@
+{
+  "DUT_ID":"CC",
+  "DUT_NM":"Control Card",
+  "HW_VER": "1.2.3",
+  "SW_VER": "1.0.3",
+  "TestCaseFile":"CC_TJ_TestCases_V1.0.json"
+}

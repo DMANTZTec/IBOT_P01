@@ -1,0 +1,59 @@
+{
+  "DUT":"IRNFC",
+  "TestCases":[
+    {
+      "TCID":1,
+      "TCSHORTNM":"IRNFC1",
+      "DESC":"IRNFC Test HDMI Interface",
+      "TYPE":"auto",
+      "Steps" : [
+        {
+          "StepNumber": 1,
+          "StepPromptText":"IRNFC Check if HDMI Cable is Connected",
+          "StepInputText":["Value1","Value2","Value3"]
+        }]
+    },
+    {
+      "TCID":2,
+      "TCSHORTNM":"IRNFC2",
+      "DESC":"IRNFC Test HDMI Interface",
+      "TYPE":"auto",
+      "Steps" : [
+        {
+          "StepNumber": 1,
+          "StepPromptText":"Check if HDMI Cable is Connected",
+          "StepInputText":["Value1","Value2","Value3"]
+        }]
+    },
+    {
+      "TCID":3,
+      "TCSHORTNM":"IRNFC3",
+      "DESC":"IRNFC Test HDMI Interface",
+      "TYPE":"auto",
+      "Steps" : [
+        {
+          "StepNumber": 1,
+          "StepPromptText":"Check if HDMI Cable is Connected",
+          "StepInputText":["Value1","Value2","Value3"]
+        }]
+    },
+    {
+      "TCID":4,
+      "TCSHORTNM":"IRNFC4",
+      "DESC":"IRNFC PM IC Voltage Test",
+      "TYPE":"auto",
+      "Steps" : [
+        {
+          "StepNumber": 1,
+          "StepPromptText":"Push the power button",
+          "StepInputText":["Value1","Value2","Value3"]
+        },
+
+        {
+          "StepNumber": 2,
+          "StepPromptText":"Is the Power LED Turned Green?",
+          "StepInputText":["Value1","Value2","Value3"]
+        }]
+    }
+  ]
+}

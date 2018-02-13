@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/TJ_BE_APP/TJ_BE_APP.iml" filepath="$PROJECT_DIR$/TJ_BE_APP/TJ_BE_APP.iml" />
+      <module fileurl="file://$PROJECT_DIR$/TJ_M10_APP/TJ_M10_APP.iml" filepath="$PROJECT_DIR$/TJ_M10_APP/TJ_M10_APP.iml" />
+      <module fileurl="file://$PROJECT_DIR$/TJ_UI_APP/TJ_UI_APP.iml" filepath="$PROJECT_DIR$/TJ_UI_APP/TJ_UI_APP.iml" />
+    </modules>
+  </component>
+</project>

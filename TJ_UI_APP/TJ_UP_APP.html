@@ -1,0 +1,160 @@
+<html>
+<head>
+    <link rel="stylesheet" href="./public/stylesheets/IBOT_P1_v3.css"/>
+    <script src="./public/javascripts/IBOT_P1_v2_e.js" async differ></script>
+</head>
+<body onload="DisplayTimeIPInfo(); LoadTestJigData();">
+<div id="document">
+<div id="vertical">
+<div id="TestJigHeadLine">
+</div>
+    <div id="IbotLogo"></div>
+    <button id="Test_jig">
+        TEST JIG
+    </button>
+    <input type="text" id="TestJigType" readonly/>
+    <div id="box" readonly>
+        <div id=date_time >Date&Time:</div>
+        <div id="ip_adress">IPadress:xxxxx</div>
+    </div>
+    <img id="setting_icon" src="./public/images/setting.png" onclick="DisplaySettingsModal()">
+    <div id="SettingsModalID" class="SettingsModal">
+        <div class="SettingsModalContent">
+                
+            <button id="pcb_modal">
+                1.PCB TYPE
+            </button>
+            <!-- //TODO Load TestJig Types from Backend
+                 //TODO On Change It should Reload TestJigData From Backend
+            -->
+            <select id="TestJigSelectList" onchange="ReloadTestJigData(this.value)">
+                <option value="">select JIG Type
+                </option>
+            </select>
+            <!-- //TODO Add UpdateTestJigData Option
+            -->
+
+            <BR>
+                <button id="mode_modal">
+                    2.TEST MODE
+                </button>
+
+                <select id="testModeOption" onchange="setTestMode(this.value)">
+                    <option value="auto">AUTO
+                    </option>
+                    <option value="manual">MANUAL
+                    </option>
+                </select>
+
+            <span class="close" onclick="closeSettingsModal()">&times;</span>
+        </div>
+    </div>
+    <svg id="svg_1">
+        <line id="line_1" x1="0" x2="670" y1="0" y2="2" />
+    </svg>
+    <button id="TotalCases">
+        Total Cases
+    </button>
+    <input type="text" id="totalCasesTxtBox" readonly/>
+    <button id="tested">
+        Tested
+    </button>
+    <input type="text" id="tested_text_box" readonly/>
+    <button id="success">
+        Success
+    </button>
+    <input type="text" id="success_text_box" readonly/>
+    <button id="fail">
+        Fail
+    </button>
+    <input type="text" id="fail_text_box" readonly/>
+    <svg id="svg_2">
+        <line id="line_2" x1="0" x2="672" y1="5" y2="0" />
+    </svg>
+    <input type="text" id="BoardDetail" autofocus onchange="setBoardDetails(this.value)">
+    </input>
+    <div id="scanner_image" onclick="ScanBarCode()"></div>
+
+    <!--<div id="inner_table">
+        <input type="text" id="testcase_id" readonly/>
+        <input type="text" id="testcase_nm" readonly/>
+        <input type="text" id="testcase_desc"readonly/>
+        <div id="message"></div>
+
+    </div>
+    -->
+    <div id="inner_table">
+	    <!--
+<texearea id="TestCaseTitle" readonly></textarea>
+	    -->
+<textarea id="TestCaseRunText" readonly></textarea>
+<textarea id="TestCaseRunStatus" readonly></textarea>
+<textarea id="TestCaseRunInstruction" readonly></textarea>
+<textarea id="TestCaseRunTimer" readonly></textarea>
+<textarea id="TestCasesFinalResult" readonly></textarea>
+    </div>
+    <div id="start_icon" onclick="RunTestCase(LoadedTestCase.TCID,LoadedTestCase.Steps[0].StepNumber)" disabled></div>
+    <div id="retry_icon" onclick="retryTestCase()" disabled></div>
+    <div id="next_icon" onclick="nextTestCase()" disabled></div>
+    <div id="tc"></div>
+    <!--<button id="tc1" onclick="LoadTestCase(testCaseData.TestCases[0].TCID,this.id)">
+        TC1
+    </button>
+    <button id="tc2" onclick="LoadTestCase(testCaseData.TestCases[1].TCID,this.id)">
+        TC2
+    </button>
+    <button id="tc3" onclick="LoadTestCase(testCaseData.TestCases[2].TCID,this.id)">
+        TC3
+    </button>
+    <button id="tc4" onclick="LoadTestCase(testCaseData.TestCases[3].TCID,this.id)">
+        TC4
+    </button>
+    <button id="tc5" onclick="LoadTestCase(testCaseData.TestCases[4].TCID,this.id)">
+        TC5
+    </button>
+    <button id="tc6" onclick="LoadTestCase(testCaseData.TestCases[5].TCID,this.id)">
+        TC6
+    </button>
+    -->
+    <button id="view_results" onclick="viewResults()">
+        View Results
+    </button>
+    <button id="reset" onclick="reset()">
+        Reset
+    </button>
+
+
+    <div id="TestcasesModalId" class="TestcasesModalclass">
+        <div class="modal-content">
+            <div id="show"></div>
+            <button id="TestcasesModalYesBtnId" >YES</button>
+            <button id="TestcasesModalNOBtnId" >NO</button>
+        </div>
+    </div>
+
+    <div id="myModal1" class="first-modal">
+        <div class="modal-content">
+            Scan BarCode <br>
+
+                <input type="text" id="BarCodeInput"  onchange="readBarCode(this.value)" autofocus/>
+                <!--
+            <button id="ok_modal1" onclick="OKButtonForBarcode()">OK</button>
+            -->
+            <span class="close1" onclick="closeBarcodeModal()">&times;</span>
+
+        </div>
+    </div>
+    <!-- end of code for first modal. -->
+    <!-- code for second modal. -->
+    <div id="myModal2" class="second-modal">
+        <div class="modal_content2">
+            <div id="show1"></div>
+            <div id="uploaddata"></div>
+            <button id="UPLOAD" onclick="UploadTestResults()">UPLOAD</button>
+            <span class="close2" onclick="closeViewResultsModal()">&times;</span>
+        </div>
+    </div>
+</div>
+</div>
+</body>
+</html>
