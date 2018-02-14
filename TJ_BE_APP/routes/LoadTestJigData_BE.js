@@ -87,5 +87,9 @@ router.all('/Reload_BE', function(req, res, next) {
     } else {
         console.log("New Config File Does Not Exist");
     }
+   var response={"success":"success"};
+    //var response={"success":"success",TestJigData:TestJigData};
+    console.log(response);
+    res.send(response);
 });
 module.exports = router;

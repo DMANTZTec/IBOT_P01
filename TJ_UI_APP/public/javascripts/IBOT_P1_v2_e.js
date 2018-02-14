@@ -269,9 +269,6 @@ function LoadTestJigDataSync() {
         testJigList = response.TestJigList;
         testJigData = response.TestJigData;
         testCaseData = response.TestCaseData;
-        testResultDetail.DUT_ID = testJigData.DUT_ID;
-        testResultDetail.DUT_NM = testJigData.DUT_NM;
-        testResultDetail.TestCaseFile = testJigData.TestCaseFile;
         //Fill TestJig Details in to Results Detail.
         TestResultDetails.DUT_ID = testJigData.DUT_ID;
         TestResultDetails.DUT_HW_VER = testJigData.HW_VER;

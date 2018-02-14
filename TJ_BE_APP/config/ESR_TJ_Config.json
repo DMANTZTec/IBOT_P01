@@ -3,5 +3,5 @@
   "DUT_NM":"ESR Card",
   "HW_VER": "1.2.3",
   "SW_VER": "1.0.3",
-  "TestCaseFile":"ESR_TestCases_V1.0.json"
+  "TestCaseFile":"./config/ESR_TJ_TestCases_V1.0.json"
 }

@@ -1,15 +1,15 @@
 {
-  "DUT":"IRNFC",
+  "DUT":"ESR",
   "TestCases":[
     {
       "TCID":1,
-      "TCSHORTNM":"IRNFC1",
-      "DESC":"Test IR and NFC Data",
+      "TCSHORTNM":"ESR1",
+      "DESC":"ESR Voltage Test",
       "TYPE":"auto",
       "Steps" : [
         {
           "StepNumber": 1,
-          "StepPromptText":"IRNFC Check if IR & NFC Data is scanned",
+          "StepPromptText":"IRNFC Check if HDMI Cable is Connected",
           "StepInputText":["Value1","Value2","Value3"]
         }]
     }
