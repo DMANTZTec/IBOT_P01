@@ -422,82 +422,132 @@ function RunTestCase(tcid,StepNum)
     switch (DUTID_TCID)
     {
         case "M10_1" :
-            console.log("M10_1 selected");
-            console.log("Check if HDMI Cable is Connected");
-            tciModal.style.display = "block";
-            document.getElementById("show").innerHTML = "Check if HDMI Cable is Connected";
-            setTimeout(function ()
-            {
-                tciModal.style.display = "none";
-                LoadTestCase(LoadedTestCase.TCID, LoadedTestCase.UILabelID);
-            }, 5000);
-
-            document.getElementById('TestcasesModalYesBtnId').onclick = function () {
-                console.log("clicked yes");
-                console.log(params);
-                xhttp = new XMLHttpRequest();
-                xhttp.open("POST", url, false);
-                xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-                xhttp.send(params);
-                console.log("after getting response" + xhttp.responseText);
-                var response=JSON.parse(xhttp.responseText);
-                var result=response.status;
-                UpdateTestResults(tcid,result);
-                //checkIfAllCasesRan();
-                console.log(testResultDetail);
-                console.log(testResultSummary);
-                Enable();
-            }
+            xhttp = new XMLHttpRequest();
+            xhttp.open("POST", url, false);
+            xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            xhttp.send(params);
+            console.log("after getting response" + xhttp.responseText);
+            response=JSON.parse(xhttp.responseText);
+            result=response.status;
+            UpdateTestResults(tcid,result);
+            //checkIfAllCasesRan();
+            console.log(testResultDetail);
+            console.log(testResultSummary);
+            Enable();
             break;
         case "M10_2" :
-            console.log("M10_2 selected");
-            console.log("Push the power button");
-            tciModal.style.display = "block";
-            document.getElementById("show").innerHTML = "Push the power button";
-            setTimeout(function () {
-                tciModal.style.display = "none";
-                LoadTestCase(LoadedTestCase.TCID, LoadedTestCase.UILabelID);
-            }, 5000);
-            document.getElementById('TestcasesModalYesBtnId').onclick = function () {
-                console.log("clicked");
-                xhttp = new XMLHttpRequest();
-                console.log(params);
-                xhttp.open("POST", url, false);
-                xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-                xhttp.send(params);
-                console.log("after getting response" + xhttp.responseText);
-                var response = JSON.parse(xhttp.responseText);
-                var result=response.status;
-                if (result !== "success") {
-                    UpdateTestResults(tcid,result);
-                }
-                else {
-                    console.log("Is the Power LED Turned Green?");
-                    tciModal.style.display = "block";
-                    document.getElementById("show").innerHTML = "Is the Power LED Turned Green?";
-                    setTimeout(function () {
-                        tciModal.style.display = "none";
-                        LoadTestCase(LoadedTestCase.TCID, LoadedTestCase.UILabelID);
-                    }, 5000);
-                    document.getElementById('TestcasesModalYesBtnId').onclick = function () {
-                        tciModal.style.display = "none";
-                        console.log("clicked");
-                        xhttp = new XMLHttpRequest();
-                        xhttp.open("POST", url, false);
-                        xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-                        xhttp.send(params);
-                        console.log("after getting response" + xhttp.responseText);
-                        var response=JSON.parse(xhttp.responseText);
-                        var result=response.status;
-                        UpdateTestResults(tcid,result);
-                        //checkIfAllCasesRan();
-                        console.log(testResultDetail);
-                        console.log(testResultSummary);
-                        Enable();
-                    }
-                }
-            }
+            xhttp = new XMLHttpRequest();
+            xhttp.open("POST", url, false);
+            xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            xhttp.send(params);
+            console.log("after getting response" + xhttp.responseText);
+            response=JSON.parse(xhttp.responseText);
+            result=response.status;
+            UpdateTestResults(tcid,result);
+            //checkIfAllCasesRan();
+            console.log(testResultDetail);
+            console.log(testResultSummary);
+            Enable();
             break;
+        case "M10_3" :
+            xhttp = new XMLHttpRequest();
+            xhttp.open("POST", url, false);
+            xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            xhttp.send(params);
+            console.log("after getting response" + xhttp.responseText);
+            response=JSON.parse(xhttp.responseText);
+            result=response.status;
+            UpdateTestResults(tcid,result);
+            //checkIfAllCasesRan();
+            console.log(testResultDetail);
+            console.log(testResultSummary);
+            Enable();
+            break;
+        case "M10_4" :
+            xhttp = new XMLHttpRequest();
+            xhttp.open("POST", url, false);
+            xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            xhttp.send(params);
+            console.log("after getting response" + xhttp.responseText);
+            response=JSON.parse(xhttp.responseText);
+            result=response.status;
+            UpdateTestResults(tcid,result);
+            //checkIfAllCasesRan();
+            console.log(testResultDetail);
+            console.log(testResultSummary);
+            Enable();
+            break;
+        case "M10_5" :
+            xhttp = new XMLHttpRequest();
+            xhttp.open("POST", url, false);
+            xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            xhttp.send(params);
+            console.log("after getting response" + xhttp.responseText);
+            response=JSON.parse(xhttp.responseText);
+            result=response.status;
+            UpdateTestResults(tcid,result);
+            //checkIfAllCasesRan();
+            console.log(testResultDetail);
+            console.log(testResultSummary);
+            Enable();
+            break;
+        case "M10_6" :
+            xhttp = new XMLHttpRequest();
+            xhttp.open("POST", url, false);
+            xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            xhttp.send(params);
+            console.log("after getting response" + xhttp.responseText);
+            response=JSON.parse(xhttp.responseText);
+            result=response.status;
+            UpdateTestResults(tcid,result);
+            //checkIfAllCasesRan();
+            console.log(testResultDetail);
+            console.log(testResultSummary);
+            Enable();
+            break;
+        case "M10_7" :
+            xhttp = new XMLHttpRequest();
+            xhttp.open("POST", url, false);
+            xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            xhttp.send(params);
+            console.log("after getting response" + xhttp.responseText);
+            response=JSON.parse(xhttp.responseText);
+            result=response.status;
+            UpdateTestResults(tcid,result);
+            //checkIfAllCasesRan();
+            console.log(testResultDetail);
+            console.log(testResultSummary);
+            Enable();
+            break;
+        case "M10_8" :
+            xhttp = new XMLHttpRequest();
+            xhttp.open("POST", url, false);
+            xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            xhttp.send(params);
+            console.log("after getting response" + xhttp.responseText);
+            response=JSON.parse(xhttp.responseText);
+            result=response.status;
+            UpdateTestResults(tcid,result);
+            //checkIfAllCasesRan();
+            console.log(testResultDetail);
+            console.log(testResultSummary);
+            Enable();
+            break;
+        case "M10_9" :
+            xhttp = new XMLHttpRequest();
+            xhttp.open("POST", url, false);
+            xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            xhttp.send(params);
+            console.log("after getting response" + xhttp.responseText);
+            response=JSON.parse(xhttp.responseText);
+            result=response.status;
+            UpdateTestResults(tcid,result);
+            //checkIfAllCasesRan();
+            console.log(testResultDetail);
+            console.log(testResultSummary);
+            Enable();
+            break;
+
         case "CC_1":
             console.log("CC_1 selected");
             console.log("CC_1 step 1");

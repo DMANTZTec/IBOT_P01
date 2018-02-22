@@ -123,6 +123,51 @@ router.all('/', function(req, res, next)
                     Success();
                     break;
         }
+        case "M10_3" :
+        {
+            console.log("M10_3 selected");
+            Success();
+            break;
+        }
+        case "M10_4" :
+        {
+            console.log("M10_4 selected");
+            Success();
+            break;
+        }
+        case "M10_5" :
+        {
+            console.log("M10_5 selected");
+            Success();
+            break;
+        }
+
+        case "M10_6" :
+        {
+            console.log("M10_6 selected");
+            Success();
+            break;
+        }
+
+        case "M10_7" :
+        {
+            console.log("M10_7 selected");
+            Success();
+            break;
+        }
+        case "M10_8" :
+        {
+            console.log("M10_8 selected");
+            Success();
+            break;
+        }
+        case "M10_9" :
+        {
+            console.log("M10_9 selected");
+            Success();
+            break;
+        }
+
         case "CC_1":
         {
             console.log("CC_1 selected");
@@ -138,6 +183,7 @@ router.all('/', function(req, res, next)
             Success();
             break;
         }
+
         case "IRNFC_1":
         {
 	    useIRNFCData = "";
@@ -183,6 +229,7 @@ router.all('/', function(req, res, next)
 	         	}
 		 }
 		 else{
+
 		    useIRNFCData='';
 	            console.log("No IRNFC Data Read");
 		    Failed();
@@ -209,14 +256,12 @@ router.all('/', function(req, res, next)
         case "IRNFC_2":
     {
         console.log("IRNFC_2 selected");
-        console.log("CC_1 step 1");
         Success();
         break;
     }
     case "IRNFC_3":
     {
         console.log("IRNFC_3 selected");
-        console.log("CC_1 step 1");
         Success();
         break;
     }
