@@ -163,8 +163,8 @@ function UpdateTestResults(testCaseId,result)
             }
         }
     }
-    mymyConsole.log(testResultDetail);
-    mymyConsole.log(testResultSummary);
+    myConsole.log(testResultDetail);
+    myConsole.log(testResultSummary);
     document.getElementById('tested_text_box').value=testResultSummary.TestedCnt;
     document.getElementById('success_text_box').value=testResultSummary.SuccessCnt;
     document.getElementById('fail_text_box').value=testResultSummary.FailCnt;
@@ -184,7 +184,7 @@ function ResetScreen(){
     document.getElementById('TestCaseRunTimer').value = "";
     document.getElementById('TestCasesFinalResult').value = "";
     Disable();
-    mymyConsole.log("Exiting ResetScreen");
+    myConsole.log("Exiting ResetScreen");
 }
 
 function LoadTestJigData() {
@@ -201,7 +201,7 @@ function LoadTestJigData() {
         if ((this.readyState == 4) && (this.status == 200))
 		{
 		    document.getElementById('tc').style.display='block';
-		    mymyConsole.log("after getting response" + xhttp.responseText);
+		    myConsole.log("after getting response" + xhttp.responseText);
 		    var response=JSON.parse(this.responseText);
 		    if(response.status=="success") {
 			testJigList=response.TestJigList;
@@ -217,12 +217,12 @@ function LoadTestJigData() {
 			{
 			    testResultDetail.DETAILS.push({});
 			}
-			mymyConsole.log(testResultDetail.DETAILS);
+			myConsole.log(testResultDetail.DETAILS);
 
 			var totalCases = Object.keys(testCaseData.TestCases).length;
 			document.getElementById('TestJigType').value = testJigData.DUT_NM;
 			document.getElementById('totalCasesTxtBox').value = totalCases;
-			mymyConsole.log(testCaseData.TestCases.length);
+			myConsole.log(testCaseData.TestCases.length);
 
 			document.getElementById("tc").style.display = "none";
 			for(var i=0;i<testCaseData.TestCases.length;i++)
@@ -236,7 +236,7 @@ function LoadTestJigData() {
 			    {
 				var ClickedBtnID=event.srcElement.id;
 				var j=ClickedBtnID.slice(1);
-				mymyConsole.log(j);
+				myConsole.log(j);
 				LoadTestCase(testCaseData.TestCases[j].TCID,testCaseData.TestCases[j].UILabelID);
 			    }
 			}
@@ -311,11 +311,11 @@ function ReloadTestJigData(TestJigType)
     xhttp.open("POST", url, false);
     var request={"TestJigType":TestJigType};
     var params = JSON.stringify(request);
-    mymyConsole.log(params);
+    myConsole.log(params);
     var params = "inputJsonStr" + "=" + params;
     xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     xhttp.send(params);
-    mymyConsole.log("after getting response" + xhttp.responseText);
+    myConsole.log("after getting response" + xhttp.responseText);
     var response=JSON.parse(xhttp.responseText);
     if(response.success=="success")
     {
@@ -325,7 +325,7 @@ function ReloadTestJigData(TestJigType)
     /*
     xhttp.onreadystatechange = function () {
         if ((this.readyState == 4) && (this.status == 200)){
-            mymyConsole.log("after getting response" + xhttp.responseText);
+            myConsole.log("after getting response" + xhttp.responseText);
             var response=JSON.parse(this.responseText);
             testJigData=response.TestJigData;
             if(response.success=="success") {
@@ -347,7 +347,7 @@ function nextTestCase()
         if(testCaseData.TestCases[i].TCID==LoadedTestCase.TCID)
         {
             NextTestcase=testCaseData.TestCases[i+1];
-            mymyConsole.log(NextTestcase);
+            myConsole.log(NextTestcase);
         }
     }
     LoadTestCase(NextTestcase.TCID,NextTestcase.UILabelID);
@@ -391,7 +391,7 @@ function LoadTestCase(tcid,id)
 
             PreviousTestcase=LoadedTestCase;
             PreviousTestCaseButtonId=id;
-            mymyConsole.log("PSK:Test Case Short Name: " + LoadedTestCase.TCSHORTNM);
+            myConsole.log("PSK:Test Case Short Name: " + LoadedTestCase.TCSHORTNM);
             //document.getElementById('TestCaseTitle').value = "Testing";
             //document.getElementById('TestCaseTitle').value = "TCID:"+LoadedTestCase.TCID +"   "+ LoadedTestCase.TCSHORTNM;
             //document.getElementById('testcase_nm').value = LoadedTestCase.TCSHORTNM;
@@ -404,7 +404,7 @@ function LoadTestCase(tcid,id)
 
 function RunTestCase(tcid,StepNum)
 {
-    mymyConsole.log(tcid);
+    myConsole.log(tcid);
 
     var tciModal = document.getElementById('TestcasesModalId');
     var xhttp;
@@ -412,7 +412,7 @@ function RunTestCase(tcid,StepNum)
     var response;
     var result;
     LoadedTestCase.TCStartTime = x;
-    mymyConsole.log(LoadedTestCase);
+    myConsole.log(LoadedTestCase);
     Disable();
     var DUTID_TCID = testCaseData.DUT + "_" + tcid;
     var request =
@@ -421,7 +421,7 @@ function RunTestCase(tcid,StepNum)
         };
     var params = JSON.stringify(request);
     params = "inputJsonStr" + "=" + params;
-    mymyConsole.log(params);
+    myConsole.log(params);
     switch (DUTID_TCID)
     {
         case "M10_1" :
@@ -555,39 +555,39 @@ function RunTestCase(tcid,StepNum)
             break;
 
         case "CC_1":
-            mymyConsole.log("CC_1 selected");
+            myConsole.log("CC_1 selected");
             xhttp = new XMLHttpRequest();
             xhttp.open("POST", url, false);
             xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
             xhttp.send(params);
-            mymyConsole.log("after getting response" + xhttp.responseText);
+            myConsole.log("after getting response" + xhttp.responseText);
             response=JSON.parse(xhttp.responseText);
             result=response.status;
             UpdateTestResults(tcid,result);
             //checkIfAllCasesRan();
-            mymyConsole.log(testResultDetail);
-            mymyConsole.log(testResultSummary);
+            myConsole.log(testResultDetail);
+            myConsole.log(testResultSummary);
             Enable();
             break;
         case "CC_2":
-            mymyConsole.log("CC_2 step 1");
+            myConsole.log("CC_2 step 1");
             xhttp = new XMLHttpRequest();
             xhttp.open("POST", url, false);
             xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
             xhttp.send(params);
-            mymyConsole.log("after getting response" + xhttp.responseText);
+            myConsole.log("after getting response" + xhttp.responseText);
             response=JSON.parse(xhttp.responseText);
             result=response.status;
             UpdateTestResults(tcid,result);
             //checkIfAllCasesRan();
-            mymyConsole.log(testResultDetail);
-            mymyConsole.log(testResultSummary);
+            myConsole.log(testResultDetail);
+            myConsole.log(testResultSummary);
             Enable();
             break;
 
         case "IRNFC_1":
-         mymyConsole.log("IRNFC TC1 selected");
-         mymyConsole.log("Yes going through new logic");
+         myConsole.log("IRNFC TC1 selected");
+         myConsole.log("Yes going through new logic");
          //document.getElementById('TestCaseRunStatus').style.display="none";
          document.getElementById('TestCaseRunInstruction').style.display="block";
 	 document.getElementById('TestCaseRunInstruction').style.color="blue";
@@ -599,7 +599,7 @@ function RunTestCase(tcid,StepNum)
 	 countDown = setInterval(function () {
 	 document.getElementById('TestCaseRunTimer').value = timerCount;
 	 timerCount = timerCount - 1;
-	 mymyConsole.log("Counting down :" + timerCount);
+	 myConsole.log("Counting down :" + timerCount);
 
          }, 1000);
           xhttp = new XMLHttpRequest();
@@ -611,55 +611,55 @@ function RunTestCase(tcid,StepNum)
             if ((this.readyState == 4) ) {
                     if(this.status == 200) {
                     var response = JSON.parse(this.responseText);
-                    mymyConsole.log("after getting response" + xhttp.responseText);
+                    myConsole.log("after getting response" + xhttp.responseText);
                    var result = response.status;
                         }else {
                        result="failed";
 										                    }
                    clearInterval(countDown);
-                   mymyConsole.log(countDown);
-                   mymyConsole.log("after clearInterval");
-                    mymyConsole.log("TestCase: " + tcid);
+                   myConsole.log(countDown);
+                   myConsole.log("after clearInterval");
+                    myConsole.log("TestCase: " + tcid);
                  document.getElementById('TestCaseRunInstruction').style.display="none";
                   document.getElementById('TestCaseRunTimer').style.display="none";
                  //document.getElementById('TestCaseRunStatus').style.display="block";
                   UpdateTestResults(tcid,result);
                   //checkIfAllCasesRan();
-                  mymyConsole.log(testResultDetail);
-               mymyConsole.log(testResultSummary);
+                  myConsole.log(testResultDetail);
+               myConsole.log(testResultSummary);
                 Enable();
                 }
         };
         xhttp.send(params);
        break;
         case "IRNFC_2":
-            mymyConsole.log("IRNFC TC2 selected");
+            myConsole.log("IRNFC TC2 selected");
             xhttp = new XMLHttpRequest();
             xhttp.open("POST", url, false);
             xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
             xhttp.send(params);
-            mymyConsole.log("after getting response" + xhttp.responseText);
+            myConsole.log("after getting response" + xhttp.responseText);
             response=JSON.parse(xhttp.responseText);
             result=response.status;
             UpdateTestResults(tcid,result);
             //checkIfAllCasesRan();
-            mymyConsole.log(testResultDetail);
-            mymyConsole.log(testResultSummary);
+            myConsole.log(testResultDetail);
+            myConsole.log(testResultSummary);
             Enable();
             break;
         case "IRNFC_3":
-        mymyConsole.log("IRNFC TC3 selected");
+        myConsole.log("IRNFC TC3 selected");
         xhttp = new XMLHttpRequest();
         xhttp.open("POST", url, false);
         xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
         xhttp.send(params);
-        mymyConsole.log("after getting response" + xhttp.responseText);
+        myConsole.log("after getting response" + xhttp.responseText);
             response=JSON.parse(xhttp.responseText);
             result=response.status;
             UpdateTestResults(tcid,result);
             //checkIfAllCasesRan();
-            mymyConsole.log(testResultDetail);
-            mymyConsole.log(testResultSummary);
+            myConsole.log(testResultDetail);
+            myConsole.log(testResultSummary);
             Enable();
             break;
 
@@ -680,24 +680,24 @@ function RunTestCase(tcid,StepNum)
             break;
 
         case "ESR_1":
-            mymyConsole.log("Running TC ESR_1");
+            myConsole.log("Running TC ESR_1");
             xhttp = new XMLHttpRequest();
             xhttp.open("POST", url, false);
             xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
             xhttp.send(params);
-            mymyConsole.log("after getting response" + xhttp.responseText);
+            myConsole.log("after getting response" + xhttp.responseText);
             response = JSON.parse(xhttp.responseText);
             result=response.status;
             UpdateTestResults(tcid,result);
             Enable();
             break;
         case "TRIAC_1":
-            mymyConsole.log("Running TC TRIAC_1");
+            myConsole.log("Running TC TRIAC_1");
             xhttp = new XMLHttpRequest();
             xhttp.open("POST", url, false);
             xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
             xhttp.send(params);
-            mymyConsole.log("after getting response" + xhttp.responseText);
+            myConsole.log("after getting response" + xhttp.responseText);
             response = JSON.parse(xhttp.responseText);
             result=response.status;
             UpdateTestResults(tcid,result);
@@ -747,7 +747,7 @@ function EnableOnLoad()
             DUTID_TCID:DUTID_TCID,StepNum:StepNum
         };
     var params = JSON.stringify(request);
-    mymyConsole.log(params);
+    myConsole.log(params);
     var params = "inputJsonStr" + "=" + params;
     xhttp.open("POST", url, true);
     xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
@@ -755,7 +755,7 @@ function EnableOnLoad()
     {
         if ((this.readyState == 4) && (this.status == 200))
         {
-            mymyConsole.log("after getting response" + xhttp.responseText);
+            myConsole.log("after getting response" + xhttp.responseText);
             var status=JSON.parse(this.responseText);
             LoadedTestCase.TCEndTime=x;
             attempts=attempts+1;
@@ -777,10 +777,10 @@ function EnableOnLoad()
                     }
                     document.getElementById('tested_text_box').value=tested.length;
                 }
-            mymyConsole.log(success);
-            mymyConsole.log(failed);
-            mymyConsole.log(tested.length);
-            mymyConsole.log(attempts);
+            myConsole.log(success);
+            myConsole.log(failed);
+            myConsole.log(tested.length);
+            myConsole.log(attempts);
 
            // document.getElementById('tested_text_box').value=tested;
             document.getElementById('retry_icon').style.pointerEvents="auto";
@@ -825,7 +825,7 @@ function closeSettingsModal()
 }
 
 function readBarCode(barCodeText){
-    mymyConsole.log(barCodeText);
+    myConsole.log(barCodeText);
     var SN=barCodeText;
     document.getElementById('BoardDetail').value=barCodeText;
     modal1.style.display="none";
@@ -834,7 +834,7 @@ function readBarCode(barCodeText){
 
 function setBoardDetails(boardDetail)
 {
-    mymyConsole.log("In Set Board Detail");
+    myConsole.log("In Set Board Detail");
     document.getElementById('BoardDetail').readOnly="true";
     document.getElementById("start_icon").style.pointerEvents="auto";
     document.getElementById('next_icon').style.pointerEvents="auto";
@@ -853,10 +853,10 @@ function ScanBarCode(){
     var MFGDT=barcode.substr(8,8);
     var HWver=barcode.substr(16,3);
     var SWver=barcode.substr(19,3);
-    mymyConsole.log(SN);
-    mymyConsole.log(MFGDT);
-    mymyConsole.log(HWver);
-    mymyConsole.log(SWver);
+    myConsole.log(SN);
+    myConsole.log(MFGDT);
+    myConsole.log(HWver);
+    myConsole.log(SWver);
 
     document.getElementById("start_icon").style.pointerEvents="auto";
     document.getElementById('next_icon').style.pointerEvents="auto";
@@ -917,13 +917,13 @@ function UploadTestResults()
             TestResultDetails: TestResultDetails
         };
     var params = JSON.stringify(request);
-    mymyConsole.log(params);
+    myConsole.log(params);
     var params = "inputJsonStr" + "=" + params;
     xhttp.open("POST", url, true);
     xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     xhttp.onreadystatechange = function () {
         if ((this.readyState == 4) && (this.status == 200)) {
-            mymyConsole.log("after getting response" + xhttp.responseText);
+            myConsole.log("after getting response" + xhttp.responseText);
             var jsonresponse=JSON.parse(this.responseText);
             document.getElementById("uploaddata").innerHTML = jsonresponse.status;
         }
@@ -940,7 +940,7 @@ function UploadTestResults()
             testcase_id:current_TC
         };
     var params = JSON.stringify(request);
-    mymyConsole.log(params);
+    myConsole.log(params);
     var params = "inputJsonStr" + "=" + params;
     xhttp.open("POST", url, true);
     xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
@@ -948,7 +948,7 @@ function UploadTestResults()
     {
         if ((this.readyState == 4) && (this.status == 200))
         {
-            mymyConsole.log("after getting response" + xhttp.responseText);
+            myConsole.log("after getting response" + xhttp.responseText);
             var jsonresponse=JSON.parse(this.responseText);
             var nextTestcase=jsonresponse.nexttestcase;
             document.getElementById('testcase_id').value=nextTestcase;
