@@ -5,13 +5,13 @@ var fs=require('fs');
 var firstTimer;
 var irNfcTimer;
 var SerialPort = require('serialport');
-var rdport2 = new SerialPort('/dev/ttyO2');
+var irnfcUart = new SerialPort('/dev/ttyO2');
 var irNfctestRunning='false';
 var flushIRNFCData;
 var useIRNFCData = '';
 var irNFCreadCount = 0;
 /*
-rdport2.on('data', function (data) {
+irnfcUart.on('data', function (data) {
        console.log('Data:', data);
        console.log('ASCII data: ', data.toString());
        if(irNfctestRunning === "false"){
@@ -49,6 +49,52 @@ router.all('/', function(req, res, next)
     var StepNum=jsonrequest.StepNum;
     console.log(DUTID_TCID + StepNum);
     var b = require('bonescript');
+
+    function checksum8(inputStr,checksumValue) {
+
+        // convert input value to upper case
+        strN = new String(inputStr);
+        strN = strN.toUpperCase();
+
+        strHex = new String("0123456789ABCDEF");
+        result = 0;
+        fctr = 16;
+
+        for (i=0; i<strN.length; i++) {
+            if (strN.charAt(i) == " ") continue;
+
+            v = strHex.indexOf(strN.charAt(i));
+            if (v < 0) {
+                result = -1;
+                break;
+            }
+            result += v * fctr;
+
+            if (fctr == 16) fctr = 1;
+            else            fctr = 16;
+        }
+
+        if (result < 0) {
+            strResult = new String("Non-hex character");
+        }
+        else if (fctr == 1) {
+            strResult = new String("Odd number of characters");
+        }
+        else {
+            // Calculate 2's complement
+            result = (~(result & 0xff) + 1) & 0xFF;
+            // Convert result to string
+            //strResult = new String(result.toString());
+            strResult = strHex.charAt(Math.floor(result/16)) + strHex.charAt(result%16);
+        }
+        if (strResult === checksumValue){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+
     function Success()
     {
         var response={"status":"success"};
@@ -95,27 +141,33 @@ router.all('/', function(req, res, next)
         case "IRNFC_1":
         {
 	    useIRNFCData = "";
+	    console.log("IRNFC_1 selected");
 	    var irNfcTimeOut;
 	    var irNfcTimeInt;
-            console.log("IRNFC_1 selected");
+	    var nfcTagData;
+	    var irInData;
+	    var irOutData;
+	    var ackData='*1,K;30#';
+	    var nackData='*2,R;29#';
 	    irNfctestRunning = 'true';
-        rdport2.on('data', function (data) {
+        irnfcUart.on('data', function (data) {
           if(irNfctestRunning === "false"){
 	       console.log("TestCase Not Running So  Flushing Data:" + data.toString());
 		       flushIRNFCData = data.toString();
 		       useIRNFCData = '';
        		}
+
        	else{
 	    console.log("TestCase Running So Using Data:" + data.toString());
 		useIRNFCData= useIRNFCData + (data.toString()).trim();
 	 }
 	});
-	    //set 7 seconds timeout
+   	    //set 7 seconds timeout
 	    irNfcTimeOut = setTimeout(function() {
 	         irNfctestRunning = 'false';
 		    console.log("irNfcTimeOut Triggered");
 		    //clear Interval
-		    clearInterval(irNfcTimeInt);
+		    //clearInterval(irNfcTimeInt);
 		 if(useIRNFCData !== ""){
                        console.log("Read IRNFC Data:" , useIRNFCData );
                        if(useIRNFCData.includes("*j;31#") && 
@@ -131,7 +183,7 @@ router.all('/', function(req, res, next)
 	         	}
 		 }
 		 else{
-		    useIRNFCData=''
+		    useIRNFCData='';
 	            console.log("No IRNFC Data Read");
 		    Failed();
 	        }
