@@ -19,7 +19,8 @@
 "DUT_ID":"FNFC",
 "DUT_NM":"Filter NFC Board",
 "DESC_FILE":"FNFC_TJ_Config.json"
-},{
+},
+{
 "DUT_ID":"TRIAC",
 "DUT_NM":"TRIAC Board",
 "DESC_FILE":"TRIAC_TJ_Config.json"

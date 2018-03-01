@@ -1,0 +1,17 @@
+{
+  "DUT":"FNFC",
+  "TestCases":[
+    {
+      "TCID":1,
+      "TCSHORTNM":"FNFC1",
+      "DESC":"Test Filter NFC Data",
+      "TYPE":"manual",
+      "Steps" : [
+        {
+          "StepNumber": 1,
+          "StepPromptText":"Check Filter NFC Tag Detect,Write and Reading",
+          "StepInputText":["Value1","Value2","Value3"]
+        }]
+    }
+  ]
+}

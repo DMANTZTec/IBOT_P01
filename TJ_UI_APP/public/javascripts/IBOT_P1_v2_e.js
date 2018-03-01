@@ -585,7 +585,54 @@ function RunTestCase(tcid,StepNum)
             Enable();
             break;
 
-        case "IRNFC_1":
+        case "FNFC_1":
+         myConsole.log("FNFC TC1 selected");
+         myConsole.log("Yes going through new logic");
+         //document.getElementById('TestCaseRunStatus').style.display="none";
+         document.getElementById('TestCaseRunInstruction').style.display="block";
+	 document.getElementById('TestCaseRunInstruction').style.color="blue";
+	 document.getElementById('TestCaseRunInstruction').value = "Place TestStrip on Filter NFC Sensor";
+	 var fnfctimerCount = 10;
+	 document.getElementById('TestCaseRunTimer').style.display="block";
+	 document.getElementById('TestCaseRunTimer').style.color="orange";
+	 document.getElementById('TestCaseRunTimer').value="";
+	 var fnfccountDown = setInterval(function () {
+	 document.getElementById('TestCaseRunTimer').value = fnfctimerCount;
+	 fnfctimerCount = fnfctimerCount - 1;
+	 myConsole.log("Counting down :" + fnfctimerCount);
+
+         }, 1000);
+          xhttp = new XMLHttpRequest();
+         xhttp.open("POST", url, true);
+         xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+         xhttp.onreadystatechange = function ()
+         {
+
+            if ((this.readyState == 4) ) {
+                    if(this.status == 200) {
+                    var response = JSON.parse(this.responseText);
+                    myConsole.log("after getting response" + xhttp.responseText);
+                    var fnfcresult = response.status;
+                        }else {
+                       fnfcresult="failed";
+										                    }
+                   clearInterval(fnfccountDown);
+                   myConsole.log(fnfccountDown);
+                   myConsole.log("after clearInterval");
+                    myConsole.log("TestCase: " + tcid);
+                 document.getElementById('TestCaseRunInstruction').style.display="none";
+                  document.getElementById('TestCaseRunTimer').style.display="none";
+                 //document.getElementById('TestCaseRunStatus').style.display="block";
+                  UpdateTestResults(tcid,fnfcresult);
+                  //checkIfAllCasesRan();
+                  myConsole.log(testResultDetail);
+               myConsole.log(testResultSummary);
+                Enable();
+                }
+        };
+        xhttp.send(params);
+       break;
+      case "IRNFC_1":
          myConsole.log("IRNFC TC1 selected");
          myConsole.log("Yes going through new logic");
          //document.getElementById('TestCaseRunStatus').style.display="none";

@@ -1,3 +1,4 @@
 #ignore all files under node_modules directory
 /**/node_modules
 /**/TestResult*.json
+npm-debug.log*
