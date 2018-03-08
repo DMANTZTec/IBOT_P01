@@ -7,6 +7,39 @@ var secondTimer;
 //var SerialPort = require('serialport');
 //var rdport2 = new SerialPort('/dev/ttyO2');
 var dataFromSP2;
+var hiveMappingData =
+{
+    "TC Run Detail Fields" : [
+    {"TEST_RUN_ID":"F01"},
+    {"TCID":"F02"},
+    {"LAST_STATUS":"F03"},
+    {"TRY_CNT":"F04"},
+    {"FAIL_CNT":"F05"},
+    {"SUCCESS_CNT":"F06"},
+    {"DESC":"F07"} ],
+    "TC Run Summary Fields" : [
+    {"TEST_RUN_ID":"F01"},
+    {"DUT_ID":"F02"},
+    {"DUT_HW_VER":"F03"},
+    {"DUT_SW_VER":"F04"},
+    {"DUT_NM":"F05"},
+    {"FIXTURE_TYPE_ID":"F06"},
+    {"SN":"F07"} ,
+    {"HW_VER":"F08"},
+    {"SW_VER":"F09"},
+    {"MFGDT":"F10"},
+    {"TEST_START_TS":"F11"},
+    {"TEST_END_TS":"F12"},
+    {"TEST_RESULT":"F13"},
+    {"TOTAL_CNT":"F14"},
+    {"TESTED_CNT":"F15"},
+    {"SUCCESS_CNT":"F16"},
+    {"FAIL_CNT":"F17"},
+    {"MANUFACTURER":"F18"},
+    {"FIXTURE_NM":"F19"}
+]
+};
+
 router.all('/', function(req, res, next)
 {
     var request = req.body.inputJsonStr;
@@ -99,6 +132,31 @@ router.all('/', function(req, res, next)
             console.log("CC_2 selected");
             console.log("Push the power button");
             console.log("Is the Power LED Turned Green?");
+            Success();
+            break;
+        }
+        case "FNFC_1":
+        {
+            console.log("FNFC_1 selected");
+            /*
+              rdport2.on('data', function (data) {
+                    console.log('Data:', data);
+                    dataFromSP2=data;
+                    console.log('ASCII:', data.toString());
+                });
+            */
+            /*
+                        firstTimer = setTimeout(function ()  {
+                            console.log("Second function called");
+                            console.log("timeout cleared");
+                        },10000);
+
+                        secondTimer = setTimeout(function () {
+                            console.log("First function called");
+                            //clearTimeout(firstTimer);
+                            Success();
+                        },1000);
+             */
             Success();
             break;
         }

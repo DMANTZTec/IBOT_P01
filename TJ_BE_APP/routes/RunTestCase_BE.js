@@ -9,7 +9,7 @@ var SerialPort = require('serialport');
 var irnfcReadPort = new SerialPort('/dev/ttyO2');
 var irnfcWritePort = irnfcReadPort;
 var fnfcReadPort = new SerialPort('/dev/ttyO4');
-var fnfcWritePort = irnfcReadPort;
+var fnfcWritePort = fnfcReadPort;
 var irNfctestRunning='false';
 var fNfctestRunning='false';
 var flushIRNFCData;
@@ -174,11 +174,11 @@ router.all('/', function(req, res, next)
 		var fNfcTimeOut;
 		var fNfcTimeInt;
 		var nfcTagData;
-		var ackData='*1,K;f3#';
-		var nackData='*2,R;29#';
+		var ackData='*1;K;e4#';
+		var nackData='*2;R;dc#';
 		var readStr = '';
 		var prevStr = '';
-		var writeSKU1 = "*n;ABCDEFGH;990099009;B6#";
+		var writeSKU1 = "*n;ABCDEFGH;990099009;b6#";
 		var readSKU1 ; 
 		var writeSKU2 = "*n;EZS8WSLV;123456789;64#";
 		var readSKU2 ; 
@@ -191,86 +191,97 @@ router.all('/', function(req, res, next)
 		if (fnfcFirstRun === true){
 			fnfcFirstRun = false;
 		fnfcReadPort.on('data', function (data) {
-			if(fNfctestRunning === "false"){
-		     console.log("TestCase Not Running So  Flushing Data:" + data.toString());
-			 flushFNFCData = data.toString();
-			 useFNFCData = '';
-			}
-		  else{
-		//check if it is begining of string and mark that real reading started
-		readStr = (data.toString()).trim();
-		console.log("fnfc raw data: " + readStr);
-		console.log("Previoysly read  data: " + prevStr);
-		//for some reason same string is getting sent multiple times. So for now ignore such strings.
-		if (readStr === prevStr){
-			 console.log("Same as Prev String so flusing");
-			 flushFNFCData = data.toString();
-			 readStr='';
-		}
-		prevStr = readStr;
-		// If first char is * then start collecting data
-		if(readStr.substr(0,1) === "*"){
-		  console.log("Found * as first char");
-		  validReading = true;
-		  //whenever * found in first letter think that it is start of message again
-		  useFNFCData='';
-		}
-		if(validReading){
-			useFNFCData=useFNFCData + readStr;
-			if (readStr.substr(readStr.length-1,1) === "#"){
-			validReading = false; 
-			console.log("Message To be Used: " + useFNFCData);
-		   if(useFNFCData.substr(0,2) === "*f"){
+		    //sometimes multiple messages can come in a single string. So better split by separator #
+            var dataStr = (data.toString()).trim(); //chanses to ASCII
+            if (fNfctestRunning === "false") {
+                console.log("TestCase Not Running So  Flushing Data:" + data.toString());
+                flushFNFCData = dataStrArray[i];
+                useFNFCData = '';
+            }
+            else {
+            var dataStrArray = dataStr.split("#");
+            for(i=0;i<dataStrArray.length;i++) {
+               //check if it is begining of string and mark that real reading started
+               readStr = dataStrArray[i];
+               console.log("fnfc raw data: " + readStr);
+               console.log("Previoysly read  data: " + prevStr);
+               //for some reason same string is getting sent multiple times. So for now ignore such strings.
+               if (readStr === prevStr) {
+                    console.log("Same as Prev String so flusing");
+                    flushFNFCData = data.toString();
+                    readStr = '';
+                 }
+                 prevStr = readStr;
+                 // If first char is * then start collecting data
+                 if (readStr.substr(0, 1) === "*") {
+                    console.log("Found * as first char");
+                    validReading = true;
+                    //whenever * found in first letter think that it is start of message again
+                     useFNFCData = '';
+                 }
+                 if (validReading) {
+                     useFNFCData = useFNFCData + readStr;
+                     if (readStr.substr(readStr.length - 1, 1) === "#") {
+                            validReading = false;
+                            console.log("Message To be Used: " + useFNFCData);
+                            if (useFNFCData.substr(0, 2) === "*f") {
 
-			   checkSumVal = useFNFCData.substr(useFNFCData.length-3,2); 
-			   console.log("Message String: " + useFNFCData.substr(0,useFNFCData.length-3));
-			   //console.log(a2hex(useFNFCData.substr(0,useFNFCData.length-3)));
-			   inputToa2hex = useFNFCData.substr(0,useFNFCData.length-3);
-			   console.log("Input: " + inputToa2hex);
-			   console.log("Input Checksum Value: ", checkSumVal);
-			   if(checksum8(a2hex(inputToa2hex),checkSumVal)){
+                                checkSumVal = useFNFCData.substr(useFNFCData.length - 3, 2);
+                                console.log("Message String: " + useFNFCData.substr(0, useFNFCData.length - 3));
+                                //console.log(a2hex(useFNFCData.substr(0,useFNFCData.length-3)));
+                                inputToa2hex = useFNFCData.substr(0, useFNFCData.length - 3);
+                                console.log("Input: " + inputToa2hex);
+                                console.log("Input Checksum Value: ", checkSumVal);
+                                if (checksum8(a2hex(inputToa2hex), checkSumVal)) {
 
-				console.log("CheckSum Good.Sending Ack Data");
-					fnfcTagDetected = true;
-					writeToUart(ackData,fnfcWritePort);
-    					writeToUart(writeSKU1,fnfcWritePort);
-    					writeToUart(readSKUInst,fnfcWritePort);
-					//writeToUart(writeSKU1);
-			   }
-			   else{ 
-				console.log("CheckSum Failed Writing Nack Data");
-					writeToUart(nackData,fnfcWritePort);
-				   }
-				
-		   }
-		   if(useFNFCData.substr(0,2) === "*m"){
+                                    console.log("CheckSum Good.Sending Ack Data");
+                                    fnfcTagDetected = true;
+                                    writeToUart(ackData, fnfcWritePort);
+                                    writeSKUTimeOut = setTimeout(function() {
+                                        writeToUart(writeSKU1, fnfcWritePort);
+                                    },1000);
+                                    readSKUTimeOut = setTimeout(function() {
+                                        writeToUart(readSKUInst, fnfcWritePort);
+                                    },3000);
+                                    //writeToUart(writeSKU1);
+                                }
+                                else {
+                                    console.log("CheckSum Failed Writing Nack Data");
+                                    writeToUart(nackData, fnfcWritePort);
+                                }
 
-			   checkSumVal = useFNFCData.substr(useFNFCData.length-3,2); 
-			   console.log("Message String: " + useFNFCData.substr(0,useFNFCData.length-3));
-			   //console.log(a2hex(useFNFCData.substr(0,useFNFCData.length-3)));
-			   inputToa2hex = useFNFCData.substr(0,useFNFCData.length-3);
-			   console.log("Input: " + inputToa2hex);
-			   console.log("Input Checksum Value: ", checkSumVal);
-			   if(checksum8(a2hex(inputToa2hex),checkSumVal)){
+                            }
+                            if (useFNFCData.substr(0, 2) === "*m") {
 
-				console.log("CheckSum Good *m type .Sending Ack Data");
-					writeToUart(ackData,fnfcWritePort);
-    					writeToUart(writeSKU2,fnfcWritePort);
-				        fnfcSKUWrite = true; 
-				        fnfcSKURead = true; 
-    					//writeToUart(readSKUInst,fnfcWritePort);
-					//writeToUart(writeSKU1);
-			   }
-			   else{ 
-				console.log("CheckSum Failed Writing Nack Data");
-					writeToUart(nackData,fnfcWritePort);
-				   }
-				
-		   }
-		   useFNFCData = '';
-			}
-		}
-		}
+                                checkSumVal = useFNFCData.substr(useFNFCData.length - 3, 2);
+                                console.log("Message String: " + useFNFCData.substr(0, useFNFCData.length - 3));
+                                //console.log(a2hex(useFNFCData.substr(0,useFNFCData.length-3)));
+                                inputToa2hex = useFNFCData.substr(0, useFNFCData.length - 3);
+                                console.log("Input: " + inputToa2hex);
+                                console.log("Input Checksum Value: ", checkSumVal);
+                                if (checksum8(a2hex(inputToa2hex), checkSumVal)) {
+
+                                    console.log("CheckSum Good *m type .Sending Ack Data");
+                                    writeToUart(ackData, fnfcWritePort);
+                                    writeSKU2TimeOut = setTimeout(function() {
+                                        writeToUart(writeSKU2, fnfcWritePort);
+                                    },1000);
+                                    fnfcSKUWrite = true;
+                                    fnfcSKURead = true;
+                                    //writeToUart(readSKUInst,fnfcWritePort);
+                                    //writeToUart(writeSKU1);
+                                }
+                                else {
+                                    console.log("CheckSum Failed Writing Nack Data");
+                                    writeToUart(nackData, fnfcWritePort);
+                                }
+
+                            }
+                            useFNFCData = '';
+                        }
+                    }
+                }
+            }
 		});
 		}
    	    //set 7 seconds timeout
@@ -287,7 +298,7 @@ router.all('/', function(req, res, next)
 				  console.log("FNFC Test Failed");
 			       Failed();
 	         	}
-	    },7000);
+	    },9000);
 	    //Set test running status to True
             break;
 	}

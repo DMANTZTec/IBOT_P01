@@ -15,9 +15,9 @@ var PreviousTestcase;
 var PreviousTestCaseButtonId;
 var testResultSummary={TotalCnt:0,TestedCnt:0,SuccessCnt:0,FailCnt:0};
 var testedTestCases=[];
-var testResultDetail={"DETAILS":[]};
-var TestResultDetails=
+var testResultDetails=
     {
+        "objTestCaseResults": [],
         "DUT_ID": "XXX",
         "DUT_HW_VER": "XX:YY",
         "DUT_SW_VER": "PP:QQ",
@@ -26,18 +26,20 @@ var TestResultDetails=
         "HW_VER":"XX:XX",
         "SW_VER":"XX:XX",
         "MFGDT":"DD-MON-YYYY",
-        "TESTCASE_FILE_NM":"TestCaseFileName",
+      //  "TESTCASE_FILE_NM":"TestCaseFileName",
         "TEST_START_TS":"STARTTIMESTAMP",
         "TEST_END_TS":"ENDTIMESTAMP",
         "TEST_RESULT": "SUCCESS/FAIL",
         "TOTAL_CNT":testResultSummary.TotalCnt,
         "TESTED_CNT": testResultSummary.TestedCnt,
-        "SUCCESS_CNT": testResultSummary.SuccessCnt,
-        "FAIL_CNT":testResultSummary.FailCnt,
-        "DETAILS": []
+        "TS_SUCCESS_CNT": testResultSummary.SuccessCnt,
+        "TS_FAIL_CNT":testResultSummary.FailCnt,
+        "MANUFACTURER":"MANUFACTURER1",
+        "PCB_NM":"PCB_NM"
     };
-var TestResultDetailsTemplate=
+var testResultDetailsTemplate=
     {
+        "objTestCaseResults": [],
         "DUT_ID": "XXX",
         "DUT_HW_VER": "XX:YY",
         "DUT_SW_VER": "PP:QQ",
@@ -46,15 +48,16 @@ var TestResultDetailsTemplate=
         "HW_VER":"XX:XX",
         "SW_VER":"XX:XX",
         "MFGDT":"DD-MON-YYYY",
-        "TESTCASE_FILE_NM":"TestCaseFileName",
+        //"TESTCASE_FILE_NM":"TestCaseFileName",
         "TEST_START_TS":"STARTTIMESTAMP",
         "TEST_END_TS":"ENDTIMESTAMP",
         "TEST_RESULT": "SUCCESS/FAIL",
         "TOTAL_CNT":testResultSummary.TotalCnt,
         "TESTED_CNT": testResultSummary.TestedCnt,
-        "SUCCESS_CNT": testResultSummary.SuccessCnt,
-        "FAIL_CNT":testResultSummary.FailCnt,
-        "DETAILS": []
+        "TS_SUCCESS_CNT": testResultSummary.SuccessCnt,
+        "TS_FAIL_CNT":testResultSummary.FailCnt,
+        "MANUFACTURER":"MANUFACTURER1",
+        "PCB_NM":"PCB_NM"
     };
 function UpdateTestJigData(){
     //Set TestJigType in the backend
@@ -77,13 +80,13 @@ function checkIfAllCasesRan()
         document.getElementById('TestCasesFinalResult').style.display="block";
         var curDate = new Date();
         var curTimeStamp = curDate.getTime();
-        TestResultDetails.TEST_RESULT=finalResult;
-        TestResultDetails.TEST_END_TS=curTimeStamp;
-        TestResultDetails.TESTED_CNT=testResultSummary.TestedCnt;
-        TestResultDetails.TOTAL_CNT=testResultSummary.TotalCnt;
-        TestResultDetails.SUCCESS_CNT=testResultSummary.SuccessCnt;
-        TestResultDetails.FAIL_CNT=testResultSummary.FailCnt;
-        TestResultDetails.DETAILS = testResultDetail;
+        testResultDetails.TEST_RESULT=finalResult;
+        testResultDetails.TEST_END_TS=curTimeStamp;
+        testResultDetails.TESTED_CNT=testResultSummary.TestedCnt;
+        testResultDetails.TOTAL_CNT=testResultSummary.TotalCnt;
+        testResultDetails.TS_SUCCESS_CNT=testResultSummary.SuccessCnt;
+        testResultDetails.TS_FAIL_CNT=testResultSummary.FailCnt;
+        //testResultDetails.objTestCaseResults = testResultDetail;
         //upload Final Results
         UploadTestResults();
 
@@ -115,19 +118,19 @@ function UpdateTestResults(testCaseId,result)
             if (testCaseData.TestCases[i].TCID == testCaseId)
             {
                 testResultSummary.TestedCnt=testResultSummary.TestedCnt+1;
-                testResultDetail.DETAILS[i].TCID=LoadedTestCase.TCID;
-                testResultDetail.DETAILS[i].TCSHORTNM=LoadedTestCase.TCSHORTNM;
-                testResultDetail.DETAILS[i].DESC=LoadedTestCase.DESC;
-                testResultDetail.DETAILS[i].LAST_STATUS = result;
-                testResultDetail.DETAILS[i].TRY_CNT = 1;
+                testResultDetails.objTestCaseResults[i].TCID=LoadedTestCase.TCID;
+                //testResultDetails.objTestCaseResults[i].TCSHORTNM=LoadedTestCase.TCSHORTNM;
+                testResultDetails.objTestCaseResults[i].DESC=LoadedTestCase.DESC;
+                testResultDetails.objTestCaseResults[i].LAST_STATUS = result;
+                testResultDetails.objTestCaseResults[i].TRY_CNT = 1;
                 if (result == "success") {
-                    testResultDetail.DETAILS[i].SUCCESS_CNT = 1;
+                    testResultDetails.objTestCaseResults[i].TD_SUCCESS_CNT = 1;
                     testResultSummary.SuccessCnt=testResultSummary.SuccessCnt+1;
                     document.getElementById('TestCaseRunStatus').style.color="green";
                     document.getElementById('TestCaseRunStatus').value = "SUCCESS";
                 }
                 else {
-                    testResultDetail.DETAILS[i].FAIL_CNT = 1;
+                    testResultDetails.objTestCaseResults[i].TD_FAIL_CNT = 1;
                     testResultSummary.FailCnt=testResultSummary.FailCnt+1;
                     document.getElementById('TestCaseRunStatus').style.color="red";
                     document.getElementById('TestCaseRunStatus').value = "FAILED";
@@ -141,29 +144,28 @@ function UpdateTestResults(testCaseId,result)
         {
             if (testCaseData.TestCases[i].TCID == testCaseId)
             {
-                testResultDetail.DETAILS[i].TCID=LoadedTestCase.TCID;
-                testResultDetail.DETAILS[i].TCSHORTNM=LoadedTestCase.TCSHORTNM;
-                testResultDetail.DETAILS[i].DESC=LoadedTestCase.DESC;
-                testResultDetail.DETAILS[i].TRY_CNT = testResultDetail.DETAILS[i].TRY_CNT + 1;
+                testResultDetails.objTestCaseResults[i].TCID=LoadedTestCase.TCID;
+                //testResultDetail.DETAILS[i].TCSHORTNM=LoadedTestCase.TCSHORTNM;
+                testResultDetails.objTestCaseResults[i].DESC=LoadedTestCase.DESC;
+                testResultDetails.objTestCaseResults[i].TRY_CNT = testResultDetails.objTestCaseResults[i].TRY_CNT + 1;
                 if (result == "success") {
-                    testResultDetail.DETAILS[i].SUCCESS_CNT = testResultDetail.DETAILS[i].SUCCESS_CNT+1;
-                    if(testResultDetail.DETAILS[i].LAST_STATUS=="failed") {
+                    testResultDetails.objTestCaseResults[i].TD_SUCCESS_CNT = testResultDetails.objTestCaseResults[i].TD_SUCCESS_CNT+1;
+                    if(testResultDetails.objTestCaseResults[i].LAST_STATUS=="failed") {
                         testResultSummary.SuccessCnt = testResultSummary.SuccessCnt + 1;
                         testResultSummary.FailCnt = testResultSummary.FailCnt - 1;
                     }
                 }
                 else {
-                    testResultDetail.DETAILS[i].FAIL_CNT = testResultDetail.DETAILS[i].FAIL_CNT + 1;
-                    if(testResultDetail.DETAILS[i].LAST_STATUS=="success") {
+                    testResultDetails.objTestCaseResults[i].TD_FAIL_CNT = testResultDetails.objTestCaseResults[i].TD_FAIL_CNT + 1;
+                    if(testResultDetails.objTestCaseResults[i].LAST_STATUS=="success") {
                         testResultSummary.SuccessCnt = testResultSummary.SuccessCnt - 1;
                         testResultSummary.FailCnt = testResultSummary.FailCnt + 1;
                     }
                 }
-                testResultDetail.DETAILS[i].LAST_STATUS = result;
+                testResultDetails.objTestCaseResults[i].LAST_STATUS = result;
             }
         }
     }
-    myConsole.log(testResultDetail);
     myConsole.log(testResultSummary);
     document.getElementById('tested_text_box').value=testResultSummary.TestedCnt;
     document.getElementById('success_text_box').value=testResultSummary.SuccessCnt;
@@ -172,7 +174,7 @@ function UpdateTestResults(testCaseId,result)
 }
 
 function ResetScreen(){
-    TestResultDetails = TestResultDetailsTemplate;
+    testResultDetails = testResultDetailsTemplate;
     document.getElementById('tested_text_box').value="";
     document.getElementById('success_text_box').value="";
     document.getElementById('fail_text_box').value="";
@@ -199,56 +201,58 @@ function LoadTestJigData() {
     xhttp.onreadystatechange = function ()
     {
         if ((this.readyState == 4) && (this.status == 200))
-		{
-		    document.getElementById('tc').style.display='block';
-		    myConsole.log("after getting response" + xhttp.responseText);
-		    var response=JSON.parse(this.responseText);
-		    if(response.status=="success") {
-			testJigList=response.TestJigList;
-			testJigData=response.TestJigData;
-			testCaseData = response.TestCaseData;
-              		//Fill TestJig Details in to Results Detail.
-                	TestResultDetails.DUT_ID =testJigData.DUT_ID;
-                	TestResultDetails.DUT_HW_VER =testJigData.HW_VER;
-                	TestResultDetails.DUT_SW_VER =testJigData.SW_VER;
-                	TestResultDetails.DUT_NM =testJigData.DUT_NM;
-                	TestResultDetails.TESTCASE_FILE_NM =testJigData.TestCaseFile;
-			for(i=0;i<testCaseData.TestCases.length;i++)
-			{
-			    testResultDetail.DETAILS.push({});
-			}
-			myConsole.log(testResultDetail.DETAILS);
+        {
+            document.getElementById('tc').style.display='block';
+            myConsole.log("after getting response" + xhttp.responseText);
+            var response=JSON.parse(this.responseText);
+            if(response.status=="success") {
+                testJigList=response.TestJigList;
+                testJigData=response.TestJigData;
+                testCaseData = response.TestCaseData;
+                //Fill TestJig Details in to Results Detail.
+                testResultDetails.DUT_ID =testJigData.DUT_ID;
+                testResultDetails.DUT_HW_VER =testJigData.HW_VER;
+                testResultDetails.DUT_SW_VER =testJigData.SW_VER;
+                testResultDetails.DUT_NM =testJigData.DUT_NM;
+                testResultDetails.PCB_NM =testJigData.DUT_NM;
+                //testResultDetails.TESTCASE_FILE_NM =testJigData.TestCaseFile;
+                for(i=0;i<testCaseData.TestCases.length;i++)
+                {
+                    testResultDetails.objTestCaseResults.push({});
+                }
+                myConsole.log(testResultDetails.objTestCaseResults);
 
-			var totalCases = Object.keys(testCaseData.TestCases).length;
-			document.getElementById('TestJigType').value = testJigData.DUT_NM;
-			document.getElementById('totalCasesTxtBox').value = totalCases;
-			myConsole.log(testCaseData.TestCases.length);
+                var totalCases = Object.keys(testCaseData.TestCases).length;
+                document.getElementById('TestJigType').value = testJigData.DUT_NM;
+                document.getElementById('totalCasesTxtBox').value = totalCases;
+                myConsole.log(testCaseData.TestCases.length);
 
-			document.getElementById("tc").style.display = "none";
-			for(var i=0;i<testCaseData.TestCases.length;i++)
-			{
-			    var button = document.createElement("BUTTON");
-			    var ButtonID=("_"+ i);
-			    document.getElementById('tc').appendChild(button).setAttribute("id",ButtonID);
-			    button.innerText=testCaseData.TestCases[i].TCSHORTNM;
-			    testCaseData.TestCases[i].UILabelID=ButtonID;
-			    button.onclick= function()
-			    {
-				var ClickedBtnID=event.srcElement.id;
-				var j=ClickedBtnID.slice(1);
-				myConsole.log(j);
-				LoadTestCase(testCaseData.TestCases[j].TCID,testCaseData.TestCases[j].UILabelID);
-			    }
-			}
-			LoadTestCase(testCaseData.TestCases[0].TCID,testCaseData.TestCases[0].UILabelID);
-			EnableOnLoad();
-		    }
-		    else
-		    {
-			var error=response.error;
-			document.getElementById('TestJigType').value = error;
-		    }
-		}
+                document.getElementById("tc").style.display = "none";
+                for(var i=0;i<testCaseData.TestCases.length;i++)
+                {
+                    var button = document.createElement("BUTTON");
+                    var ButtonID=("_"+ i);
+                    document.getElementById('tc').appendChild(button).setAttribute("id",ButtonID);
+                    button.innerText=testCaseData.TestCases[i].TCSHORTNM;
+                    testCaseData.TestCases[i].UILabelID=ButtonID;
+                    button.onclick= function()
+                    {
+                        var ClickedBtnID=event.srcElement.id;
+                        var j=ClickedBtnID.slice(1);
+                        myConsole.log(j);
+                        LoadTestCase(testCaseData.TestCases[j].TCID,testCaseData.TestCases[j].UILabelID);
+                    }
+                }
+                LoadTestCase(testCaseData.TestCases[0].TCID,testCaseData.TestCases[0].UILabelID);
+                EnableOnLoad();
+
+            }
+            else
+            {
+                var error=response.error;
+                document.getElementById('TestJigType').value = error;
+            }
+        }
     };
     xhttp.send();
 }
@@ -270,15 +274,15 @@ function LoadTestJigDataSync() {
         testJigData = response.TestJigData;
         testCaseData = response.TestCaseData;
         //Fill TestJig Details in to Results Detail.
-        TestResultDetails.DUT_ID = testJigData.DUT_ID;
-        TestResultDetails.DUT_HW_VER = testJigData.HW_VER;
-        TestResultDetails.DUT_SW_VER = testJigData.SW_VER;
-        TestResultDetails.DUT_NM = testJigData.DUT_NM;
-        TestResultDetails.TESTCASE_FILE_NM = testJigData.TestCaseFile;
+        testResultDetails.DUT_ID = testJigData.DUT_ID;
+        testResultDetails.DUT_HW_VER = testJigData.HW_VER;
+        testResultDetails.DUT_SW_VER = testJigData.SW_VER;
+        testResultDetails.DUT_NM = testJigData.DUT_NM;
+        //testResultDetails.TESTCASE_FILE_NM = testJigData.TestCaseFile;
         for (i = 0; i < testCaseData.TestCases.length; i++) {
-            testResultDetail.DETAILS.push({});
+            testResultDetails.objTestCaseResults.push({});
         }
-        myConsole.log(testResultDetail.DETAILS);
+        myConsole.log(testResultDetails.objTestCaseResults);
         var totalCases = Object.keys(testCaseData.TestCases).length;
         document.getElementById('TestJigType').value = testJigData.DUT_NM;
         document.getElementById('totalCasesTxtBox').value = totalCases;
@@ -358,14 +362,12 @@ function initialize()
     ResetScreen();
     //Initialize Test Case Data
     //Reset Test Result Details
-    TestResultDetails = TestResultDetailsTemplate;
-    testResultDetail={"DETAILS":[]};
+    testResultDetails = testResultDetailsTemplate;
     testResultSummary={TotalCnt:0,TestedCnt:0,SuccessCnt:0,FailCnt:0};
     document.getElementById('tc').style.display='block';
     testedTestCases=[];
 
 }
-
 function retryTestCase()
 {
     LoadTestCase(LoadedTestCase.TCID,LoadedTestCase.UILabelID);
@@ -373,7 +375,7 @@ function retryTestCase()
 }
 function LoadTestCase(tcid,id)
 {
-    document.getElementById('TestCaseRunStatus').value = "";
+document.getElementById('TestCaseRunStatus').value = "";
     document.getElementById('TestCasesFinalResult').style.display="none";
     if(PreviousTestcase==undefined){}
     else
@@ -391,9 +393,7 @@ function LoadTestCase(tcid,id)
 
             PreviousTestcase=LoadedTestCase;
             PreviousTestCaseButtonId=id;
-            myConsole.log("PSK:Test Case Short Name: " + LoadedTestCase.TCSHORTNM);
-            //document.getElementById('TestCaseTitle').value = "Testing";
-            //document.getElementById('TestCaseTitle').value = "TCID:"+LoadedTestCase.TCID +"   "+ LoadedTestCase.TCSHORTNM;
+            document.getElementById('TestCaseTitle').value = "TCID:"+LoadedTestCase.TCID +"   "+ LoadedTestCase.TCSHORTNM;
             //document.getElementById('testcase_nm').value = LoadedTestCase.TCSHORTNM;
             document.getElementById('TestCaseRunText').value = LoadedTestCase.TCID + " " + LoadedTestCase.DESC;
             document.getElementById(id).style.background="orange";
@@ -405,7 +405,6 @@ function LoadTestCase(tcid,id)
 function RunTestCase(tcid,StepNum)
 {
     myConsole.log(tcid);
-
     var tciModal = document.getElementById('TestcasesModalId');
     var xhttp;
     var url = "http://localhost:3001/RunTestCase_BE";
@@ -434,7 +433,6 @@ function RunTestCase(tcid,StepNum)
             result=response.status;
             UpdateTestResults(tcid,result);
             //checkIfAllCasesRan();
-            myConsole.log(testResultDetail);
             myConsole.log(testResultSummary);
             Enable();
             break;
@@ -448,7 +446,6 @@ function RunTestCase(tcid,StepNum)
             result=response.status;
             UpdateTestResults(tcid,result);
             //checkIfAllCasesRan();
-            myConsole.log(testResultDetail);
             myConsole.log(testResultSummary);
             Enable();
             break;
@@ -462,7 +459,6 @@ function RunTestCase(tcid,StepNum)
             result=response.status;
             UpdateTestResults(tcid,result);
             //checkIfAllCasesRan();
-            myConsole.log(testResultDetail);
             myConsole.log(testResultSummary);
             Enable();
             break;
@@ -476,11 +472,9 @@ function RunTestCase(tcid,StepNum)
             result=response.status;
             UpdateTestResults(tcid,result);
             //checkIfAllCasesRan();
-            myConsole.log(testResultDetail);
             myConsole.log(testResultSummary);
             Enable();
             break;
-            
         case "M10_5" :
             xhttp = new XMLHttpRequest();
             xhttp.open("POST", url, false);
@@ -491,7 +485,6 @@ function RunTestCase(tcid,StepNum)
             result=response.status;
             UpdateTestResults(tcid,result);
             //checkIfAllCasesRan();
-            myConsole.log(testResultDetail);
             myConsole.log(testResultSummary);
             Enable();
             break;
@@ -505,7 +498,6 @@ function RunTestCase(tcid,StepNum)
             result=response.status;
             UpdateTestResults(tcid,result);
             //checkIfAllCasesRan();
-            myConsole.log(testResultDetail);
             myConsole.log(testResultSummary);
             Enable();
             break;
@@ -519,11 +511,9 @@ function RunTestCase(tcid,StepNum)
             result=response.status;
             UpdateTestResults(tcid,result);
             //checkIfAllCasesRan();
-            myConsole.log(testResultDetail);
             myConsole.log(testResultSummary);
             Enable();
             break;
-            
         case "M10_8" :
             xhttp = new XMLHttpRequest();
             xhttp.open("POST", url, false);
@@ -534,11 +524,9 @@ function RunTestCase(tcid,StepNum)
             result=response.status;
             UpdateTestResults(tcid,result);
             //checkIfAllCasesRan();
-            myConsole.log(testResultDetail);
             myConsole.log(testResultSummary);
             Enable();
             break;
-            
         case "M10_9" :
             xhttp = new XMLHttpRequest();
             xhttp.open("POST", url, false);
@@ -549,7 +537,6 @@ function RunTestCase(tcid,StepNum)
             result=response.status;
             UpdateTestResults(tcid,result);
             //checkIfAllCasesRan();
-            myConsole.log(testResultDetail);
             myConsole.log(testResultSummary);
             Enable();
             break;
@@ -565,11 +552,11 @@ function RunTestCase(tcid,StepNum)
             result=response.status;
             UpdateTestResults(tcid,result);
             //checkIfAllCasesRan();
-            myConsole.log(testResultDetail);
             myConsole.log(testResultSummary);
             Enable();
             break;
         case "CC_2":
+
             myConsole.log("CC_2 step 1");
             xhttp = new XMLHttpRequest();
             xhttp.open("POST", url, false);
@@ -580,7 +567,7 @@ function RunTestCase(tcid,StepNum)
             result=response.status;
             UpdateTestResults(tcid,result);
             //checkIfAllCasesRan();
-            myConsole.log(testResultDetail);
+
             myConsole.log(testResultSummary);
             Enable();
             break;
@@ -625,7 +612,7 @@ function RunTestCase(tcid,StepNum)
                  //document.getElementById('TestCaseRunStatus').style.display="block";
                   UpdateTestResults(tcid,fnfcresult);
                   //checkIfAllCasesRan();
-                  myConsole.log(testResultDetail);
+
                myConsole.log(testResultSummary);
                 Enable();
                 }
@@ -648,14 +635,14 @@ function RunTestCase(tcid,StepNum)
 	 timerCount = timerCount - 1;
 	 myConsole.log("Counting down :" + timerCount);
 
-         }, 1000);
-          xhttp = new XMLHttpRequest();
-         xhttp.open("POST", url, true);
-         xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-         xhttp.onreadystatechange = function ()
-         {
+            }, 1000);
+            xhttp = new XMLHttpRequest();
+            xhttp.open("POST", url, true);
+            xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            xhttp.onreadystatechange = function ()
+            {
 
-            if ((this.readyState == 4) ) {
+                if ((this.readyState == 4) ) {
                     if(this.status == 200) {
                     var response = JSON.parse(this.responseText);
                     myConsole.log("after getting response" + xhttp.responseText);
@@ -672,7 +659,7 @@ function RunTestCase(tcid,StepNum)
                  //document.getElementById('TestCaseRunStatus').style.display="block";
                   UpdateTestResults(tcid,result);
                   //checkIfAllCasesRan();
-                  myConsole.log(testResultDetail);
+
                myConsole.log(testResultSummary);
                 Enable();
                 }
@@ -690,7 +677,6 @@ function RunTestCase(tcid,StepNum)
             result=response.status;
             UpdateTestResults(tcid,result);
             //checkIfAllCasesRan();
-            myConsole.log(testResultDetail);
             myConsole.log(testResultSummary);
             Enable();
             break;
@@ -705,11 +691,9 @@ function RunTestCase(tcid,StepNum)
             result=response.status;
             UpdateTestResults(tcid,result);
             //checkIfAllCasesRan();
-            myConsole.log(testResultDetail);
             myConsole.log(testResultSummary);
             Enable();
             break;
-
         case "IRNFC_4":
             myConsole.log("IRNFC TC3 selected");
             xhttp = new XMLHttpRequest();
@@ -721,13 +705,11 @@ function RunTestCase(tcid,StepNum)
             result=response.status;
             UpdateTestResults(tcid,result);
             //checkIfAllCasesRan();
-            myConsole.log(testResultDetail);
             myConsole.log(testResultSummary);
             Enable();
             break;
-
         case "ESR_1":
-            myConsole.log("Running TC ESR_1");
+            myConsole.log("Running Test Case ESR_1");
             xhttp = new XMLHttpRequest();
             xhttp.open("POST", url, false);
             xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
@@ -739,7 +721,7 @@ function RunTestCase(tcid,StepNum)
             Enable();
             break;
         case "TRIAC_1":
-            myConsole.log("Running TC TRIAC_1");
+            myConsole.log("Running Test Case TRIAC_1");
             xhttp = new XMLHttpRequest();
             xhttp.open("POST", url, false);
             xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
@@ -751,7 +733,7 @@ function RunTestCase(tcid,StepNum)
             Enable();
             break;
     }
-	if(testMode==="auto"){
+    if(testMode==="auto"){
         nextTestCase();
         RunTestCase(LoadedTestCase.TCID,LoadedTestCase.Steps[0].StepNumber);
     }
@@ -873,8 +855,8 @@ function closeSettingsModal()
 
 function readBarCode(barCodeText){
     myConsole.log(barCodeText);
-    var SN=barCodeText;
     document.getElementById('BoardDetail').value=barCodeText;
+    var SN=barCodeText;
     modal1.style.display="none";
     setBoardDetails(barCodeText);
 }
@@ -887,11 +869,10 @@ function setBoardDetails(boardDetail)
     document.getElementById('next_icon').style.pointerEvents="auto";
     var curDate = new Date();
     var curTimeStamp = curDate.getTime();
-    TestResultDetails.SN =boardDetail;
-    TestResultDetails.TEST_START_TS=curTimeStamp;
+    testResultDetails.SN =boardDetail;
+    testResultDetails.TEST_START_TS=curTimeStamp;
 
 }
-
 function ScanBarCode(){
 
     modal1.style.display = "block";
@@ -943,27 +924,26 @@ function viewResults() {
         "<th>TCSHORM</th>" +
         "<th id='th1'>DESC</th>" +
         "<th>LAST_STATUS</th></tr>";
-    for (x in testResultDetail.DETAILS) {
-        txt += "<tr id='tr'><td>" + testResultDetail.DETAILS[x].TCID + "</td>" +
-            "<td>" + testResultDetail.DETAILS[x].TCSHORTNM + "</td>" +
-            "<td>" + testResultDetail.DETAILS[x].DESC + "</td>" +
-            "<td>" + testResultDetail.DETAILS[x].LAST_STATUS + "</td>" +
+    for (x in testResultDetails.objTestCaseResults) {
+        txt += "<tr id='tr'><td>" + testResultDetails.objTestCaseResults[x].TCID + "</td>" +
+            "<td>" + testResultDetails.objTestCaseResults[x].TCSHORTNM + "</td>" +
+            "<td>" + testResultDetails.objTestCaseResults[x].DESC + "</td>" +
+            "<td>" + testResultDetails.objTestCaseResults[x].LAST_STATUS + "</td>" +
             "</tr>";
     }
     txt += "</table></div>";
     document.getElementById("show1").innerHTML = txt;
 }
+
 function UploadTestResults()
 {
     //modal2.style.display = "block";
     document.getElementById("uploaddata").innerHTML = "Uploading";
     var xhttp = new XMLHttpRequest();
     var url = "http://localhost:3001/ViewResults_BE";
-    var request =
-        {
-            TestResultDetails: TestResultDetails
-        };
-    var params = JSON.stringify(request);
+    var request = JSON.stringify(testResultDetails);
+    var params=request;
+    //var params = JSON.stringify(request);
     myConsole.log(params);
     var params = "inputJsonStr" + "=" + params;
     xhttp.open("POST", url, true);
@@ -972,7 +952,7 @@ function UploadTestResults()
         if ((this.readyState == 4) && (this.status == 200)) {
             myConsole.log("after getting response" + xhttp.responseText);
             var jsonresponse=JSON.parse(this.responseText);
-            document.getElementById("uploaddata").innerHTML = jsonresponse.status;
+                document.getElementById("uploaddata").innerHTML = jsonresponse.status;
         }
     };
     xhttp.send(params);
