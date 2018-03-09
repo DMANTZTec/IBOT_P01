@@ -1,6 +1,7 @@
 {
   "DUT_ID":"ESR",
   "DUT_NM":"ESR Card",
+  "DUT_NUMBER":3,
   "HW_VER": "1.2.3",
   "SW_VER": "1.0.3",
   "TestCaseFile":"./config/ESR_TJ_TestCases_V1.0.json"

@@ -1,5 +1,6 @@
 {
   "DUT_ID":"CC",
+  "DUT_NUMBER":2,
   "DUT_NM":"Control Card",
   "HW_VER": "1.2.3",
   "SW_VER": "1.0.3",

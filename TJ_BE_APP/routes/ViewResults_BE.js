@@ -1,11 +1,12 @@
 var express = require('express');
+var dateFormat=require('dateformat');
 var router = express.Router();
 var fs=require('fs');
 //var TestResultDetails=require('../TestResultDetails..json');
 /* GET home page. */
 var hiveMappingDataSummary =
     {   TEST_RUN_ID: 'F01',
-        DUT_ID: 'F02',
+        DUT_NUMBER: 'F02',
         DUT_HW_VER: 'F03',
         DUT_SW_VER: 'F04',
         DUT_NM: 'F05',
@@ -67,11 +68,19 @@ router.post('/', function(req, res, next)
 
     console.log("DataToHive : " + testResultsToHive);
     var testResultsToHiveJsonObj = JSON.parse(testResultsToHive);
+    console.log(testResultsToHiveJsonObj.F10);
+    console.log(testResultsToHiveJsonObj.F11);
+    //var startDateTime = new Date(testResultsToHiveJsonObj.F11);
+    testResultsToHiveJsonObj.F11 = dateFormat(new Date(testResultsToHiveJsonObj.F11),'HHMMss,ddmmyy');
+    console.log(testResultsToHiveJsonObj.F11);
+    testResultsToHiveJsonObj.F12 = dateFormat(new Date(testResultsToHiveJsonObj.F12),'HHMMss,ddmmyy');
+    console.log(testResultsToHiveJsonObj.F12);
     console.log(testResultsToHiveJsonObj);
     var request = require('request');
+    //'https://ibotapp.azure-api.net/deviceconnectinfo/ConnectInfo4',
     var options = {
         method: 'POST',
-        url: 'https://ibotapp.azure-api.net/deviceconnectinfo/ConnectInfo4',
+        url: 'https://ibotapp.azure-api.net/ProjectPCBsTestResult/shivaraya9;SRP0000001',
         headers:
             {
                 'content-type': 'application/json',

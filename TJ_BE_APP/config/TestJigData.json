@@ -1,5 +1,6 @@
 {
   "DUT_ID":"FNFC",
+  "DUT_NUMBER":1,
   "DUT_NM":"Filter NFC Card",
   "HW_VER": "1.2.3",
   "SW_VER": "1.0.3",

@@ -1,6 +1,7 @@
 {
   "DUT_ID":"M10",
   "DUT_NM":"M10 Card",
+  "DUT_NUMBER":5,
   "HW_VER": "1.2.3",
   "SW_VER": "1.0.3",
   "TestCaseFile":"./config/M10_TestCases_V1.0.json"

@@ -17,14 +17,14 @@ var testResultDetails=
     {
         "objTestCaseResults": [],
         "TEST_RUN_ID":"9999999",
-        "DUT_ID": "XXX",
+        "DUT_NUMBER": "DUT_NUMBER",
         "DUT_HW_VER": "XX:YY",
         "DUT_SW_VER": "PP:QQ",
         "DUT_NM": "SHORTNM",
         "SN":"XXXXXXX",
         "HW_VER":"XX:XX",
         "SW_VER":"XX:XX",
-        "MFGDT":"000000:030118",
+        "MFGDT":"000000,030118",
         "FIXTURE_TYPE_ID":"01",
       //  "TESTCASE_FILE_NM":"TestCaseFileName",
         "TEST_START_TS":"STARTTIMESTAMP",
@@ -41,14 +41,14 @@ var testResultDetailsTemplate=
     {
         "objTestCaseResults": [],
         "TEST_RUN_ID":"9999999",
-        "DUT_ID": "XXX",
+        "DUT_NUMBER": "DUT_NUMBER",
         "DUT_HW_VER": "XX:YY",
         "DUT_SW_VER": "PP:QQ",
         "DUT_NM": "SHORTNM",
         "SN":"XXXXXXX",
         "HW_VER":"XX:XX",
         "SW_VER":"XX:XX",
-        "MFGDT":"000000:030118",
+        "MFGDT":"000000,030118",
         "FIXTURE_TYPE_ID":"01",
         //"TESTCASE_FILE_NM":"TestCaseFileName",
         "TEST_START_TS":"STARTTIMESTAMP",
@@ -81,9 +81,10 @@ function checkIfAllCasesRan()
         document.getElementById('TestCasesFinalResult').value="Testing Completed  " + finalResult;
         document.getElementById('TestCasesFinalResult').style.display="block";
         var curDate = new Date();
-        var curTimeStamp = curDate.getTime();
+        var endDateTime = curDate.getTime();
+        //var curTimeStamp = curDate.getTime();
         testResultDetails.TEST_RESULT=finalResult;
-        testResultDetails.TEST_END_TS=curTimeStamp;
+        testResultDetails.TEST_END_TS=endDateTime;
         testResultDetails.TESTED_CNT=testResultSummary.TestedCnt;
         testResultDetails.TOTAL_CNT=testResultSummary.TotalCnt;
         testResultDetails.TS_SUCCESS_CNT=testResultSummary.SuccessCnt;
@@ -215,7 +216,7 @@ function LoadTestJigData() {
                 testJigData=response.TestJigData;
                 testCaseData = response.TestCaseData;
                 //Fill TestJig Details in to Results Detail.
-                testResultDetails.DUT_ID =testJigData.DUT_ID;
+                testResultDetails.DUT_NUMBER =testJigData.DUT_NUMBER;
                 testResultDetails.DUT_HW_VER =testJigData.HW_VER;
                 testResultDetails.DUT_SW_VER =testJigData.SW_VER;
                 testResultDetails.DUT_NM =testJigData.DUT_NM;
@@ -279,7 +280,7 @@ function LoadTestJigDataSync() {
         testJigData = response.TestJigData;
         testCaseData = response.TestCaseData;
         //Fill TestJig Details in to Results Detail.
-        testResultDetails.DUT_ID = testJigData.DUT_ID;
+        testResultDetails.DUT_NUMBER = testJigData.DUT_NUMBER;
         testResultDetails.DUT_HW_VER = testJigData.HW_VER;
         testResultDetails.DUT_SW_VER = testJigData.SW_VER;
         testResultDetails.DUT_NM = testJigData.DUT_NM;
@@ -873,8 +874,9 @@ function setBoardDetails(boardDetail)
     document.getElementById('next_icon').style.pointerEvents="auto";
     var curDate = new Date();
     var curTimeStamp = curDate.getTime();
+    var startDateTime = curTimeStamp;
     testResultDetails.SN =boardDetail;
-    testResultDetails.TEST_START_TS=curTimeStamp;
+    testResultDetails.TEST_START_TS=startDateTime;
 
 }
 function ScanBarCode(){
@@ -882,7 +884,7 @@ function ScanBarCode(){
     modal1.style.display = "block";
     var barcode="dmantztk20-01-181.12.2";
     var SN=barcode.slice(0,8);
-    var MFGDT="000000:030118";
+    var MFGDT="000000,030118";
     //var MFGDT=barcode.substr(8,8);
     var HWver=barcode.substr(16,3);
     var SWver=barcode.substr(19,3);
