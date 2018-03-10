@@ -195,12 +195,16 @@ router.all('/', function(req, res, next)
             var dataStr = (data.toString()).trim(); //chanses to ASCII
             if (fNfctestRunning === "false") {
                 console.log("TestCase Not Running So  Flushing Data:" + data.toString());
-                flushFNFCData = dataStrArray[i];
+                flushFNFCData = dataStr;
                 useFNFCData = '';
             }
             else {
             var dataStrArray = dataStr.split("#");
+		    //below statement gives number of substrings that are ending with #
+            var fullMessageCount = (dataStr.match(/#/g) || []).length;
+	    var poundEndStrCount = fullMessageCount;
             for(i=0;i<dataStrArray.length;i++) {
+
                //check if it is begining of string and mark that real reading started
                readStr = dataStrArray[i];
                console.log("fnfc raw data: " + readStr);
@@ -221,15 +225,16 @@ router.all('/', function(req, res, next)
                  }
                  if (validReading) {
                      useFNFCData = useFNFCData + readStr;
-                     if (readStr.substr(readStr.length - 1, 1) === "#") {
+                     if (poundEndStrCount > 0) {
+			    poundEndStrCount = poundEndStrCount - 1;
                             validReading = false;
                             console.log("Message To be Used: " + useFNFCData);
                             if (useFNFCData.substr(0, 2) === "*f") {
 
-                                checkSumVal = useFNFCData.substr(useFNFCData.length - 3, 2);
-                                console.log("Message String: " + useFNFCData.substr(0, useFNFCData.length - 3));
-                                //console.log(a2hex(useFNFCData.substr(0,useFNFCData.length-3)));
-                                inputToa2hex = useFNFCData.substr(0, useFNFCData.length - 3);
+                                checkSumVal = useFNFCData.substr(useFNFCData.length - 2, 2);
+                                console.log("Message String: " + useFNFCData.substr(0, useFNFCData.length - 2));
+                                //console.log(a2hex(useFNFCData.substr(0,useFNFCData.length-2)));
+                                inputToa2hex = useFNFCData.substr(0, useFNFCData.length - 2);
                                 console.log("Input: " + inputToa2hex);
                                 console.log("Input Checksum Value: ", checkSumVal);
                                 if (checksum8(a2hex(inputToa2hex), checkSumVal)) {
@@ -253,10 +258,10 @@ router.all('/', function(req, res, next)
                             }
                             if (useFNFCData.substr(0, 2) === "*m") {
 
-                                checkSumVal = useFNFCData.substr(useFNFCData.length - 3, 2);
-                                console.log("Message String: " + useFNFCData.substr(0, useFNFCData.length - 3));
-                                //console.log(a2hex(useFNFCData.substr(0,useFNFCData.length-3)));
-                                inputToa2hex = useFNFCData.substr(0, useFNFCData.length - 3);
+                                checkSumVal = useFNFCData.substr(useFNFCData.length - 2, 2);
+                                console.log("Message String: " + useFNFCData.substr(0, useFNFCData.length - 2));
+                                //console.log(a2hex(useFNFCData.substr(0,useFNFCData.length-2)));
+                                inputToa2hex = useFNFCData.substr(0, useFNFCData.length - 2);
                                 console.log("Input: " + inputToa2hex);
                                 console.log("Input Checksum Value: ", checkSumVal);
                                 if (checksum8(a2hex(inputToa2hex), checkSumVal)) {

@@ -401,7 +401,7 @@ document.getElementById('TestCaseRunStatus').value = "";
 
             PreviousTestcase=LoadedTestCase;
             PreviousTestCaseButtonId=id;
-            document.getElementById('TestCaseTitle').value = "TCID:"+LoadedTestCase.TCID +"   "+ LoadedTestCase.TCSHORTNM;
+            //document.getElementById('TestCaseTitle').value = "TCID:"+LoadedTestCase.TCID +"   "+ LoadedTestCase.TCSHORTNM;
             //document.getElementById('testcase_nm').value = LoadedTestCase.TCSHORTNM;
             document.getElementById('TestCaseRunText').value = LoadedTestCase.TCID + " " + LoadedTestCase.DESC;
             document.getElementById(id).style.background="orange";
