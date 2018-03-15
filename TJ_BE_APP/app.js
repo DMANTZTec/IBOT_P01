@@ -12,13 +12,84 @@ var RunTestCase_BE=require('./routes/RunTestCase_BE');
 var RunTestCase_BE_stub=require('./routes/RunTestCase_BE_stub');
 var LoadTestJigData_BE=require('./routes/LoadTestJigData_BE');
 var ViewResults_BE=require('./routes/ViewResults_BE');
+var testResultsFileNM = './hive/testResults.json';
+var testResults_FailedFileNM='./hive/testResults_Failed';
+var testResults_P_FailedFileNM;
+var testResults_P_FileNM;
 
 var app = express();
-
+var hiveResponse;
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
+//process.argv[2]='./hive/testResults_P.json';
+for (var j = 0; j < process.argv.length; j++) {
+    console.log(j + ' -> ' + (process.argv[j]));
+}
+function checkForTestResultsFile() {
+    if(fs.existsSync(testResults_FailedFileNM)){
+        var justfilename=testResultsFileNM.slice(0,-5);
+        testResults_P_FailedFileNM=justfilename+'_P.json';
+        fs.renameSync(testResults_FailedFileNM,testResults_P_FailedFileNM);
+        var TestResultsData = JSON.parse(fs.readFileSync(testResults_P_FailedFileNM));
+        console.log(TestResultsData);
+        savetohive(TestResultsData);
+    }
+    if(fs.existsSync(testResultsFileNM))
+    {
+        var justfilename=testResultsFileNM.slice(0,-5);
+        testResults_P_FileNM=justfilename+'_P.json';
+        console.log(justfilename);
+        fs.renameSync(testResultsFileNM,testResults_P_FileNM);
+        var TestResultsData = JSON.parse(fs.readFileSync(testResults_P_FileNM));
+        console.log(TestResultsData);
+        savetohive(TestResultsData);
+    }
+    else console.log(testResultsFileNM+" not exists that means everything updated");
+}
+function savetohive(TestResultsData){
+    var request = require('request');
+    //'https://ibotapp.azure-api.net/deviceconnectinfo/ConnectInfo4',
+    var options = {
+        method: 'POST',
+        url: 'https://ibotapp.azure-api.net/ProjectPCBsTestResult/shivaraya9;SRP0000001',
+        headers:
+            {
+                'content-type': 'application/json',
+                'ocp-apim-trace': 'true',
+                'ocp-apim-subscription-key': '2bb0cf6fe5c44dedac555cc8432b4c14'
+            },
+        body: TestResultsData,
+        json: true
+    };
+    //ibotapp.azure-api.net
+    //'postman-token': '3b692d3a-8c80-3cd5-96cc-c5d91b45b281',
+    //'cache-control': 'no-cache',
+    request(options, function (error, response, body) {
+        //if (error) throw new Error(error);
+        if(error){
+            console.log("Error occured while uploading to Hive");
+            fs.writeFile(testResults_P_FailedFileNM, JSON.stringify(TestResultsData), function (err) {
+                if (err) throw err;
+                console.log("added failed testcases to failure file");
+            });
+        }
+        else if(response.statusCode === 200){
+            console.log(body);
+        }
+        else{
+            console.log(response.statusCode);
+            console.log("Some issue: ", response.statusCode);
+            fs.writeFile(testResults_P_FailedFileNM, JSON.stringify(TestResultsData), function (err) {
+                if (err) throw err;
+                console.log("added failed testcases to failure file");
+            });
+        }
+    });
+}
+checkForTestResultsFile();
+setInterval(checkForTestResultsFile, 5000);
 app.use(function(req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
