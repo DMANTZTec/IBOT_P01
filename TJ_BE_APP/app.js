@@ -77,6 +77,7 @@ function savetohive(TestResultsData){
         }
         else if(response.statusCode === 200){
             console.log(body);
+            fs.unlinkSync(testResults_P_FileNM);
         }
         else{
             console.log(response.statusCode);
