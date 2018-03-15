@@ -29,7 +29,7 @@ for (var j = 0; j < process.argv.length; j++) {
 }
 function checkForTestResultsFile() {
     if(fs.existsSync(testResults_FailedFileNM)){
-        var justfilename=testResultsFileNM.slice(0,-5);
+        var justfilename=testResults_FailedFileNM.slice(0,-5);
         testResults_P_FailedFileNM=justfilename+'_P.json';
         fs.renameSync(testResults_FailedFileNM,testResults_P_FailedFileNM);
         var TestResultsData = JSON.parse(fs.readFileSync(testResults_P_FailedFileNM));
@@ -53,7 +53,7 @@ function savetohive(TestResultsData){
     //'https://ibotapp.azure-api.net/deviceconnectinfo/ConnectInfo4',
     var options = {
         method: 'POST',
-        url: 'https://ibotapp.azure-api.net/ProjectPCBsTestResult/shivaraya9;SRP0000001',
+        url: 'https://ibotapp.azure-api.net/ProjectPCBsTestResult/tejass_shivaraya9;SRP0000001',
         headers:
             {
                 'content-type': 'application/json',
@@ -77,9 +77,17 @@ function savetohive(TestResultsData){
         }
         else if(response.statusCode === 200){
             console.log(body);
-            fs.unlinkSync(testResults_P_FileNM);
+            //fs.unlinkSync(testResults_P_FileNM);
         }
-        else{
+        else if(response.statusCode===500){
+            console.log(response.statusCode);
+            console.log("Some issue: ", response.statusCode);
+            fs.writeFile(testResults_P_FailedFileNM, JSON.stringify(TestResultsData), function (err) {
+                if (err) throw err;
+                console.log("added failed testcases to failure file");
+            });
+        }
+        else if(response.statusCode===404){
             console.log(response.statusCode);
             console.log("Some issue: ", response.statusCode);
             fs.writeFile(testResults_P_FailedFileNM, JSON.stringify(TestResultsData), function (err) {
