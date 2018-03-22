@@ -1,0 +1,150 @@
+{
+  "DUT": "HUL1",
+  "TestCases": [
+    {
+      "TCID": "1",
+      "REFERENCE": "1",
+      "DESCRIPTION": "Voltage of 5V from Regulator",
+      "COMMENT": "S"
+    },
+    {
+      "TCID": "2",
+      "REFERENCE": "2",
+      "DESCRIPTION": "Voltage 3.3 from Regulator",
+      "COMMENT": "S"
+    },
+    {
+      "TCID": "3",
+      "REFERENCE": "3",
+      "DESCRIPTION": "SV Voltage Check",
+      "COMMENT": "S"
+    },
+    {
+      "TCID": "4",
+      "REFERENCE": "4",
+      "DESCRIPTION": "RV Voltage Check",
+      "COMMENT": "S"
+    },
+    {
+      "TCID": "5",
+      "REFERENCE": "5",
+      "DESCRIPTION": "BP Voltage Check",
+      "COMMENT": "S"
+    },
+    {
+      "TCID": "6",
+      "REFERENCE": "6",
+      "DESCRIPTION": "SV Alert Check",
+      "COMMENT": " H Enable SV Relay and checking for Signal at SV Alert Reboot required"
+    },
+    {
+      "TCID": "7",
+      "REFERENCE": "7",
+      "DESCRIPTION": "RV Alert Check ",
+      "COMMENT": "H Restart required"
+    },
+    {
+      "TCID": "8",
+      "REFERENCE": "8",
+      "DESCRIPTION": "BP Alert Check",
+      "COMMENT": "H Restart required"
+    },
+    {
+      "TCID": "9",
+      "REFERENCE": "9",
+      "DESCRIPTION": "Pump Enable  Check",
+      "COMMENT": "S"
+    },
+    {
+      "TCID": "10",
+      "REFERENCE": "10",
+      "DESCRIPTION": "BP Enable  Check",
+      "COMMENT": "S"
+    },
+    {
+      "TCID": "11",
+      "REFERENCE": "11",
+      "DESCRIPTION": "LPS Check",
+      "COMMENT": "S"
+    },
+    {
+      "TCID": "12",
+      "REFERENCE": "12",
+      "DESCRIPTION": "LCS Check",
+      "COMMENT": "S"
+    },
+    {
+      "TCID": "13",
+      "REFERENCE": "13",
+      "DESCRIPTION": "LPS Check",
+      "COMMENT": "S"
+    },
+    {
+      "TCID": "14",
+      "REFERENCE": "14",
+      "DESCRIPTION": "Flow Sensor Check",
+      "COMMENT": "M"
+    },
+    {
+      "TCID": "15",
+      "REFERENCE": "15",
+      "DESCRIPTION": "UART 0",
+      "COMMENT": "M"
+    },
+    {
+      "TCID": "16",
+      "REFERENCE": "16",
+      "DESCRIPTION": "UART 0",
+      "COMMENT": "M"
+    },
+    {
+      "TCID": "17",
+      "REFERENCE": "17",
+      "DESCRIPTION":"LCD Signal Check ?",
+      "COMMENT": "M"
+    },
+    {
+      "TCID": "18",
+      "REFERENCE": "18",
+      "DESCRIPTION": "JTAG Signal Check ( If Flashing is working then no need to test)",
+      "COMMENT": "S"
+    },
+    {
+      "TCID": "19",
+      "REFERENCE": "19",
+      "DESCRIPTION": "LCS Disable & LCS Check ",
+      "COMMENT": "H Puts in Stand By Mode"
+    },
+    {
+      "TCID": "20",
+      "REFERENCE": "20",
+      "DESCRIPTION": "Pump Enable Check",
+      "COMMENT": "H For LOW"
+    },
+    {
+      "TCID": "21",
+      "REFERENCE": "21",
+      "DESCRIPTION": "BP Enable Check ",
+      "COMMENT": "H For LOW"
+    },
+    {
+      "TCID": "22",
+      "REFERENCE": "22",
+      "DESCRIPTION": "LCS Enable & LPS Disable",
+      "COMMENT": "H"
+    },
+    {
+      "TCID": "23",
+      "REFERENCE": "23",
+      "DESCRIPTION": "Pump Enable Check ",
+      "COMMENT": "H"
+    },
+    {
+      "TCID": "24",
+      "REFERENCE": "24",
+      "DESCRIPTION": "If all cases are successful , prompt for IQ Bar Code ",
+      "COMMENT": "H – Bar Code need to be read twice"
+    }
+
+  ]
+}

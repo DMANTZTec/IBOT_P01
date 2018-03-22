@@ -12,6 +12,21 @@ var RunTestCase_BE=require('./routes/RunTestCase_BE');
 var RunTestCase_BE_stub=require('./routes/RunTestCase_BE_stub');
 var LoadTestJigData_BE=require('./routes/LoadTestJigData_BE');
 var ViewResults_BE=require('./routes/ViewResults_BE');
+//process.argv[2] = "D:\\IBOT_P01\\IBOT_P01\\TJ_BE_APP\\config\\HUL_testjiglist";
+console.log(process.argv);
+for(var i=0;i<process.argv.length;i++)
+{
+    console.log(process.argv[i]);
+}
+//if (process.argv.length <= 2) {
+  //  console.log("Usage: " + LoadTestJigData_BE + " M10_TJ_Config.json");
+    //process.exit(-1);
+//}
+
+//var param = process.argv[2];
+
+//console.log('Param: ' + param);
+
 
 var app = express();
 

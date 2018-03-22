@@ -1708,12 +1708,13 @@
     text-decoration: none;
     cursor: pointer;
 }
-#pcb_modal {
+#product
+{
     position: absolute;
     width:147px;
     height:30px;
     left:82px;
-    top: 5%;
+    top: 20%;
     opacity:1;
     margin-left:0px;
     margin-top:0px;
@@ -1752,8 +1753,9 @@
     font-size:17px;
     color:rgba(255,255,255,1);
     line-height:0px;
+
 }
-#mode_modal {
+#pcb_modal {
     position: absolute;
     width:147px;
     height:30px;
@@ -1798,12 +1800,100 @@
     color:rgba(255,255,255,1);
     line-height:0px;
 }
+#mode_modal {
+    position: absolute;
+    width:147px;
+    height:30px;
+    left:82px;
+    top: 60%;
+    opacity:1;
+    margin-left:0px;
+    margin-top:0px;
+    margin-right:0px;
+    margin-bottom:0px;
+    border-width:1px;
+    padding-left:0px;
+    padding-top:0px;
+    padding-right:0px;
+    padding-bottom:2px;
+    border-bottom-left-radius:4px;
+    -webkit-border-bottom-left-radius:4px;
+    -moz-border-bottom-left-radius:4px;
+    -ms-border-bottom-left-radius:4px;
+    -o-border-bottom-left-radius:4px;
+    border-bottom-right-radius:4px;
+    -webkit-border-bottom-right-radius:4px;
+    -moz-border-bottom-right-radius:4px;
+    -ms-border-bottom-right-radius:4px;
+    -o-border-bottom-right-radius:4px;
+    border-top-left-radius:4px;
+    -webkit-border-top-left-radius:4px;
+    -moz-border-top-left-radius:4px;
+    -ms-border-top-left-radius:4px;
+    -o-border-top-left-radius:4px;
+    border-top-right-radius:4px;
+    -webkit-border-top-right-radius:4px;
+    -moz-border-top-right-radius:4px;
+    -ms-border-top-right-radius:4px;
+    -o-border-top-right-radius:4px;
+    overflow:hidden;
+    border-color:#ccc;
+    border-style:solid;
+    background:rgba(5,161,166,1);
+    font-family:Times New Roman;
+    font-size:17px;
+    color:rgba(255,255,255,1);
+    line-height:0px;
+}
+#producttype
+{
+    position:absolute;
+    width:219px;
+    height:32px;
+    left:249px;
+    top:20%;
+    opacity:1;
+    margin-left:0px;
+    margin-top:0px;
+    margin-right:0px;
+    margin-bottom:0px;
+    background:rgba(255,255,255,1);
+    border-width:1px;
+    padding-left:0px;
+    padding-top:0px;
+    padding-right:0px;
+    padding-bottom:0px;
+    border-bottom-left-radius:0px;
+    -webkit-border-bottom-left-radius:0px;
+    -moz-border-bottom-left-radius:0px;
+    -ms-border-bottom-left-radius:0px;
+    -o-border-bottom-left-radius:0px;
+    border-bottom-right-radius:0px;
+    -webkit-border-bottom-right-radius:0px;
+    -moz-border-bottom-right-radius:0px;
+    -ms-border-bottom-right-radius:0px;
+    -o-border-bottom-right-radius:0px;
+    border-top-left-radius:0px;
+    -webkit-border-top-left-radius:0px;
+    -moz-border-top-left-radius:0px;
+    -ms-border-top-left-radius:0px;
+    -o-border-top-left-radius:0px;
+    border-top-right-radius:0px;
+    -webkit-border-top-right-radius:0px;
+    -moz-border-top-right-radius:0px;
+    -ms-border-top-right-radius:0px;
+    -o-border-top-right-radius:0px;
+    font-family:Times New Roman;
+    font-size:17px;
+    color:#515151;
+    overflow:visible;
+}
 #TestJigSelectList {
     position:absolute;
     width:219px;
     height:32px;
     left:249px;
-    top:12px;
+    top:40%;
     opacity:1;
     margin-left:0px;
     margin-top:0px;
@@ -1846,7 +1936,7 @@
     width:219px;
     height:32px;
     left:249px;
-    top:40%;
+    top:60%;
     opacity:1;
     margin-left:0px;
     margin-top:0px;

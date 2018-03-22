@@ -20,7 +20,12 @@
     <img id="setting_icon" src="images/setting.png" onclick="DisplaySettingsModal()">
     <div id="SettingsModalID" class="SettingsModal">
         <div class="SettingsModalContent">
-                
+                <button id="product">Product</button>
+            <select id="producttype" onchange="ReloadTestJigList(this.value)">
+                <option value="">Select Product Type</option>
+                <option value="HUL">HUL</option>
+                <option value="ELKAY">ELKAY</option>
+            </select>
             <button id="pcb_modal">
                 1.PCB TYPE
             </button>

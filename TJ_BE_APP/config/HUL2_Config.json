@@ -1,0 +1,7 @@
+{
+  "DUT_ID":"HUL2",
+  "DUT_NM":"HUL2_app_2",
+  "HW_VER": "1.2.3",
+  "SW_VER": "1.0.3",
+  "TestCaseFile":"./config/HUL2_TestCases.json"
+}

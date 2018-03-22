@@ -1,0 +1,59 @@
+{
+  "DUT": "HUL2",
+  "TestCases": [
+    {
+      "TCID": "1",
+      "REFERENCE": "1",
+      "DESCRIPTION": "LCS Open & Check",
+      "COMMENT": "H"
+    },
+    {
+      "TCID": "2",
+      "REFERENCE": "2",
+      "DESCRIPTION": "LPS Open & Check",
+      "COMMENT": "LPS Open & Check"
+    },
+    {
+      "TCID": "3",
+      "REFERENCE": "3",
+      "DESCRIPTION": "SV Short & Check",
+      "COMMENT": "H Restart Required. "
+    },
+    {
+      "TCID": "4",
+      "REFERENCE": "4",
+      "DESCRIPTION": "RO Short & Check",
+      "COMMENT": "H Restart Required"
+    },
+    {
+      "TCID": "5",
+      "REFERENCE": "5",
+      "DESCRIPTION": "BP Short & Check",
+      "COMMENT": " H Restart"
+    },
+    {
+      "TCID": "6",
+      "REFERENCE": "6",
+      "DESCRIPTION": "FS Tamper Check",
+      "COMMENT": "H Restart"
+    },
+    {
+      "TCID": "7",
+      "REFERENCE": "7",
+      "DESCRIPTION": " RO Tamper Check ",
+      "COMMENT": "H Restart"
+    },
+    {
+      "TCID": "8",
+      "REFERENCE": "8",
+      "DESCRIPTION": " If all cases are successful wait for 3 minutes ",
+      "COMMENT": "H To get confirmation from HIVE."
+    },
+    {
+      "TCID": "9",
+      "REFERENCE": "9",
+      "DESCRIPTION": "If 1-8 are successful Generate Bar Code & communicate to printer ",
+      "COMMENT": "H * (Not sure at this point)"
+    }
+  ]
+}
