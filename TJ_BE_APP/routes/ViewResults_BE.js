@@ -2,6 +2,7 @@ var express = require('express');
 var dateFormat=require('dateformat');
 var router = express.Router();
 var fs=require('fs');
+var testResultsFileNM="./hive/testResults.json";
 //var TestResultDetails=require('../TestResultDetails..json');
 /* GET home page. */
 var hiveMappingDataSummary =
@@ -24,7 +25,6 @@ var hiveMappingDataSummary =
         TS_FAIL_CNT: 'F17',
         MANUFACTURER: 'F18',
         PCB_NM: 'F19' };
-
 var hiveMappingDataDetail =
     { TEST_RUN_ID: 'F01',
         TCID: 'F02',
@@ -33,7 +33,6 @@ var hiveMappingDataDetail =
         TD_FAIL_CNT: 'F05',
         TD_SUCCESS_CNT: 'F06',
         DESC: 'F07' };
-
 router.post('/', function(req, res, next)
 {
     var resultsFileName;
@@ -44,6 +43,7 @@ router.post('/', function(req, res, next)
     var testResultsToHive;
     resultsFileName="./Results/TestResultDetails"+curTimeStamp+".json";
     var TestResultDetails = req.body.inputJsonStr;
+    console.log(TestResultDetails);
     testResultsToHive = TestResultDetails;
     resultStr=TestResultDetails;
     hiveresultStr=TestResultDetails;
@@ -51,21 +51,18 @@ router.post('/', function(req, res, next)
     // res.send(TestResultDetails);
     console.log(TestResultDetails);
     //res.render('index', { title: 'Express' });
-
     for (var key in hiveMappingDataSummary)
     {
         //console.log(key + ' : ' + data[key]);
         console.log(key + ' --> ' + hiveMappingDataSummary[key]);
         testResultsToHive = testResultsToHive.replace(RegExp(key,'g'),hiveMappingDataSummary[key]);
     }
-
     for (var key in hiveMappingDataDetail)
     {
         //console.log(key + ' : ' + data[key]);
         console.log(key + ' --> ' + hiveMappingDataDetail[key]);
         testResultsToHive = testResultsToHive.replace(RegExp(key,'g'),hiveMappingDataDetail[key]);
     }
-
     console.log("DataToHive : " + testResultsToHive);
     var testResultsToHiveJsonObj = JSON.parse(testResultsToHive);
     console.log(testResultsToHiveJsonObj.F10);
@@ -76,7 +73,7 @@ router.post('/', function(req, res, next)
     testResultsToHiveJsonObj.F12 = dateFormat(new Date(testResultsToHiveJsonObj.F12),'HHMMss,ddmmyy');
     console.log(testResultsToHiveJsonObj.F12);
     console.log(testResultsToHiveJsonObj);
-    var request = require('request');
+   /* var request = require('request');
     //'https://ibotapp.azure-api.net/deviceconnectinfo/ConnectInfo4',
     var options = {
         method: 'POST',
@@ -105,14 +102,38 @@ router.post('/', function(req, res, next)
             console.log(response.statusCode);
            console.log("Some issue: ", response.statusCode);
         }
+    });*/
+
+    fs.writeFile(testResultsFileNM, JSON.stringify(testResultsToHiveJsonObj), function (err) {
+        if (err) throw err;
+        else
+        console.log("saved testResultsToHiveJsonObj to testResults file Succesfully");
     });
 
-    fs.writeFile(resultsFileName, TestResultDetails, function (err) {
-        if (err) throw err;
-        var response={"status":"Uploaded Succesfully"};
-        console.log(response);
-        res.send(response);
-    });
+
+    /*if(fs.existsSync(testResultsFileNM)) {
+        var TestResultsData = JSON.parse(fs.readFileSync(testResultsFileNM));
+        console.log(TestResultsData);
+        if(TestResultsData.uploaded==true) {
+            fs.writeFile(resultsFileName, TestResultDetails, function (err) {
+                if (err) throw err;
+                var response = {"status": "Uploaded Succesfully"};
+                console.log(response);
+                res.send(response);
+            });
+        }
+        else if(TestResultsData.uploaded==false){
+            var response = {"status": "Not uploaded"};
+            console.log(response);
+            res.send(response);
+        }
+        else if(!TestResultsData.uploaded){
+            var response = {"status": "error"};
+            console.log(response);
+            res.send(response);
+        }
+    }*/
+
 
 });
 module.exports = router;
