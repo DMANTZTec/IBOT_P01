@@ -87,7 +87,6 @@ router.post('/', function(req, res, next)
         body: testResultsToHiveJsonObj,
         json: true
     };
-
     //ibotapp.azure-api.net
     //'postman-token': '3b692d3a-8c80-3cd5-96cc-c5d91b45b281',
     //'cache-control': 'no-cache',
@@ -103,10 +102,6 @@ router.post('/', function(req, res, next)
            console.log("Some issue: ", response.statusCode);
         }
     });*/
-   //var resultsarray=[];
-   //resultsarray.push(testResultsToHiveJsonObj);
-   //console.log("resultsarray:"+JSON.stringify(resultsarray));
-
     if(fs.existsSync(testResultsFileNM))
     {
         console.log("append loop");
@@ -148,6 +143,5 @@ router.post('/', function(req, res, next)
             res.send(response);
         }
     }*/
-
 });
 module.exports = router;
