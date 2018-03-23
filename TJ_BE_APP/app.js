@@ -12,10 +12,10 @@ var RunTestCase_BE=require('./routes/RunTestCase_BE');
 var RunTestCase_BE_stub=require('./routes/RunTestCase_BE_stub');
 var LoadTestJigData_BE=require('./routes/LoadTestJigData_BE');
 var ViewResults_BE=require('./routes/ViewResults_BE');
-var testResultsFileNM = './hive/testResults.json';
-var testResults_FailedFileNM='./hive/testResults_Failed';
-var testResults_P_FailedFileNM;
+var testResultsFileNM = './hive/testResults.txt';
+var testResults_FailedFileNM='./hive/testResults_Failed.txt';
 var testResults_P_FileNM;
+var readline = require('readline');
 
 var app = express();
 var hiveResponse;
@@ -24,31 +24,66 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
 //process.argv[2]='./hive/testResults_P.json';
-for (var j = 0; j < process.argv.length; j++) {
-    console.log(j + ' -> ' + (process.argv[j]));
-}
+//for (var j = 0; j < process.argv.length; j++) {
+//    console.log(j + ' -> ' + (process.argv[j]));
+//}
 function checkForTestResultsFile() {
+    var renamefilename=testResultsFileNM.slice(0,-4);
+    console.log(renamefilename);
+    testResults_P_FileNM=renamefilename+'_P.txt';
+
     if(fs.existsSync(testResults_FailedFileNM)){
-        var justfilename=testResults_FailedFileNM.slice(0,-5);
-        testResults_P_FailedFileNM=justfilename+'_P.json';
-        fs.renameSync(testResults_FailedFileNM,testResults_P_FailedFileNM);
-        var TestResultsData = JSON.parse(fs.readFileSync(testResults_P_FailedFileNM));
-        console.log(TestResultsData);
-        savetohive(TestResultsData);
+        fs.renameSync(testResults_FailedFileNM,testResults_P_FileNM);
+        fs.readFile(testResults_P_FileNM, function(error, data) {
+            if (error) { throw error; }
+            data.toString().split("\n").forEach(function(line, index, arr) {
+                if (index === arr.length - 1 && line === "") { return; }
+                if(index===arr.length-1){
+                    console.log(arr.length);
+                    savetohive(line);
+                    fs.unlinkSync(testResults_P_FileNM);
+                }
+                console.log(index + " " + line);
+                savetohive(line);
+            });
+        });
     }
-    if(fs.existsSync(testResultsFileNM))
-    {
-        var justfilename=testResultsFileNM.slice(0,-5);
-        testResults_P_FileNM=justfilename+'_P.json';
-        console.log(justfilename);
+
+    if(fs.existsSync(testResultsFileNM)) {
+        console.log("test results loop");
         fs.renameSync(testResultsFileNM,testResults_P_FileNM);
-        var TestResultsData = JSON.parse(fs.readFileSync(testResults_P_FileNM));
+        fs.readFile(testResults_P_FileNM, function(error, data) {
+            if (error) { throw error; }
+            data.toString().split("\n").forEach(function(line, index, arr) {
+                if (index === arr.length - 1 && line === "") { console.log("no lines"); }
+                if(index===arr.length-1){
+                    console.log(arr.length);
+                    fs.unlinkSync(testResults_P_FileNM);
+                }
+                console.log(index + " " + line);
+                savetohive(line);
+            });
+        });
+
+        /*var TestResultsData = JSON.parse(fs.readFileSync(testResults_P_FileNM));
         console.log(TestResultsData);
-        savetohive(TestResultsData);
+        for(var i=0;i<=TestResultsData.length;i++){
+            if(i==TestResultsData.length){
+                console.log("length reached,deleting _P.json");
+                fs.unlinkSync(testResults_P_FileNM);
+            }
+            else {
+                savetohive(TestResultsData[i]);
+                console.log(i+"th data");
+            }
+        }*/
+
     }
     else console.log(testResultsFileNM+" not exists that means everything updated");
 }
-function savetohive(TestResultsData){
+function savetohive(line){
+    console.log(line);
+    var TestResultsData=JSON.parse(line);
     var request = require('request');
     //'https://ibotapp.azure-api.net/deviceconnectinfo/ConnectInfo4',
     var options = {
@@ -63,6 +98,22 @@ function savetohive(TestResultsData){
         body: TestResultsData,
         json: true
     };
+    function createFailedresultsFile(){
+        if(fs.existsSync(testResults_FailedFileNM))
+        {
+            fs.appendFile(testResults_FailedFileNM,"\n"+JSON.stringify(TestResultsData),function (err) {
+                if(err) throw err;
+                console.log("appended to failed file");
+            });
+        }
+        else if(!fs.existsSync(testResults_FailedFileNM)){
+            fs.writeFile(testResults_FailedFileNM, JSON.stringify(TestResultsData), function (err) {
+                if (err) throw err;
+                else
+                    console.log("created failed file");
+            });
+        }
+    }
     //ibotapp.azure-api.net
     //'postman-token': '3b692d3a-8c80-3cd5-96cc-c5d91b45b281',
     //'cache-control': 'no-cache',
@@ -70,35 +121,25 @@ function savetohive(TestResultsData){
         //if (error) throw new Error(error);
         if(error){
             console.log("Error occured while uploading to Hive");
-            fs.writeFile(testResults_P_FailedFileNM, JSON.stringify(TestResultsData), function (err) {
-                if (err) throw err;
-                console.log("added failed testcases to failure file");
-            });
+            createFailedresultsFile();
         }
         else if(response.statusCode === 200){
             console.log(body);
-            //fs.unlinkSync(testResults_P_FileNM);
         }
         else if(response.statusCode===500){
             console.log(response.statusCode);
             console.log("Some issue: ", response.statusCode);
-            fs.writeFile(testResults_P_FailedFileNM, JSON.stringify(TestResultsData), function (err) {
-                if (err) throw err;
-                console.log("added failed testcases to failure file");
-            });
+            createFailedresultsFile();
         }
-        else if(response.statusCode===404){
+        else if(response.statusCode===404) {
             console.log(response.statusCode);
             console.log("Some issue: ", response.statusCode);
-            fs.writeFile(testResults_P_FailedFileNM, JSON.stringify(TestResultsData), function (err) {
-                if (err) throw err;
-                console.log("added failed testcases to failure file");
-            });
+            createFailedresultsFile();
         }
     });
 }
 checkForTestResultsFile();
-setInterval(checkForTestResultsFile, 5000);
+setInterval(checkForTestResultsFile, 10000);
 app.use(function(req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
