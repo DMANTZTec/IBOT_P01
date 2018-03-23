@@ -154,7 +154,7 @@ function UpdateTestResults(testCaseId,result)
                 testResultDetails.objTestCaseResults[i].TCID=LoadedTestCase.TCID;
                 //testResultDetail.DETAILS[i].TCSHORTNM=LoadedTestCase.TCSHORTNM;
                 testResultDetails.objTestCaseResults[i].DESC=LoadedTestCase.DESC;
-                testResultDetails.objTestCaseResults[i].TRY_CNT = testResultDetail.objTestCaseResults[i].TRY_CNT + 1;
+                testResultDetails.objTestCaseResults[i].TRY_CNT = testResultDetails.objTestCaseResults[i].TRY_CNT + 1;
                 if (result == "success") {
                     testResultDetails.objTestCaseResults[i].TD_SUCCESS_CNT = testResultDetails.objTestCaseResults[i].TD_SUCCESS_CNT+1;
                     if(testResultDetails.objTestCaseResults[i].LAST_STATUS=="failed") {
@@ -589,16 +589,16 @@ function RunTestCase(tcid,StepNum)
          console.log("Yes going through new logic");
          //document.getElementById('TestCaseRunStatus').style.display="none";
          document.getElementById('TestCaseRunInstruction').style.display="block";
-	 document.getElementById('TestCaseRunInstruction').style.color="blue";
-	 document.getElementById('TestCaseRunInstruction').value = "Place TestStrip on Filter NFC Sensor";
-	 var fnfctimerCount = 10;
-	 document.getElementById('TestCaseRunTimer').style.display="block";
-	 document.getElementById('TestCaseRunTimer').style.color="orange";
-	 document.getElementById('TestCaseRunTimer').value="";
-	 var fnfccountDown = setInterval(function () {
-	 document.getElementById('TestCaseRunTimer').value = fnfctimerCount;
-	 fnfctimerCount = fnfctimerCount - 1;
-	 console.log("Counting down :" + fnfctimerCount);
+         document.getElementById('TestCaseRunInstruction').style.color="blue";
+	     document.getElementById('TestCaseRunInstruction').value = "Place TestStrip on Filter NFC Sensor";
+	     var fnfctimerCount = 10;
+	     document.getElementById('TestCaseRunTimer').style.display="block";
+	     document.getElementById('TestCaseRunTimer').style.color="orange";
+	     document.getElementById('TestCaseRunTimer').value="";
+	     var fnfccountDown = setInterval(function () {
+	     document.getElementById('TestCaseRunTimer').value = fnfctimerCount;
+	     fnfctimerCount = fnfctimerCount - 1;
+	     console.log("Counting down :" + fnfctimerCount);
 
          }, 1000);
           xhttp = new XMLHttpRequest();
@@ -636,16 +636,16 @@ function RunTestCase(tcid,StepNum)
          console.log("Yes going through new logic");
          //document.getElementById('TestCaseRunStatus').style.display="none";
          document.getElementById('TestCaseRunInstruction').style.display="block";
-	 document.getElementById('TestCaseRunInstruction').style.color="blue";
-	 document.getElementById('TestCaseRunInstruction').value = "Place TestStrip on IRNFC Sensor and remove it";
-	 var timerCount = 10;
-	 document.getElementById('TestCaseRunTimer').style.display="block";
-	 document.getElementById('TestCaseRunTimer').style.color="orange";
-	 document.getElementById('TestCaseRunTimer').value="";
-	 countDown = setInterval(function () {
-	 document.getElementById('TestCaseRunTimer').value = timerCount;
-	 timerCount = timerCount - 1;
-	 console.log("Counting down :" + timerCount);
+	    document.getElementById('TestCaseRunInstruction').style.color="blue";
+	    document.getElementById('TestCaseRunInstruction').value = "Place TestStrip on IRNFC Sensor and remove it";
+	    var timerCount = 10;
+	    document.getElementById('TestCaseRunTimer').style.display="block";
+	    document.getElementById('TestCaseRunTimer').style.color="orange";
+	    document.getElementById('TestCaseRunTimer').value="";
+	     countDown = setInterval(function () {
+	    document.getElementById('TestCaseRunTimer').value = timerCount;
+	    timerCount = timerCount - 1;
+	    console.log("Counting down :" + timerCount);
 
             }, 1000);
             xhttp = new XMLHttpRequest();
@@ -692,12 +692,12 @@ function RunTestCase(tcid,StepNum)
             Enable();
             break;
         case "IRNFC_3":
-        console.log("IRNFC TC3 selected");
-        xhttp = new XMLHttpRequest();
-        xhttp.open("POST", url, false);
-        xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-        xhttp.send(params);
-        console.log("after getting response" + xhttp.responseText);
+            console.log("IRNFC TC3 selected");
+            xhttp = new XMLHttpRequest();
+            xhttp.open("POST", url, false);
+            xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            xhttp.send(params);
+            console.log("after getting response" + xhttp.responseText);
             response=JSON.parse(xhttp.responseText);
             result=response.status;
             UpdateTestResults(tcid,result);
@@ -743,7 +743,7 @@ function RunTestCase(tcid,StepNum)
             UpdateTestResults(tcid,result);
             Enable();
             break;
-      /*  case "HUL1_1":
+        case "HUL1_1":
             console.log("running testcase HUL_1");
             xhttp=new XMLHttpRequest();
             xhttp.open("POST",url,false);
@@ -755,18 +755,18 @@ function RunTestCase(tcid,StepNum)
             UpdateTestResults(tcid,result);
             Enable();
             break;
-      case "HUL1_2":
-                console.log("running testcase HUL_2");
-                xhttp=new XMLHttpRequest();
-                xhttp.open("POST",url,false);
-                 xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-                xhttp.send(params);
-                console.log("after getting response" + xhttp.responseText);
-                response = JSON.parse(xhttp.responseText);
-                result=response.status;
-                UpdateTestResults(tcid,result);
-                Enable();
-                break;
+        case "HUL1_2":
+            console.log("running testcase HUL_2");
+            xhttp=new XMLHttpRequest();
+            xhttp.open("POST",url,false);
+            xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            xhttp.send(params);
+            console.log("after getting response" + xhttp.responseText);
+            response = JSON.parse(xhttp.responseText);
+            result=response.status;
+            UpdateTestResults(tcid,result);
+            Enable();
+            break;
         case "HUL1_3":
             console.log("running testcase HUL_2");
             xhttp=new XMLHttpRequest();
@@ -1138,7 +1138,7 @@ function RunTestCase(tcid,StepNum)
             result=response.status;
             UpdateTestResults(tcid,result);
             Enable();
-            break;*/
+            break;
 }
     if(testMode==="auto"){
         nextTestCase();

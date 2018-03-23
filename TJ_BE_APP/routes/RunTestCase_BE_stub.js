@@ -60,85 +60,72 @@ router.all('/', function(req, res, next)
         var response={"status":"Failed"};
         res.send(response);
     }
-    switch (DUTID_TCID)
-    {
-        case "M10_1" :
-        {
+    switch (DUTID_TCID) {
+        case "M10_1" : {
             console.log("M10_1 selected");
-                    console.log("Check if HDMI Cable is Connected");
-                    Success();
-                    break;
+            console.log("Check if HDMI Cable is Connected");
+            Success();
+            break;
 
         }
-        case "M10_2" :
-        {
+        case "M10_2" : {
             console.log("M10_2 selected");
-                    console.log("Push the power button");
-                    console.log("Is the Power LED Turned Green?");
-                    Success();
-                    break;
+            console.log("Push the power button");
+            console.log("Is the Power LED Turned Green?");
+            Success();
+            break;
         }
-        case "M10_3" :
-        {
+        case "M10_3" : {
             console.log("M10_3 selected");
             Success();
             break;
         }
-        case "M10_4" :
-        {
+        case "M10_4" : {
             console.log("M10_4 selected");
             Success();
             break;
         }
-        case "M10_5" :
-        {
+        case "M10_5" : {
             console.log("M10_5 selected");
             Success();
             break;
         }
 
-        case "M10_6" :
-        {
+        case "M10_6" : {
             console.log("M10_6 selected");
             Success();
             break;
         }
 
-        case "M10_7" :
-        {
+        case "M10_7" : {
             console.log("M10_7 selected");
             Success();
             break;
         }
-        case "M10_8" :
-        {
+        case "M10_8" : {
             console.log("M10_8 selected");
             Success();
             break;
         }
-        case "M10_9" :
-        {
+        case "M10_9" : {
             console.log("M10_9 selected");
             Success();
             break;
         }
-        case "CC_1":
-        {
+        case "CC_1": {
             console.log("CC_1 selected");
-                    console.log("CC_1 step 1");
-                    Success();
-                    break;
+            console.log("CC_1 step 1");
+            Success();
+            break;
         }
-        case "CC_2":
-        {
+        case "CC_2": {
             console.log("CC_2 selected");
             console.log("Push the power button");
             console.log("Is the Power LED Turned Green?");
             Success();
             break;
         }
-        case "FNFC_1":
-        {
+        case "FNFC_1": {
             console.log("FNFC_1 selected");
             /*
               rdport2.on('data', function (data) {
@@ -162,8 +149,7 @@ router.all('/', function(req, res, next)
             Success();
             break;
         }
-        case "IRNFC_1":
-        {
+        case "IRNFC_1": {
             console.log("IRNFC_1 selected");
             /*
               rdport2.on('data', function (data) {
@@ -172,71 +158,67 @@ router.all('/', function(req, res, next)
                     console.log('ASCII:', data.toString());
                 });
             */
-/*
-            firstTimer = setTimeout(function ()  {
-                console.log("Second function called");
-                console.log("timeout cleared");
-            },10000);
+            /*
+                        firstTimer = setTimeout(function ()  {
+                            console.log("Second function called");
+                            console.log("timeout cleared");
+                        },10000);
 
-            secondTimer = setTimeout(function () {
-                console.log("First function called");
-                //clearTimeout(firstTimer);
-                Success();
-            },1000);
- */
+                        secondTimer = setTimeout(function () {
+                            console.log("First function called");
+                            //clearTimeout(firstTimer);
+                            Success();
+                        },1000);
+             */
             Success();
             break;
         }
-        case "IRNFC_2":
-    {
-        console.log("IRNFC_2 selected");
-        console.log("CC_1 step 1");
-        Success();
-        break;
-    }
-    case "IRNFC_3":
-    {
-        console.log("IRNFC_3 selected");
-        console.log("CC_1 step 1");
-        Success();
-        break;
-    }
-    case "IRNFC_4":
-        {
+        case "IRNFC_2": {
+            console.log("IRNFC_2 selected");
+            console.log("CC_1 step 1");
+            Success();
+            break;
+        }
+        case "IRNFC_3": {
+            console.log("IRNFC_3 selected");
+            console.log("CC_1 step 1");
+            Success();
+            break;
+        }
+        case "IRNFC_4": {
             console.log("IRNFC_4 selected");
             console.log("Push the power button");
             console.log("Is the Power LED Turned Green?");
             Success();
             break;
         }
-    case "ESR_1":
-    {
-        console.log("ESR_1 selected");
-        console.log("Just Sending Success");
+        case "ESR_1": {
+            console.log("ESR_1 selected");
+            console.log("Just Sending Success");
 
-        firstTimer = setTimeout(function () {
-            console.log("Second function called");
-            console.log("timeout cleared");
-        },6000);
+            firstTimer = setTimeout(function () {
+                console.log("Second function called");
+                console.log("timeout cleared");
+            }, 6000);
 
-        secondTimer = setTimeout(function () {
-            console.log("First function called");
-            clearTimeout(firstTimer);
-            Success();
-        },2000);
+            secondTimer = setTimeout(function () {
+                console.log("First function called");
+                clearTimeout(firstTimer);
+                Success();
+            }, 2000);
 
 //        Success();
-        break;
-    }
-}
-/*switch(DUTID_TCID){
-    case "HUL1_1":
-    {
-        console.log("HUL1_1 selected");
-        console.log("Voltage of 5V from Regulator");
-        Success();
-        break;
-    }
+        }
+            break;
+
+        /*switch(DUTID_TCID){*/
+        case "HUL1_1": {
+            console.log("HUL1_1 selected");
+            console.log("Voltage of 5V from Regulator");
+            Success();
+            break;
+        }
+
     case "HUL1_2":
     {
         console.log("HUL1_2 selected");
@@ -405,6 +387,7 @@ router.all('/', function(req, res, next)
         break;
 
     }
+    case  "HUL2_2":
     {
         console.log("HUL2_2 selected");
         console.log("LPS Open & Check");
@@ -412,6 +395,7 @@ router.all('/', function(req, res, next)
         break;
 
     }
+        case  "HUL2_3":
     {
         console.log("HUL2_3 selected");
         console.log("SV Short & Check");
@@ -419,6 +403,7 @@ router.all('/', function(req, res, next)
         break;
 
     }
+        case  "HUL2_4":
     {
         console.log("HUL2_4 selected");
         console.log("RO Short & Check");
@@ -426,6 +411,7 @@ router.all('/', function(req, res, next)
         break;
 
     }
+        case  "HUL2_5":
     {
         console.log("HUL2_5 selected");
         console.log("BP Short & Check");
@@ -433,6 +419,7 @@ router.all('/', function(req, res, next)
         break;
 
     }
+        case  "HUL2_6":
     {
         console.log("HUL2_6 selected");
         console.log("FS Tamper Check");
@@ -440,13 +427,15 @@ router.all('/', function(req, res, next)
         break;
 
     }
+        case  "HUL2_7":
     {
         console.log("HUL2_7 selected");
         console.log("RO Tamper Check");
         Success();
         break;
 
-    }
+    }case  "HUL2_8":
+
     {
         console.log("HUL2_8 selected");
         console.log("If all cases are successful wait for 3 minutes ");
@@ -454,6 +443,7 @@ router.all('/', function(req, res, next)
         break;
 
     }
+        case  "HUL2_9":
     {
         console.log("HUL2_9 selected");
         console.log("If 1-8 are successful Generate Bar Code & communicate to printer");
@@ -463,7 +453,7 @@ router.all('/', function(req, res, next)
     }
 
 
-}*/
+}
 });
 
 module.exports = router;
