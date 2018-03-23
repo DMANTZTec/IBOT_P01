@@ -2,7 +2,7 @@ var express = require('express');
 var dateFormat=require('dateformat');
 var router = express.Router();
 var fs=require('fs');
-var testResultsFileNM="./hive/testResults.json";
+var testResultsFileNM="./hive/testResults.txt";
 //var TestResultDetails=require('../TestResultDetails..json');
 /* GET home page. */
 var hiveMappingDataSummary =
@@ -103,14 +103,29 @@ router.post('/', function(req, res, next)
            console.log("Some issue: ", response.statusCode);
         }
     });*/
+   //var resultsarray=[];
+   //resultsarray.push(testResultsToHiveJsonObj);
+   //console.log("resultsarray:"+JSON.stringify(resultsarray));
 
-    fs.writeFile(testResultsFileNM, JSON.stringify(testResultsToHiveJsonObj), function (err) {
-        if (err) throw err;
-        else
-        console.log("saved testResultsToHiveJsonObj to testResults file Succesfully");
-    });
-
-
+    if(fs.existsSync(testResultsFileNM))
+    {
+        console.log("append loop");
+        fs.appendFile(testResultsFileNM,"\n"+JSON.stringify(testResultsToHiveJsonObj),function (err) {
+            if(err) throw err;
+            console.log("appended testResultsToHiveJsonObj");
+        });
+    }
+    else if(!fs.existsSync(testResultsFileNM)){
+        console.log("create loop");
+        fs.writeFile(testResultsFileNM, JSON.stringify(testResultsToHiveJsonObj), function (err) {
+            if (err) throw err;
+            else
+                console.log("saved testResultsToHiveJsonObj to testResults file Succesfully");
+        });
+    }
+    var response = {"status": "Uploaded Succesfully"};
+    console.log(response);
+    res.send(response);
     /*if(fs.existsSync(testResultsFileNM)) {
         var TestResultsData = JSON.parse(fs.readFileSync(testResultsFileNM));
         console.log(TestResultsData);
@@ -133,7 +148,6 @@ router.post('/', function(req, res, next)
             res.send(response);
         }
     }*/
-
 
 });
 module.exports = router;
