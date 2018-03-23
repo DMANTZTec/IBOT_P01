@@ -1,0 +1,14 @@
+{
+  "TestJigList": [
+    {
+      "DUT_ID": "HUL1",
+      "DUT_NM": "HUL1_app",
+      "DESC_FILE": "HUL1_Config.json"
+    },
+    {
+      "DUT_ID": "HUL2",
+      "DUT_NM": "HUL2_app",
+      "DESC_FILE": "HUL2_Config.json"
+    }
+  ]
+}

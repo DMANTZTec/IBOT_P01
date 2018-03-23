@@ -1,0 +1,316 @@
+{
+  "DUT": "HUL1",
+  "TestCases": [
+    {
+      "TCID": "1",
+      "TCSHORTNM":"HUl1_1",
+      "DESC": "Voltage of 5V from Regulator",
+      "COMMENT": "S",
+      "Steps" : [
+        {
+          "StepNumber": 1,
+          "StepPromptText":"Check if HDMI Cable is Connected",
+          "StepInputText":["Value1","Value2","Value3"]
+        }]
+    },
+    {
+      "TCID": "2",
+      "TCSHORTNM":"HUl1_2",
+      "DESC": "Voltage 3.3 from Regulator",
+      "COMMENT": "S",
+      "Steps" : [
+        {
+          "StepNumber": 1,
+          "StepPromptText":"Push the power button",
+          "StepInputText":["Value1","Value2","Value3"]
+        },
+
+        {
+          "StepNumber": 2,
+          "StepPromptText":"Is the Power LED Turned Green?",
+          "StepInputText":["Value1","Value2","Value3"]
+        }]
+
+    },
+    {
+      "TCID": "3",
+      "TCSHORTNM":"HUl1_3",
+      "DESC": "SV Voltage Check",
+      "COMMENT": "S",
+      "Steps" : [
+        {
+          "StepNumber": 1,
+          "StepPromptText":"Push the power button",
+          "StepInputText":["Value1","Value2","Value3"]
+        },
+
+        {
+          "StepNumber": 2,
+          "StepPromptText":"Is the Power LED Turned Green?",
+          "StepInputText":["Value1","Value2","Value3"]
+        }]
+
+    },
+    {
+      "TCID": "4",
+      "TCSHORTNM":"HUl1_4",
+      "DESC": "RV Voltage Check",
+      "COMMENT": "S",
+      "Steps" : [
+        {
+          "StepNumber": 1,
+          "StepPromptText":"Check if HDMI Cable is Connected",
+          "StepInputText":["Value1","Value2","Value3"]
+        }]
+
+    },
+    {
+      "TCID": "5",
+      "TCSHORTNM":"HUl1_5",
+      "DESC": "BP Voltage Check",
+      "COMMENT": "S",
+      "Steps" : [
+        {
+          "StepNumber": 1,
+          "StepPromptText":"Check if HDMI Cable is Connected",
+          "StepInputText":["Value1","Value2","Value3"]
+        }
+      ]
+
+    },
+    {
+      "TCID": "6",
+      "TCSHORTNM":"HUl1_6",
+      "DESC": "SV Alert Check",
+      "COMMENT": " H Enable SV Relay and checking for Signal at SV Alert Reboot required",
+      "Steps" : [
+        {
+          "StepNumber": 1,
+          "StepPromptText":"Check if HDMI Cable is Connected",
+          "StepInputText":["Value1","Value2","Value3"]
+        }]
+    },
+    {
+      "TCID": "7",
+      "TCSHORTNM":"HUl1_",
+      "DESC": "RV Alert Check ",
+      "COMMENT": "H Restart required",
+      "Steps" : [
+        {
+          "StepNumber": 1,
+          "StepPromptText":"Check if HDMI Cable is Connected",
+          "StepInputText":["Value1","Value2","Value3"]
+        }]
+    },
+    {
+      "TCID": "8",
+      "TCSHORTNM":"HUl1_8",
+      "DESC": "BP Alert Check",
+      "COMMENT": "H Restart required",
+      "Steps" : [
+        {
+          "StepNumber": 1,
+          "StepPromptText":"Check if HDMI Cable is Connected",
+          "StepInputText":["Value1","Value2","Value3"]
+        }]
+
+    },
+    {
+      "TCID": "9",
+      "TCSHORTNM":"HUl1_9",
+      "DESC": "Pump Enable  Check",
+      "COMMENT": "S",
+      "Steps" : [
+        {
+          "StepNumber": 1,
+          "StepPromptText":"Check if HDMI Cable is Connected",
+          "StepInputText":["Value1","Value2","Value3"]
+        }]
+
+    },
+    {
+      "TCID": "10",
+      "TCSHORTNM":"HUl1_10",
+      "DESC": "BP Enable  Check",
+      "COMMENT": "S",
+      "Steps" : [
+        {
+          "StepNumber": 1,
+          "StepPromptText":"Check if HDMI Cable is Connected",
+          "StepInputText":["Value1","Value2","Value3"]
+        }]
+
+    },
+    {
+      "TCID": "11",
+      "TCSHORTNM":"HUl1_11",
+      "DESC": "LPS Check",
+      "COMMENT": "S",
+      "Steps" : [
+        {
+          "StepNumber": 1,
+          "StepPromptText":"Check Filter NFC Tag Detect,Write and Reading",
+          "StepInputText":["Value1","Value2","Value3"]
+        }]
+
+    },
+    {
+      "TCID": "12",
+      "TCSHORTNM":"HUl1_12",
+      "DESC": "LCS Check",
+      "COMMENT": "S",
+      "Steps" : [
+        {
+          "StepNumber": 1,
+          "StepPromptText":"Check Filter NFC Tag Detect,Write and Reading",
+          "StepInputText":["Value1","Value2","Value3"]
+        }]
+
+    },
+    {
+      "TCID": "13",
+      "TCSHORTNM":"HUl1_13",
+      "DESC": "LPS Check",
+      "COMMENT": "S",
+      "Steps" : [
+        {
+          "StepNumber": 1,
+          "StepPromptText":"IRNFC Check if HDMI Cable is Connected",
+          "StepInputText":["Value1","Value2","Value3"]
+        }]
+    },
+    {
+      "TCID": "14",
+      "TCSHORTNM":"HUl1_14",
+      "DESC": "Flow Sensor Check",
+      "COMMENT": "M",
+      "Steps" : [
+        {
+          "StepNumber": 1,
+          "StepPromptText":"IRNFC Check if HDMI Cable is Connected",
+          "StepInputText":["Value1","Value2","Value3"]
+        }]
+    },
+    {
+      "TCID": "15",
+      "TCSHORTNM":"HUl1_15",
+      "DESC": "UART 0",
+      "COMMENT": "M",
+      "Steps" : [
+        {
+          "StepNumber": 1,
+          "StepPromptText":"IRNFC Check if HDMI Cable is Connected",
+          "StepInputText":["Value1","Value2","Value3"]
+        }]
+    },
+    {
+      "TCID": "16",
+      "TCSHORTNM":"HUl1_16",
+      "DESC": "UART 0",
+      "COMMENT": "M",
+      "Steps" : [
+        {
+          "StepNumber": 1,
+          "StepPromptText":"IRNFC Check if HDMI Cable is Connected",
+          "StepInputText":["Value1","Value2","Value3"]
+        }]
+    },
+    {
+      "TCID": "17",
+      "TCSHORTNM":"HUl1_17",
+      "DESC":"LCD Signal Check ?",
+      "COMMENT": "M",
+      "Steps" : [
+        {
+          "StepNumber": 1,
+          "StepPromptText":"IRNFC Check if HDMI Cable is Connected",
+          "StepInputText":["Value1","Value2","Value3"]
+        }]
+    },
+    {
+      "TCID": "18",
+      "TCSHORTNM":"HUl1_18",
+      "DESC": "JTAG Signal Check ( If Flashing is working then no need to test)",
+      "COMMENT": "S",
+      "Steps" : [
+        {
+          "StepNumber": 1,
+          "StepPromptText":"IRNFC Check if HDMI Cable is Connected",
+          "StepInputText":["Value1","Value2","Value3"]
+        }]
+    },
+    {
+      "TCID": "19",
+      "TCSHORTNM":"HUl1_19",
+      "DESC": "LCS Disable & LCS Check ",
+      "COMMENT": "H Puts in Stand By Mode",
+      "Steps" : [
+        {
+          "StepNumber": 1,
+          "StepPromptText":"IRNFC Check if HDMI Cable is Connected",
+          "StepInputText":["Value1","Value2","Value3"]
+        }]
+    },
+    {
+      "TCID": "20",
+      "TCSHORTNM":"HUl1_20",
+      "DESC": "Pump Enable Check",
+      "COMMENT": "H For LOW",
+      "Steps" : [
+        {
+          "StepNumber": 1,
+          "StepPromptText":"IRNFC Check if HDMI Cable is Connected",
+          "StepInputText":["Value1","Value2","Value3"]
+        }]
+    },
+    {
+      "TCID": "21",
+      "TCSHORTNM":"HUl1_21",
+      "DESC": "BP Enable Check ",
+      "COMMENT": "H For LOW",
+      "Steps" : [
+        {
+          "StepNumber": 1,
+          "StepPromptText":"IRNFC Check if HDMI Cable is Connected",
+          "StepInputText":["Value1","Value2","Value3"]
+        }]
+    },
+    {
+      "TCID": "22",
+      "TCSHORTNM":"HUl1_2",
+      "DESC": "LCS Enable & LPS Disable",
+      "COMMENT": "H",
+      "Steps" : [
+        {
+          "StepNumber": 1,
+          "StepPromptText":"IRNFC Check if HDMI Cable is Connected",
+          "StepInputText":["Value1","Value2","Value3"]
+        }]
+    },
+    {
+      "TCID": "23",
+      "TCSHORTNM":"HUl1_23",
+      "DESC": "Pump Enable Check ",
+      "COMMENT": "H",
+      "Steps" : [
+        {
+          "StepNumber": 1,
+          "StepPromptText":"IRNFC Check if HDMI Cable is Connected",
+          "StepInputText":["Value1","Value2","Value3"]
+        }]
+    },
+    {
+      "TCID": "24",
+      "TCSHORTNM":"HUl1_24",
+      "DESC": "If all cases are successful , prompt for IQ Bar Code ",
+      "COMMENT": "H – Bar Code need to be read twice",
+      "Steps" : [
+      {
+        "StepNumber": 1,
+        "StepPromptText":"IRNFC Check if HDMI Cable is Connected",
+        "StepInputText":["Value1","Value2","Value3"]
+      }]
+    }
+
+  ]
+}

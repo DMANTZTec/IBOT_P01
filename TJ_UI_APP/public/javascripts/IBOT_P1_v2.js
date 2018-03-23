@@ -2,12 +2,14 @@ var modal1 = document.getElementById('myModal1');
 var modal = document.getElementById('SettingsModalID');
 var modal2 = document.getElementById('myModal2');
 var jigtype = document.getElementById('TestJigSelectList');
+var producttype=document.getElementById('producttype');
 var testModeOption = document.getElementById('testModeOption');
-
 var testMode = "manual"; //default to auto testing mode
 var testCaseData;
 var testJigData;
 var testJigList;
+//var TestJigLists;
+var productType;
 var LoadedTestCase;
 var PreviousTestcase;
 var PreviousTestCaseButtonId;
@@ -61,12 +63,11 @@ var testResultDetailsTemplate=
         "MANUFACTURER":"MANUFACTURER1",
         "PCB_NM":"PCB_NM"
     };
-function UpdateTestJigData(){
+function UpdateTestJigData()
+{
     //Set TestJigType in the backend
     //LoadTestJigData
 }
-
-
 function checkIfAllCasesRan()
 {
     var finalResult;
@@ -153,7 +154,7 @@ function UpdateTestResults(testCaseId,result)
                 testResultDetails.objTestCaseResults[i].TCID=LoadedTestCase.TCID;
                 //testResultDetail.DETAILS[i].TCSHORTNM=LoadedTestCase.TCSHORTNM;
                 testResultDetails.objTestCaseResults[i].DESC=LoadedTestCase.DESC;
-                testResultDetails.objTestCaseResults[i].TRY_CNT = testResultDetail.objTestCaseResults[i].TRY_CNT + 1;
+                testResultDetails.objTestCaseResults[i].TRY_CNT = testResultDetails.objTestCaseResults[i].TRY_CNT + 1;
                 if (result == "success") {
                     testResultDetails.objTestCaseResults[i].TD_SUCCESS_CNT = testResultDetails.objTestCaseResults[i].TD_SUCCESS_CNT+1;
                     if(testResultDetails.objTestCaseResults[i].LAST_STATUS=="failed") {
@@ -191,7 +192,7 @@ function ResetScreen(){
     document.getElementById('TestCaseRunInstruction').value = "";
     document.getElementById('TestCaseRunTimer').value = "";
     document.getElementById('TestCasesFinalResult').value = "";
-    Disable();
+    //Disable();
     console.log("Exiting ResetScreen");
 }
 
@@ -212,6 +213,7 @@ function LoadTestJigData() {
             console.log("after getting response" + xhttp.responseText);
             var response=JSON.parse(this.responseText);
             if(response.status=="success") {
+
                 testJigList=response.TestJigList;
                 testJigData=response.TestJigData;
                 testCaseData = response.TestCaseData;
@@ -224,6 +226,8 @@ function LoadTestJigData() {
                 //testResultDetails.TESTCASE_FILE_NM =testJigData.TestCaseFile;
                 for(i=0;i<testCaseData.TestCases.length;i++)
                 {
+                    //console.log(process.argv);
+
                     testResultDetails.objTestCaseResults.push({});
                 }
                 console.log(testResultDetails.objTestCaseResults);
@@ -265,7 +269,7 @@ function LoadTestJigData() {
 
 function LoadTestJigDataSync() {
     //Initialize Test Jig Data
-    Disable() //disable all clickable elements
+    Disable() ;//disable all clickable elements
     initialize();
     var xhttp = new XMLHttpRequest();
     var url = "http://localhost:3001/LoadTestJigData_BE";
@@ -277,6 +281,8 @@ function LoadTestJigDataSync() {
     var response = JSON.parse(xhttp.responseText);
     if (response.status == "success") {
         testJigList = response.TestJigList;
+        //TMP
+        console.log(testJigList);
         testJigData = response.TestJigData;
         testCaseData = response.TestCaseData;
         //Fill TestJig Details in to Results Detail.
@@ -583,16 +589,16 @@ function RunTestCase(tcid,StepNum)
          console.log("Yes going through new logic");
          //document.getElementById('TestCaseRunStatus').style.display="none";
          document.getElementById('TestCaseRunInstruction').style.display="block";
-	 document.getElementById('TestCaseRunInstruction').style.color="blue";
-	 document.getElementById('TestCaseRunInstruction').value = "Place TestStrip on Filter NFC Sensor";
-	 var fnfctimerCount = 10;
-	 document.getElementById('TestCaseRunTimer').style.display="block";
-	 document.getElementById('TestCaseRunTimer').style.color="orange";
-	 document.getElementById('TestCaseRunTimer').value="";
-	 var fnfccountDown = setInterval(function () {
-	 document.getElementById('TestCaseRunTimer').value = fnfctimerCount;
-	 fnfctimerCount = fnfctimerCount - 1;
-	 console.log("Counting down :" + fnfctimerCount);
+         document.getElementById('TestCaseRunInstruction').style.color="blue";
+	     document.getElementById('TestCaseRunInstruction').value = "Place TestStrip on Filter NFC Sensor";
+	     var fnfctimerCount = 10;
+	     document.getElementById('TestCaseRunTimer').style.display="block";
+	     document.getElementById('TestCaseRunTimer').style.color="orange";
+	     document.getElementById('TestCaseRunTimer').value="";
+	     var fnfccountDown = setInterval(function () {
+	     document.getElementById('TestCaseRunTimer').value = fnfctimerCount;
+	     fnfctimerCount = fnfctimerCount - 1;
+	     console.log("Counting down :" + fnfctimerCount);
 
          }, 1000);
           xhttp = new XMLHttpRequest();
@@ -630,16 +636,16 @@ function RunTestCase(tcid,StepNum)
          console.log("Yes going through new logic");
          //document.getElementById('TestCaseRunStatus').style.display="none";
          document.getElementById('TestCaseRunInstruction').style.display="block";
-	 document.getElementById('TestCaseRunInstruction').style.color="blue";
-	 document.getElementById('TestCaseRunInstruction').value = "Place TestStrip on IRNFC Sensor and remove it";
-	 var timerCount = 10;
-	 document.getElementById('TestCaseRunTimer').style.display="block";
-	 document.getElementById('TestCaseRunTimer').style.color="orange";
-	 document.getElementById('TestCaseRunTimer').value="";
-	 countDown = setInterval(function () {
-	 document.getElementById('TestCaseRunTimer').value = timerCount;
-	 timerCount = timerCount - 1;
-	 console.log("Counting down :" + timerCount);
+	    document.getElementById('TestCaseRunInstruction').style.color="blue";
+	    document.getElementById('TestCaseRunInstruction').value = "Place TestStrip on IRNFC Sensor and remove it";
+	    var timerCount = 10;
+	    document.getElementById('TestCaseRunTimer').style.display="block";
+	    document.getElementById('TestCaseRunTimer').style.color="orange";
+	    document.getElementById('TestCaseRunTimer').value="";
+	     countDown = setInterval(function () {
+	    document.getElementById('TestCaseRunTimer').value = timerCount;
+	    timerCount = timerCount - 1;
+	    console.log("Counting down :" + timerCount);
 
             }, 1000);
             xhttp = new XMLHttpRequest();
@@ -686,12 +692,12 @@ function RunTestCase(tcid,StepNum)
             Enable();
             break;
         case "IRNFC_3":
-        console.log("IRNFC TC3 selected");
-        xhttp = new XMLHttpRequest();
-        xhttp.open("POST", url, false);
-        xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-        xhttp.send(params);
-        console.log("after getting response" + xhttp.responseText);
+            console.log("IRNFC TC3 selected");
+            xhttp = new XMLHttpRequest();
+            xhttp.open("POST", url, false);
+            xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            xhttp.send(params);
+            console.log("after getting response" + xhttp.responseText);
             response=JSON.parse(xhttp.responseText);
             result=response.status;
             UpdateTestResults(tcid,result);
@@ -737,7 +743,403 @@ function RunTestCase(tcid,StepNum)
             UpdateTestResults(tcid,result);
             Enable();
             break;
-    }
+        case "HUL1_1":
+            console.log("running testcase HUL_1");
+            xhttp=new XMLHttpRequest();
+            xhttp.open("POST",url,false);
+            xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            xhttp.send(params);
+            console.log("after getting response" + xhttp.responseText);
+            response = JSON.parse(xhttp.responseText);
+            result=response.status;
+            UpdateTestResults(tcid,result);
+            Enable();
+            break;
+        case "HUL1_2":
+            console.log("running testcase HUL_2");
+            xhttp=new XMLHttpRequest();
+            xhttp.open("POST",url,false);
+            xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            xhttp.send(params);
+            console.log("after getting response" + xhttp.responseText);
+            response = JSON.parse(xhttp.responseText);
+            result=response.status;
+            UpdateTestResults(tcid,result);
+            Enable();
+            break;
+        case "HUL1_3":
+            console.log("running testcase HUL_2");
+            xhttp=new XMLHttpRequest();
+            xhttp.open("POST",url,false);
+            xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            xhttp.send(params);
+            console.log("after getting response" + xhttp.responseText);
+            response = JSON.parse(xhttp.responseText);
+            result=response.status;
+            UpdateTestResults(tcid,result);
+            Enable();
+            break;
+        case "HUL1_4":
+            console.log("running testcase HUL_2");
+            xhttp=new XMLHttpRequest();
+            xhttp.open("POST",url,false);
+            xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            xhttp.send(params);
+            console.log("after getting response" + xhttp.responseText);
+            response = JSON.parse(xhttp.responseText);
+            result=response.status;
+            UpdateTestResults(tcid,result);
+            Enable();
+            break;
+        case "HUL1_5":
+            console.log("running testcase HUL_2");
+            xhttp=new XMLHttpRequest();
+            xhttp.open("POST",url,false);
+            xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            xhttp.send(params);
+            console.log("after getting response" + xhttp.responseText);
+            response = JSON.parse(xhttp.responseText);
+            result=response.status;
+            UpdateTestResults(tcid,result);
+            Enable();
+            break;
+        case "HUL1_6":
+            console.log("running testcase HUL_2");
+            xhttp=new XMLHttpRequest();
+            xhttp.open("POST",url,false);
+            xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            xhttp.send(params);
+            console.log("after getting response" + xhttp.responseText);
+            response = JSON.parse(xhttp.responseText);
+            result=response.status;
+            UpdateTestResults(tcid,result);
+            Enable();
+            break;
+        case "HUL1_7":
+            console.log("running testcase HUL_2");
+            xhttp=new XMLHttpRequest();
+            xhttp.open("POST",url,false);
+            xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            xhttp.send(params);
+            console.log("after getting response" + xhttp.responseText);
+            response = JSON.parse(xhttp.responseText);
+            result=response.status;
+            UpdateTestResults(tcid,result);
+            Enable();
+            break;
+        case "HUL1_8":
+            console.log("running testcase HUL_2");
+            xhttp=new XMLHttpRequest();
+            xhttp.open("POST",url,false);
+            xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            xhttp.send(params);
+            console.log("after getting response" + xhttp.responseText);
+            response = JSON.parse(xhttp.responseText);
+            result=response.status;
+            UpdateTestResults(tcid,result);
+            Enable();
+            break;
+        case "HUL1_9":
+            console.log("running testcase HUL_2");
+            xhttp=new XMLHttpRequest();
+            xhttp.open("POST",url,false);
+            xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            xhttp.send(params);
+            console.log("after getting response" + xhttp.responseText);
+            response = JSON.parse(xhttp.responseText);
+            result=response.status;
+            UpdateTestResults(tcid,result);
+            Enable();
+            break;
+        case "HUL1_10":
+            console.log("running testcase HUL_2");
+            xhttp=new XMLHttpRequest();
+            xhttp.open("POST",url,false);
+            xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            xhttp.send(params);
+            console.log("after getting response" + xhttp.responseText);
+            response = JSON.parse(xhttp.responseText);
+            result=response.status;
+            UpdateTestResults(tcid,result);
+            Enable();
+            break;
+        case "HUL1_11":
+            console.log("running testcase HUL_2");
+            xhttp=new XMLHttpRequest();
+            xhttp.open("POST",url,false);
+            xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            xhttp.send(params);
+            console.log("after getting response" + xhttp.responseText);
+            response = JSON.parse(xhttp.responseText);
+            result=response.status;
+            UpdateTestResults(tcid,result);
+            Enable();
+            break;
+        case "HUL1_12":
+            console.log("running testcase HUL_2");
+            xhttp=new XMLHttpRequest();
+            xhttp.open("POST",url,false);
+            xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            xhttp.send(params);
+            console.log("after getting response" + xhttp.responseText);
+            response = JSON.parse(xhttp.responseText);
+            result=response.status;
+            UpdateTestResults(tcid,result);
+            Enable();
+            break;
+        case "HUL1_13":
+            console.log("running testcase HUL_2");
+            xhttp=new XMLHttpRequest();
+            xhttp.open("POST",url,false);
+            xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            xhttp.send(params);
+            console.log("after getting response" + xhttp.responseText);
+            response = JSON.parse(xhttp.responseText);
+            result=response.status;
+            UpdateTestResults(tcid,result);
+            Enable();
+            break;
+        case "HUL1_14":
+            console.log("running testcase HUL_2");
+            xhttp=new XMLHttpRequest();
+            xhttp.open("POST",url,false);
+            xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            xhttp.send(params);
+            console.log("after getting response" + xhttp.responseText);
+            response = JSON.parse(xhttp.responseText);
+            result=response.status;
+            UpdateTestResults(tcid,result);
+            Enable();
+            break;
+        case "HUL1_15":
+            console.log("running testcase HUL_2");
+            xhttp=new XMLHttpRequest();
+            xhttp.open("POST",url,false);
+            xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            xhttp.send(params);
+            console.log("after getting response" + xhttp.responseText);
+            response = JSON.parse(xhttp.responseText);
+            result=response.status;
+            UpdateTestResults(tcid,result);
+            Enable();
+            break;
+        case "HUL1_16":
+            console.log("running testcase HUL_2");
+            xhttp=new XMLHttpRequest();
+            xhttp.open("POST",url,false);
+            xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            xhttp.send(params);
+            console.log("after getting response" + xhttp.responseText);
+            response = JSON.parse(xhttp.responseText);
+            result=response.status;
+            UpdateTestResults(tcid,result);
+            Enable();
+            break;
+        case "HUL1_17":
+            console.log("running testcase HUL_2");
+            xhttp=new XMLHttpRequest();
+            xhttp.open("POST",url,false);
+            xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            xhttp.send(params);
+            console.log("after getting response" + xhttp.responseText);
+            response = JSON.parse(xhttp.responseText);
+            result=response.status;
+            UpdateTestResults(tcid,result);
+            Enable();
+            break;
+        case "HUL1_18":
+            console.log("running testcase HUL_2");
+            xhttp=new XMLHttpRequest();
+            xhttp.open("POST",url,false);
+            xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            xhttp.send(params);
+            console.log("after getting response" + xhttp.responseText);
+            response = JSON.parse(xhttp.responseText);
+            result=response.status;
+            UpdateTestResults(tcid,result);
+            Enable();
+            break;
+        case "HUL1_19":
+            console.log("running testcase HUL_2");
+            xhttp=new XMLHttpRequest();
+            xhttp.open("POST",url,false);
+            xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            xhttp.send(params);
+            console.log("after getting response" + xhttp.responseText);
+            response = JSON.parse(xhttp.responseText);
+            result=response.status;
+            UpdateTestResults(tcid,result);
+            Enable();
+            break;
+        case "HUL1_20":
+            console.log("running testcase HUL_2");
+            xhttp=new XMLHttpRequest();
+            xhttp.open("POST",url,false);
+            xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            xhttp.send(params);
+            console.log("after getting response" + xhttp.responseText);
+            response = JSON.parse(xhttp.responseText);
+            result=response.status;
+            UpdateTestResults(tcid,result);
+            Enable();
+            break;
+        case "HUL1_21":
+            console.log("running testcase HUL_2");
+            xhttp=new XMLHttpRequest();
+            xhttp.open("POST",url,false);
+            xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            xhttp.send(params);
+            console.log("after getting response" + xhttp.responseText);
+            response = JSON.parse(xhttp.responseText);
+            result=response.status;
+            UpdateTestResults(tcid,result);
+            Enable();
+            break;
+        case "HUL1_22":
+            console.log("running testcase HUL_2");
+            xhttp=new XMLHttpRequest();
+            xhttp.open("POST",url,false);
+            xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            xhttp.send(params);
+            console.log("after getting response" + xhttp.responseText);
+            response = JSON.parse(xhttp.responseText);
+            result=response.status;
+            UpdateTestResults(tcid,result);
+            Enable();
+            break;
+        case "HUL1_23":
+            console.log("running testcase HUL_2");
+            xhttp=new XMLHttpRequest();
+            xhttp.open("POST",url,false);
+            xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            xhttp.send(params);
+            console.log("after getting response" + xhttp.responseText);
+            response = JSON.parse(xhttp.responseText);
+            result=response.status;
+            UpdateTestResults(tcid,result);
+            Enable();
+            break;
+        case "HUL1_24":
+            console.log("running testcase HUL_2");
+            xhttp=new XMLHttpRequest();
+            xhttp.open("POST",url,false);
+            xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            xhttp.send(params);
+            console.log("after getting response" + xhttp.responseText);
+            response = JSON.parse(xhttp.responseText);
+            result=response.status;
+            UpdateTestResults(tcid,result);
+            Enable();
+            break;
+        case "HUL2_1":
+            console.log("running testcase HUL_2");
+            xhttp=new XMLHttpRequest();
+            xhttp.open("POST",url,false);
+            xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            xhttp.send(params);
+            console.log("after getting response" + xhttp.responseText);
+            response = JSON.parse(xhttp.responseText);
+            result=response.status;
+            UpdateTestResults(tcid,result);
+            Enable();
+            break;
+        case "HUL2_2":
+            console.log("running testcase HUL_2");
+            xhttp=new XMLHttpRequest();
+            xhttp.open("POST",url,false);
+            xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            xhttp.send(params);
+            console.log("after getting response" + xhttp.responseText);
+            response = JSON.parse(xhttp.responseText);
+            result=response.status;
+            UpdateTestResults(tcid,result);
+            Enable();
+            break;
+        case "HUL2_3":
+            console.log("running testcase HUL_2");
+            xhttp=new XMLHttpRequest();
+            xhttp.open("POST",url,false);
+            xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            xhttp.send(params);
+            console.log("after getting response" + xhttp.responseText);
+            response = JSON.parse(xhttp.responseText);
+            result=response.status;
+            UpdateTestResults(tcid,result);
+            Enable();
+            break;
+        case "HUL2_4":
+            console.log("running testcase HUL_2");
+            xhttp=new XMLHttpRequest();
+            xhttp.open("POST",url,false);
+            xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            xhttp.send(params);
+            console.log("after getting response" + xhttp.responseText);
+            response = JSON.parse(xhttp.responseText);
+            result=response.status;
+            UpdateTestResults(tcid,result);
+            Enable();
+            break;
+        case "HUL2_5":
+            console.log("running testcase HUL_2");
+            xhttp=new XMLHttpRequest();
+            xhttp.open("POST",url,false);
+            xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            xhttp.send(params);
+            console.log("after getting response" + xhttp.responseText);
+            response = JSON.parse(xhttp.responseText);
+            result=response.status;
+            UpdateTestResults(tcid,result);
+            Enable();
+            break;
+        case "HUL2_6":
+            console.log("running testcase HUL_2");
+            xhttp=new XMLHttpRequest();
+            xhttp.open("POST",url,false);
+            xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            xhttp.send(params);
+            console.log("after getting response" + xhttp.responseText);
+            response = JSON.parse(xhttp.responseText);
+            result=response.status;
+            UpdateTestResults(tcid,result);
+            Enable();
+            break;
+        case "HUL2_7":
+            console.log("running testcase HUL_2");
+            xhttp=new XMLHttpRequest();
+            xhttp.open("POST",url,false);
+            xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            xhttp.send(params);
+            console.log("after getting response" + xhttp.responseText);
+            response = JSON.parse(xhttp.responseText);
+            result=response.status;
+            UpdateTestResults(tcid,result);
+            Enable();
+            break;
+        case "HUL2_8":
+            console.log("running testcase HUL_2");
+            xhttp=new XMLHttpRequest();
+            xhttp.open("POST",url,false);
+            xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            xhttp.send(params);
+            console.log("after getting response" + xhttp.responseText);
+            response = JSON.parse(xhttp.responseText);
+            result=response.status;
+            UpdateTestResults(tcid,result);
+            Enable();
+            break;
+        case "HUL2_9":
+            console.log("running testcase HUL_2");
+            xhttp=new XMLHttpRequest();
+            xhttp.open("POST",url,false);
+            xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            xhttp.send(params);
+            console.log("after getting response" + xhttp.responseText);
+            response = JSON.parse(xhttp.responseText);
+            result=response.status;
+            UpdateTestResults(tcid,result);
+            Enable();
+            break;
+}
     if(testMode==="auto"){
         nextTestCase();
         RunTestCase(LoadedTestCase.TCID,LoadedTestCase.Steps[0].StepNumber);
@@ -824,16 +1226,44 @@ function EnableOnLoad()
     };
     xhttp.send(params);
 }*/
+    function ReloadTestJigList(producttype) {
+        var xhttp = new XMLHttpRequest();
+        var url = "http://localhost:3001/LoadTestJigData_BE/ReloadProductType_BE";
+        xhttp.open("POST", url, false);
+        var request={"ProductType":producttype};
+        var params = JSON.stringify(request);
+        console.log(params);
+        var params = "inputJsonStr" + "=" + params;
+        xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        xhttp.send(params);
+        console.log("after getting response" + xhttp.responseText);
+        var response=JSON.parse(xhttp.responseText);
+        if(response.result=="success")
+        {
+           // document.location.reload(true);
+            LoadTestJigDataSync();
+        }
+        console.log(testJigList);
+        //TO Update Form Dropdown List for TestJig List
+        jigtype.innerHTML = '<option>' + "SelectJigType" + '</option>';
+        for (var i = 0; i < testJigList.TestJigList.length; i++) {
+            jigtype.innerHTML = jigtype.innerHTML +
+                '<option value="' + testJigList.TestJigList[i]['DUT_ID'] + '">' +
+                testJigList.TestJigList[i]['DUT_ID'] + '</option>';
+        }
+    }
 function DisplaySettingsModal()
 {
     modal.style.display = "block";
     jigtype.innerHTML="";
+
     jigtype.innerHTML = '<option>' + "SelectJigType" + '</option>';
     for (var i = 0; i < testJigList.TestJigList.length; i++) {
         jigtype.innerHTML = jigtype.innerHTML +
             '<option value="' + testJigList.TestJigList[i]['DUT_ID'] + '">' +
             testJigList.TestJigList[i]['DUT_ID'] + '</option>';
     }
+
 }
 
 function setTestMode(selectedTestMode){
@@ -944,7 +1374,7 @@ function viewResults() {
 
 function UploadTestResults()
 {
-    //modal2.style.display = "block";
+    modal2.style.display = "block";
     document.getElementById("uploaddata").innerHTML = "Uploading";
     var xhttp = new XMLHttpRequest();
     var url = "http://localhost:3001/ViewResults_BE";
