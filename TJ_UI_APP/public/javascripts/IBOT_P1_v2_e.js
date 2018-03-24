@@ -228,6 +228,7 @@ function LoadTestJigData() {
                 testResultDetails.DUT_SW_VER =testJigData.SW_VER;
                 testResultDetails.DUT_NM =testJigData.DUT_NM;
                 testResultDetails.PCB_NM =testJigData.DUT_NM;
+                testResultDetails.objTestCaseResults = [];
                 //testResultDetails.TESTCASE_FILE_NM =testJigData.TestCaseFile;
                 for(i=0;i<testCaseData.TestCases.length;i++)
                 {
@@ -291,6 +292,8 @@ function LoadTestJigDataSync() {
         testResultDetails.DUT_HW_VER = testJigData.HW_VER;
         testResultDetails.DUT_SW_VER = testJigData.SW_VER;
         testResultDetails.DUT_NM = testJigData.DUT_NM;
+        testResultDetails.PCB_NM =testJigData.DUT_NM;
+        testResultDetails.objTestCaseResults = [];
         //testResultDetails.TESTCASE_FILE_NM = testJigData.TestCaseFile;
         for (i = 0; i < testCaseData.TestCases.length; i++) {
             testResultDetails.objTestCaseResults.push({});
