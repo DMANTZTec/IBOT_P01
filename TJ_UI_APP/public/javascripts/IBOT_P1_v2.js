@@ -24,6 +24,7 @@ var testResultDetails=
         "DUT_HW_VER": "XX:YY",
         "DUT_SW_VER": "PP:QQ",
         "DUT_NM": "SHORTNM",
+        "TCSHORTNM":"",
         "SN":"XXXXXXX",
         "HW_VER":"XX:XX",
         "SW_VER":"XX:XX",
@@ -127,7 +128,7 @@ function UpdateTestResults(testCaseId,result)
                 testResultSummary.TestedCnt=testResultSummary.TestedCnt+1;
                 testResultDetails.objTestCaseResults[i].TEST_RUN_ID=9999999;
                 testResultDetails.objTestCaseResults[i].TCID=LoadedTestCase.TCID;
-                //testResultDetails.objTestCaseResults[i].TCSHORTNM=LoadedTestCase.TCSHORTNM;
+                testResultDetails.objTestCaseResults[i].TCSHORTNM=LoadedTestCase.TCSHORTNM;
                 testResultDetails.objTestCaseResults[i].DESC=LoadedTestCase.DESC;
                 testResultDetails.objTestCaseResults[i].LAST_STATUS = result;
                 testResultDetails.objTestCaseResults[i].TRY_CNT = 1;
@@ -1361,11 +1362,14 @@ function viewResults() {
         "<th id='th1'>DESC</th>" +
         "<th>LAST_STATUS</th></tr>";
     for (x in testResultDetails.objTestCaseResults) {
-        txt += "<tr id='tr'><td>" + testResultDetails.objTestCaseResults[x].TCID + "</td>" +
-            "<td>" + testResultDetails.objTestCaseResults[x].TCSHORTNM + "</td>" +
-            "<td>" + testResultDetails.objTestCaseResults[x].DESC + "</td>" +
-            "<td>" + testResultDetails.objTestCaseResults[x].LAST_STATUS + "</td>" +
-            "</tr>";
+        if (testResultDetails.objTestCaseResults[x].TCID == !undefined) {
+            console.log("undefined");
+            txt += "<tr id='tr'><td>" + testResultDetails.objTestCaseResults[x].TCID + "</td>" +
+                "<td>" + testResultDetails.objTestCaseResults[x].TCSHORTNM + "</td>" +
+                "<td>" + testResultDetails.objTestCaseResults[x].DESC + "</td>" +
+                "<td>" + testResultDetails.objTestCaseResults[x].LAST_STATUS + "</td>" +
+                "</tr>";
+        }
     }
     txt += "</table></div>";
     document.getElementById("show1").innerHTML = txt;

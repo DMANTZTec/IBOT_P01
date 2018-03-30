@@ -1,24 +1,33 @@
 var express = require('express');
 var router = express.Router();
 var fs=require('fs');
+var m10testcasesfilename='./config/M10_TestCases_V1.0.json';
+var m10testcasedata=JSON.parse(fs.readFileSync(m10testcasesfilename));
 /* GET home page. */
 var firstTimer;
 var irNfcTimer;
 var fNfcTimer;
+var m10Timer;
 var SerialPort = require('serialport');
 var irnfcReadPort = new SerialPort('/dev/ttyO2');
 var irnfcWritePort = irnfcReadPort;
 var fnfcReadPort = new SerialPort('/dev/ttyO4');
+var m10ReadPort=fnfcReadPort;
+var m10WritePort=m10ReadPort;
 var fnfcWritePort = fnfcReadPort;
 var irNfctestRunning='false';
 var fNfctestRunning='false';
+var m10testRunning='false';
 var flushIRNFCData;
 var flushFNFCData;
+var flushM10Data;
 var useIRNFCData = '';
 var useFNFCData = '';
+var useM10Data='';
 var validReading = false;
 var irnfcFirstRun = true;
 var fnfcFirstRun = true;
+var m10FirstRun=true;
 var irInFound = false;
 var irOutFound = false;
 var irnfcTagDetected = false;
@@ -33,9 +42,65 @@ router.all('/', function(req, res, next)
     var DUTID_TCID=jsonrequest.DUTID_TCID;
     var StepNum=jsonrequest.StepNum;
     console.log(DUTID_TCID + StepNum);
+    var testcasenum=DUTID_TCID.substr(DUTID_TCID.length-1);
+    var DUTID=DUTID_TCID.splice(0,-2);
+    console.log(DUTID);
+    console.log(testcasenum);
+    var testcasedataofselectedjigfilenm='./config/'+DUTID+'_TJ_TestCases_V1.0.json';
+    console.log(testcasedataofselectedjigfilenm);
+    var testcasedataofselectedjig=JSON.parse(fs.readFileSync(testcasedataofselectedjigfilenm));
+    console.log(testcasedataofselectedjig);
+    for(var i=0;i<testcasedataofselectedjig.TestCases.length;i++){
+        if(testcasedataofselectedjig.TestCases[i].TCID==testcasenum){
+            var TCSHORTNM=testcasedataofselectedjig.TestCases[i].TCSHORTNM;
+        }
+    }
     var b = require('bonescript');
-    var ackData='*1;K;e4#';
-    var nackData='*2;R;dc#';
+
+    function checksum8(inputStr,checksumValue) {
+
+        // convert input value to upper case
+        strN = new String(inputStr);
+        strN = strN.toUpperCase();
+
+        strHex = new String("0123456789ABCDEF");
+        result = 0;
+        fctr = 16;
+
+        for (i=0; i<strN.length; i++) {
+            if (strN.charAt(i) == " ") continue;
+
+            v = strHex.indexOf(strN.charAt(i));
+            if (v < 0) {
+                result = -1;
+                break;
+            }
+            result += v * fctr;
+
+            if (fctr == 16) fctr = 1;
+            else            fctr = 16;
+        }
+
+        if (result < 0) {
+            strResult = new String("Non-hex character");
+        }
+        else if (fctr == 1) {
+            strResult = new String("Odd number of characters");
+        }
+        else {
+            // Calculate 2's complement
+            result = (~(result & 0xff) + 1) & 0xFF;
+            // Convert result to string
+            //strResult = new String(result.toString());
+            strResult = strHex.charAt(Math.floor(result/16)) + strHex.charAt(result%16);
+        }
+        if (strResult === checksumValue){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
 
     function Success()
     {
@@ -47,83 +112,225 @@ router.all('/', function(req, res, next)
         var response={"status":"Failed"};
         res.send(response);
     }
+
     switch (DUTID_TCID)
     {
         case "M10_1" :
         {
-            console.log("M10_1 selected");
+            var readStr='';
+            var prevStr='';
+            m10WritePort.write(TCSHORTNM,function (err) {
+                if(err) throw err;
+                console.log("writing TCSHORTNAME of m10_1");
+            });
+            m10ReadPort.on('data',function (data) {
+                console.log(data);
+                console.log(data.toString());
+                m10testRunning = 'true';
+                var dataStr = (data.toString()).trim(); //chanses to ASCII
+                if (m10testRunning === "false") {
+                    console.log("TestCase Not Running So  Flushing Data:" + data.toString());
+                    flushM10Data = dataStr;
+                    useM10Data = '';
+                }
+                else {
+                   useM10Data=dataStr;
+                   readStr=dataStr;
+                    if (readStr === prevStr) {
+                        console.log("Same as Prev String so flusing");
+                        flushM10Data = data.toString();
+                        readStr = '';
+                    }
+                    prevStr = readStr;
+                    if(data.toString()=="success"){
+                        Success();
+                    }
+                    else
+                        Failed();
+                    useM10Data='';
+                }
+
+            });
+            /*console.log("M10_1 selected");
                     console.log("Check if HDMI Cable is Connected");
                     Success();
-                    break;
-
+                    break;*/
+            break;
         }
         case "M10_2" :
         {
-            console.log("M10_2 selected");
-                    console.log("Push the power button");
-                    console.log("Is the Power LED Turned Green?");
+            m10WritePort.write(TCSHORTNM,function (err) {
+                if(err) throw err;
+                console.log("writing TCSHORTNAME of m10_2");
+            });
+            m10ReadPort.on('data',function (data) {
+                console.log(data);
+                console.log(data.toString());
+                if(data.toString()=="success"){
                     Success();
-                    break;
+                }
+                else
+                    Failed();
+            });
+            break;
         }
         case "M10_3" :
         {
-            console.log("M10_3 selected");
-            Success();
+            m10WritePort.write(TCSHORTNM,function (err) {
+                if(err) throw err;
+                console.log("writing TCSHORTNAME of m10_3");
+            });
+            m10ReadPort.on('data',function (data) {
+                console.log(data);
+                console.log(data.toString());
+                if(data.toString()=="success"){
+                    Success();
+                }
+                else
+                    Failed();
+            });
             break;
         }
         case "M10_4" :
         {
-            console.log("M10_4 selected");
-            Success();
+            m10WritePort.write(TCSHORTNM,function (err) {
+                if(err) throw err;
+                console.log("writing TCSHORTNAME of m10_4");
+            });
+            m10ReadPort.on('data',function (data) {
+                console.log(data);
+                console.log(data.toString());
+                if(data.toString()=="success"){
+                    Success();
+                }
+                else
+                    Failed();
+            });
             break;
         }
         case "M10_5" :
         {
-            console.log("M10_5 selected");
-            Success();
+            m10WritePort.write(TCSHORTNM,function (err) {
+                if(err) throw err;
+                console.log("writing TCSHORTNAME of m10_5");
+            });
+            m10ReadPort.on('data',function (data) {
+                console.log(data);
+                console.log(data.toString());
+                if(data.toString()=="success"){
+                    Success();
+                }
+                else
+                    Failed();
+            });
             break;
         }
-
         case "M10_6" :
         {
-            console.log("M10_6 selected");
-            Success();
+            m10WritePort.write(TCSHORTNM,function (err) {
+                if(err) throw err;
+                console.log("writing TCSHORTNAME of m10_6");
+            });
+            m10ReadPort.on('data',function (data) {
+                console.log(data);
+                console.log(data.toString());
+                if(data.toString()=="success"){
+                    Success();
+                }
+                else
+                    Failed();
+            });
             break;
         }
-
         case "M10_7" :
         {
-            console.log("M10_7 selected");
-            Success();
+            m10WritePort.write(TCSHORTNM,function (err) {
+                if(err) throw err;
+                console.log("writing TCSHORTNAME of m10_7");
+            });
+            m10ReadPort.on('data',function (data) {
+                console.log(data);
+                console.log(data.toString());
+                if(data.toString()=="success"){
+                    Success();
+                }
+                else
+                    Failed();
+            });
             break;
         }
         case "M10_8" :
         {
-            console.log("M10_8 selected");
-            Success();
+            m10WritePort.write(TCSHORTNM,function (err) {
+                if(err) throw err;
+                console.log("writing TCSHORTNAME of m10_8");
+            });
+            m10ReadPort.on('data',function (data) {
+                console.log(data);
+                console.log(data.toString());
+                if(data.toString()=="success"){
+                    Success();
+                }
+                else
+                    Failed();
+            });
             break;
         }
         case "M10_9" :
         {
-            console.log("M10_9 selected");
-            Success();
+            m10WritePort.write(TCSHORTNM,function (err) {
+                if(err) throw err;
+                console.log("writing TCSHORTNAME of m10_9");
+            });
+            m10ReadPort.on('data',function (data) {
+                console.log(data);
+                console.log(data.toString());
+                if(data.toString()=="success"){
+                    Success();
+                }
+                else
+                    Failed();
+            });
             break;
         }
-
         case "CC_1":
         {
-            console.log("CC_1 selected");
-                    console.log("CC_1 step 1");
+            m10WritePort.write(TCSHORTNM,function (err) {
+                if(err) throw err;
+                console.log("writing TCSHORTNAME of cc_1");
+            });
+            m10ReadPort.on('data',function (data) {
+                console.log(data);
+                console.log(data.toString());
+                if(data.toString()=="success"){
                     Success();
-                    break;
+                }
+                else
+                    Failed();
+            });
+            break;
         }
         case "CC_2":
         {
-            console.log("CC_2 selected");
+            m10WritePort.write(TCSHORTNM,function (err) {
+                if(err) throw err;
+                console.log("writing TCSHORTNAME of cc_2");
+            });
+            m10ReadPort.on('data',function (data) {
+                console.log(data);
+                console.log(data.toString());
+                if(data.toString()=="success"){
+                    Success();
+                }
+                else
+                    Failed();
+            });
+            break;
+            /*console.log("CC_2 selected");
             console.log("Push the power button");
             console.log("Is the Power LED Turned Green?");
             Success();
-            break;
+            break;*/
         }
 
         case "FNFC_1":
@@ -131,6 +338,8 @@ router.all('/', function(req, res, next)
 		var fNfcTimeOut;
 		var fNfcTimeInt;
 		var nfcTagData;
+		var ackData='*1;K;e4#';
+		var nackData='*2;R;dc#';
 		var readStr = '';
 		var prevStr = '';
 		var writeSKU1 = "*n;ABCDEFGH;990099009;b6#";
@@ -156,9 +365,9 @@ router.all('/', function(req, res, next)
             else {
             var dataStrArray = dataStr.split("#");
 		    //below statement gives number of substrings that are ending with #
-            var poundEndStrCount = (dataStr.match(/#/g) || []).length;
-	        for(i=0;i<dataStrArray.length;i++) {
-
+            var fullMessageCount = (dataStr.match(/#/g) || []).length;
+	        var poundEndStrCount = fullMessageCount;
+            for(i=0;i<dataStrArray.length;i++) {
                //check if it is begining of string and mark that real reading started
                readStr = dataStrArray[i];
                console.log("fnfc raw data: " + readStr);
@@ -184,7 +393,6 @@ router.all('/', function(req, res, next)
                             validReading = false;
                             console.log("Message To be Used: " + useFNFCData);
                             if (useFNFCData.substr(0, 2) === "*f") {
-
                                 checkSumVal = useFNFCData.substr(useFNFCData.length - 2, 2);
                                 console.log("Message String: " + useFNFCData.substr(0, useFNFCData.length - 2));
                                 //console.log(a2hex(useFNFCData.substr(0,useFNFCData.length-2)));
@@ -268,8 +476,12 @@ router.all('/', function(req, res, next)
 		var nfcTagData;
 		var irInData="*j;31#" ;
 		var irOutData="*k;30#";
+		var ackData='*1,K;f3#';
+		var nackData='*2,R;29#';
 		var readStr = '';
 		var prevStr = '';
+		var writeSKU1 = "*d;1;0999;B5#";
+		var writeSKU2 = "*d;1;0000;D0#";
 		var readSKU = "*l;2f#";
 		var checkSumVal;
 		var inputToa2hex;
@@ -288,69 +500,62 @@ router.all('/', function(req, res, next)
 			 useIRNFCData = '';
 			}
 		  else{
-                var dataStrArray = dataStr.split("#");
-                //below statement gives number of substrings that are ending with #
-                var poundEndStrCount = (dataStr.match(/#/g) || []).length;
-                for(i=0;i<dataStrArray.length;i++) {
-
-                    //check if it is begining of string and mark that real reading started
-                    readStr = dataStrArray[i];
-                    console.log("irnfc raw data: " + readStr);
-                    console.log("Previoysly read  data: " + prevStr);
-                    //for some reason same string is getting sent multiple times. So for now ignore such strings.
-                    if (readStr === prevStr) {
-                        console.log("Same as Prev String so flusing");
-                        flushIRNFCData = data.toString();
-                        readStr = '';
-                    }
-                    prevStr = readStr;
-                    // If first char is * then start collecting data
-                    if (readStr.substr(0, 1) === "*") {
-                        console.log("Found * as first char");
-                        validReading = true;
-                        //whenever * found in first letter think that it is start of message again
-                        useIRNFCData = '';
-                    }
-                    if (validReading) {
-                        useIRNFCData = useIRNFCData + readStr;
-                        if (readStr.substr(readStr.length - 1, 1) === "#") {
-                            validReading = false;
-                            console.log("Message To be Used: " + useIRNFCData);
-                            //Check If it is IR IN Message
-                            if (useIRNFCData === irInData) {
-                                console.log("IR IN Match Found");
-                                irInFound = true;
-                            }
-                            if (useIRNFCData === irOutData) {
-                                console.log("IR Out Match Found");
-                                irOutFound = true;
-                            }
-                            if (useIRNFCData.substr(0, 2) === "*f") {
-
-                                checkSumVal = useIRNFCData.substr(useIRNFCData.length - 3, 2);
-                                console.log("Message String: " + useIRNFCData.substr(0, useIRNFCData.length - 3));
-                                //console.log(a2hex(useIRNFCData.substr(0,useIRNFCData.length-3)));
-                                inputToa2hex = useIRNFCData.substr(0, useIRNFCData.length - 3);
-                                console.log("Input: " + inputToa2hex);
-                                console.log("Input Checksum Value: ", checkSumVal);
-                                if (checksum8(a2hex(inputToa2hex), checkSumVal)) {
-
-                                    console.log("CheckSum Good.Sending Ack Data");
-                                    irnfcTagDetected = true;
-                                    writeToUart(ackData, irnfcWritePort);
-                                    //writeToUart(writeSKU1);
-                                }
-                                else {
-                                    console.log("CheckSum Failed Writing Nack Data");
-                                    writeToUart(nackData, irnfcWritePort);
-                                }
-
-                            }
-                            useIRNFCData = '';
-                        }
-                    }
-                }
+		//check if it is begining of string and mark that real reading started
+		readStr = (data.toString()).trim();
+		console.log("irnfc raw data: " + readStr);
+		console.log("Previoysly read  data: " + prevStr);
+		//for some reason same string is getting sent multiple times. So for now ignore such strings.
+		if (readStr === prevStr){
+			 console.log("Same as Prev String so flusing");
+			 flushIRNFCData = data.toString();
+			 readStr='';
 		}
+		prevStr = readStr;
+		// If first char is * then start collecting data
+		if(readStr.substr(0,1) === "*"){
+		  console.log("Found * as first char");
+		  validReading = true;
+		  //whenever * found in first letter think that it is start of message again
+		  useIRNFCData='';
+		}
+		if(validReading){
+			useIRNFCData=useIRNFCData + readStr;
+			if (readStr.substr(readStr.length-1,1) === "#"){
+			validReading = false; 
+			console.log("Message To be Used: " + useIRNFCData);
+			//Check If it is IR IN Message
+			if(useIRNFCData === irInData ){
+				console.log("IR IN Match Found");
+				irInFound = true;
+			}
+			if(useIRNFCData === irOutData ){
+				console.log("IR Out Match Found");
+				irOutFound = true;
+			}
+		   if(useIRNFCData.substr(0,2) === "*f"){
+
+			   checkSumVal = useIRNFCData.substr(useIRNFCData.length-3,2); 
+			   console.log("Message String: " + useIRNFCData.substr(0,useIRNFCData.length-3));
+			   //console.log(a2hex(useIRNFCData.substr(0,useIRNFCData.length-3)));
+			   inputToa2hex = useIRNFCData.substr(0,useIRNFCData.length-3);
+			   console.log("Input: " + inputToa2hex);
+			   console.log("Input Checksum Value: ", checkSumVal);
+			   if(checksum8(a2hex(inputToa2hex),checkSumVal)){
+
+				console.log("CheckSum Good.Sending Ack Data");
+					irnfcTagDetected = true;
+					writeToUart(ackData,irnfcWritePort);
+					//writeToUart(writeSKU1);
+			   }
+			   else{ 
+				console.log("CheckSum Failed Writing Nack Data");
+					writeToUart(nackData,irnfcWritePort);
+               }
+		   }
+		   useIRNFCData = '';
+			}
+		}
+			}
 		});
 		}
    	    //set 7 seconds timeout
@@ -360,8 +565,7 @@ router.all('/', function(req, res, next)
 		    console.log(irInFound);
 		    console.log(irOutFound);
 		    console.log(irnfcTagDetected);
-		    //IR OUT Test result ignoored
-		 if(irInFound === true  && irnfcTagDetected === true){
+		 if(irInFound === true  && irOutFound === true && irnfcTagDetected === true){
                        console.log("IR Test Passed" );
 			           Success();
 		  }else{
@@ -574,6 +778,5 @@ function checkResultTRIAC1(result){
 		            }
 }
 });
-
 module.exports = router;
 

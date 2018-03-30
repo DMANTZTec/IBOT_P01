@@ -1,8 +1,8 @@
 {
-  "DUT_ID":"FNFC",
-  "DUT_NUMBER":1,
-  "DUT_NM":"Filter NFC Card",
+  "DUT_ID":"IRNFC",
+  "DUT_NM":"IR NFC Card",
+  "DUT_NUMBER":4,
   "HW_VER": "1.2.3",
   "SW_VER": "1.0.3",
-  "TestCaseFile":"./config/FNFC_TJ_TestCases_V1.0.json"
+  "TestCaseFile":"./config/IRNFC_TJ_TestCases_V1.0.json"
 }

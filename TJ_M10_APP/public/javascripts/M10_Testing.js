@@ -33,13 +33,12 @@ wrport.open(function(err) {
     console.log('Error: Opening Write Port P9.24', err.message);
 })
 */
-
 //this function gets called when data is available
 rdport.on('data', function (data) {
     console.log('Data:', data);
     console.log('ASCII:', data.toString());
 
-    wrport.write('on Got Message', function(err) {
+    wrport.write(result, function(err) {
         if (err) {
             return console.log('Error on write: ', err.message);
         }
@@ -50,33 +49,23 @@ rdport.on('data', function (data) {
 });
 
 function pmic_voltage_test(){
-   return true;
-}
-
-function gpio_toggle_test(){
-
     return true;
 }
-
+function gpio_toggle_test(){
+    return true;
+}
 function hdmi_test(){
     return true;
 }
-
 function uart_test(){
     return true;
 }
-
 function wifi_test(){
     return true;
 }
-
 function cellular_test(){
     return true;
 }
-
 function rtc_set_test(){
     return true;
 }
-
-
-
