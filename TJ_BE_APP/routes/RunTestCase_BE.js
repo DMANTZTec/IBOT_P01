@@ -266,8 +266,8 @@ router.all('/', function(req, res, next)
 		var irNfcTimeOut;
 		var irNfcTimeInt;
 		var nfcTagData;
-		var irInData="*j;31#" ;
-		var irOutData="*k;30#";
+		var irInData="*j;31" ;
+		var irOutData="*k;30";
 		var readStr = '';
 		var prevStr = '';
 		var readSKU = "*l;2f#";
@@ -282,15 +282,16 @@ router.all('/', function(req, res, next)
 			irnfcFirstRun = false;
 
 		irnfcReadPort.on('data', function (data) {
+            	var irdataStr = (data.toString()).trim(); //chanses to ASCII
 			if(irNfctestRunning === "false"){
 		     console.log("TestCase Not Running So  Flushing Data:" + data.toString());
-			 flushIRNFCData = data.toString();
+			 flushIRNFCData = irdataStr;
 			 useIRNFCData = '';
 			}
 		  else{
-                var dataStrArray = dataStr.split("#");
+                var dataStrArray = irdataStr.split("#");
                 //below statement gives number of substrings that are ending with #
-                var poundEndStrCount = (dataStr.match(/#/g) || []).length;
+                var poundEndStrCount = (irdataStr.match(/#/g) || []).length;
                 for(i=0;i<dataStrArray.length;i++) {
 
                     //check if it is begining of string and mark that real reading started
@@ -313,7 +314,8 @@ router.all('/', function(req, res, next)
                     }
                     if (validReading) {
                         useIRNFCData = useIRNFCData + readStr;
-                        if (readStr.substr(readStr.length - 1, 1) === "#") {
+                     if (poundEndStrCount > 0) {
+			    poundEndStrCount = poundEndStrCount - 1;
                             validReading = false;
                             console.log("Message To be Used: " + useIRNFCData);
                             //Check If it is IR IN Message
@@ -327,10 +329,10 @@ router.all('/', function(req, res, next)
                             }
                             if (useIRNFCData.substr(0, 2) === "*f") {
 
-                                checkSumVal = useIRNFCData.substr(useIRNFCData.length - 3, 2);
-                                console.log("Message String: " + useIRNFCData.substr(0, useIRNFCData.length - 3));
-                                //console.log(a2hex(useIRNFCData.substr(0,useIRNFCData.length-3)));
-                                inputToa2hex = useIRNFCData.substr(0, useIRNFCData.length - 3);
+                                checkSumVal = useIRNFCData.substr(useIRNFCData.length - 2, 2);
+                                console.log("Message String: " + useIRNFCData.substr(0, useIRNFCData.length - 2));
+                                //console.log(a2hex(useIRNFCData.substr(0,useIRNFCData.length-2)));
+                                inputToa2hex = useIRNFCData.substr(0, useIRNFCData.length - 2);
                                 console.log("Input: " + inputToa2hex);
                                 console.log("Input Checksum Value: ", checkSumVal);
                                 if (checksum8(a2hex(inputToa2hex), checkSumVal)) {
