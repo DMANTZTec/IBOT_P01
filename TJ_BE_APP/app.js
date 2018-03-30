@@ -107,7 +107,7 @@ function savetohive(line){
     //'https://ibotapp.azure-api.net/deviceconnectinfo/ConnectInfo4',
     var options = {
         method: 'POST',
-        url: 'https://ibotapp.azure-api.net/ProjectPCBsTestResultx/shivaraya9;SRP0000001',
+        url: 'https://ibotapp.azure-api.net/ProjectPCBsTestResult/shivaraya9;SRP0000001',
         headers:
             {
                 'content-type': 'application/json',
