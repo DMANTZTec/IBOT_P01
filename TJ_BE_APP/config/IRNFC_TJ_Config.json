@@ -4,5 +4,5 @@
   "DUT_NUMBER":4,
   "HW_VER": "1.2.3",
   "SW_VER": "1.0.3",
-  "TestCaseFile":"IRNFC_TJ_TestCases_V1.0.json"
+  "TestCaseFile":"./config/IRNFC_TJ_TestCases_V1.0.json"
 }

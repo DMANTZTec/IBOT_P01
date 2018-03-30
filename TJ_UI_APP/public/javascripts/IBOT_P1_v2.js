@@ -4,6 +4,7 @@ var modal2 = document.getElementById('myModal2');
 var jigtype = document.getElementById('TestJigSelectList');
 var producttype=document.getElementById('producttype');
 var testModeOption = document.getElementById('testModeOption');
+
 var testMode = "manual"; //default to auto testing mode
 var testCaseData;
 var testJigData;
@@ -68,6 +69,8 @@ function UpdateTestJigData()
     //Set TestJigType in the backend
     //LoadTestJigData
 }
+
+
 function checkIfAllCasesRan()
 {
     var finalResult;
@@ -226,8 +229,6 @@ function LoadTestJigData() {
                 //testResultDetails.TESTCASE_FILE_NM =testJigData.TestCaseFile;
                 for(i=0;i<testCaseData.TestCases.length;i++)
                 {
-                    //console.log(process.argv);
-
                     testResultDetails.objTestCaseResults.push({});
                 }
                 console.log(testResultDetails.objTestCaseResults);
@@ -281,8 +282,6 @@ function LoadTestJigDataSync() {
     var response = JSON.parse(xhttp.responseText);
     if (response.status == "success") {
         testJigList = response.TestJigList;
-        //TMP
-        console.log(testJigList);
         testJigData = response.TestJigData;
         testCaseData = response.TestCaseData;
         //Fill TestJig Details in to Results Detail.
@@ -1374,7 +1373,7 @@ function viewResults() {
 
 function UploadTestResults()
 {
-    modal2.style.display = "block";
+    //modal2.style.display = "block";
     document.getElementById("uploaddata").innerHTML = "Uploading";
     var xhttp = new XMLHttpRequest();
     var url = "http://localhost:3001/ViewResults_BE";
