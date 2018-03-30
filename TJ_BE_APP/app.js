@@ -15,80 +15,99 @@ var ViewResults_BE=require('./routes/ViewResults_BE');
 var testResultsFileNM = './hive/testResults.txt';
 var testResults_FailedFileNM='./hive/testResults_Failed.txt';
 var testResults_P_FileNM;
-var readline = require('readline');
+var curDate = new Date();
+var curTimeStamp = curDate.getTime();
 
+var readline = require('readline');
+var path=require('path');
 var app = express();
 var hiveResponse;
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
+app.locals.savingresults="false";
 //process.argv[2]='./hive/testResults_P.json';
 //for (var j = 0; j < process.argv.length; j++) {
 //    console.log(j + ' -> ' + (process.argv[j]));
 //}
+//console.log(example);
 function checkForTestResultsFile() {
-    var renamefilename=testResultsFileNM.slice(0,-4);
-    console.log(renamefilename);
-    testResults_P_FileNM=renamefilename+'_P.txt';
-
-    if(fs.existsSync(testResults_FailedFileNM)){
-        fs.renameSync(testResults_FailedFileNM,testResults_P_FileNM);
-        fs.readFile(testResults_P_FileNM, function(error, data) {
-            if (error) { throw error; }
-            data.toString().split("\n").forEach(function(line, index, arr) {
-                if (index === arr.length - 1 && line === "") { return; }
-                if(index===arr.length-1){
-                    console.log(arr.length);
-                    savetohive(line);
-                    fs.unlinkSync(testResults_P_FileNM);
-                }
-                console.log(index + " " + line);
-                savetohive(line);
-            });
-        });
-    }
-
-    if(fs.existsSync(testResultsFileNM)) {
-        console.log("test results loop");
-        fs.renameSync(testResultsFileNM,testResults_P_FileNM);
-        fs.readFile(testResults_P_FileNM, function(error, data) {
-            if (error) { throw error; }
-            data.toString().split("\n").forEach(function(line, index, arr) {
-                if (index === arr.length - 1 && line === "") { console.log("no lines"); }
-                if(index===arr.length-1){
-                    console.log(arr.length);
-                    fs.unlinkSync(testResults_P_FileNM);
-                }
-                console.log(index + " " + line);
-                savetohive(line);
-            });
-        });
-
-        /*var TestResultsData = JSON.parse(fs.readFileSync(testResults_P_FileNM));
-        console.log(TestResultsData);
-        for(var i=0;i<=TestResultsData.length;i++){
-            if(i==TestResultsData.length){
-                console.log("length reached,deleting _P.json");
-                fs.unlinkSync(testResults_P_FileNM);
+    console.log(app.locals.savingresults);
+    if(app.locals.savingresults === "false") {
+        //var renamefilename = testResultsFileNM.slice(0, -4);
+        //console.log(renamefilename);
+        //testResults_P_FileNM = renamefilename + '_P.txt';
+        if (fs.existsSync(testResults_FailedFileNM) || fs.existsSync(testResultsFileNM)) {
+            if (fs.existsSync(testResults_FailedFileNM)) {
+            	var ProcesingFileNM_F="./hive/Processing_F"+curTimeStamp+".txt";
+                console.log("failed results loop");
+                fs.renameSync(testResults_FailedFileNM, ProcesingFileNM_F);
+                fs.readFile(ProcesingFileNM_F, function (error, data) {
+                    console.log("reading failed reults");
+                    if (error) {
+                        throw error;
+                    }
+                    data.toString().split("\n").forEach(function (line, index, arr) {
+                        console.log("deleting _P");
+                        if (index === arr.length - 1 && line === "") {
+                            console.log('no lines');
+                            fs.unlinkSync(ProcesingFileNM_F);
+                        }
+                        if (index === arr.length - 1) {
+                            console.log(arr.length);
+                            savetohive(line);
+                            console.log("deleting _P");
+                            fs.unlinkSync(ProcesingFileNM_F);
+                            //clearTimeout(timer);
+                        }
+                        else {
+                            console.log(index + " " + line);
+                            savetohive(line);
+                        }
+                    });
+                });
             }
-            else {
-                savetohive(TestResultsData[i]);
-                console.log(i+"th data");
+            if (fs.existsSync(testResultsFileNM)) {
+                console.log("test results loop");
+                var ProcesingFileNM_R="./hive/Processing_R"+curTimeStamp+".txt";
+                fs.renameSync(testResultsFileNM, ProcesingFileNM_R);
+                //var timer=setTimeout(function(){fs.renameSync(testResultsFileNM,testResults_P_FileNM)},3000);
+                fs.readFile(ProcesingFileNM_R, function (error, data) {
+                    if (error) {
+                        throw error;
+                    }
+                    data.toString().split("\n").forEach(function (line, index, arr) {
+                        if (index === arr.length - 1 && line === "") {
+                            console.log("no lines");
+                            fs.unlinkSync(ProcesingFileNM_R);
+                        }
+                        if (index === arr.length - 1) {
+                            console.log("arr length is: " + arr.length);
+                            savetohive(line);
+                            fs.unlinkSync(ProcesingFileNM_R);
+                        }
+                        else {
+                            console.log(index + " " + line);
+                            savetohive(line);
+                        }
+                    });
+                });
             }
-        }*/
-
+        }
     }
     else console.log(testResultsFileNM+" not exists that means everything updated");
 }
 function savetohive(line){
-    console.log(line);
+    console.log("line is: "+line);
+    //var TestResultsData=line;
     var TestResultsData=JSON.parse(line);
+    //console.log("TestResultsData:"+TestResultsData);
     var request = require('request');
     //'https://ibotapp.azure-api.net/deviceconnectinfo/ConnectInfo4',
     var options = {
         method: 'POST',
-        url: 'https://ibotapp.azure-api.net/ProjectPCBsTestResult/shivaraya9;SRP0000001',
+        url: 'https://ibotapp.azure-api.net/ProjectPCBsTestResultx/shivaraya9;SRP0000001',
         headers:
             {
                 'content-type': 'application/json',
@@ -107,7 +126,7 @@ function savetohive(line){
             });
         }
         else if(!fs.existsSync(testResults_FailedFileNM)){
-            fs.writeFile(testResults_FailedFileNM, JSON.stringify(TestResultsData), function (err) {
+            fs.writeFileSync(testResults_FailedFileNM, JSON.stringify(TestResultsData), function (err) {
                 if (err) throw err;
                 else
                     console.log("created failed file");
