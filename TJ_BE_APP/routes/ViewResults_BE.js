@@ -3,6 +3,9 @@ var dateFormat=require('dateformat');
 var router = express.Router();
 var fs=require('fs');
 var testResultsFileNM="./hive/testResults.txt";
+
+//console.log(example);
+
 //var TestResultDetails=require('../TestResultDetails..json');
 /* GET home page. */
 var hiveMappingDataSummary =
@@ -35,6 +38,8 @@ var hiveMappingDataDetail =
         DESC: 'F07' };
 router.post('/', function(req, res, next)
 {
+    console.log(req.app.locals.savingresults);
+    req.app.locals.savingresults =  "true";
     var resultsFileName;
     var curDate = new Date();
     var curTimeStamp = curDate.getTime();
@@ -108,6 +113,7 @@ router.post('/', function(req, res, next)
         fs.appendFile(testResultsFileNM,"\n"+JSON.stringify(testResultsToHiveJsonObj),function (err) {
             if(err) throw err;
             console.log("appended testResultsToHiveJsonObj");
+            req.app.locals.savingresults =  "false";
         });
     }
     else if(!fs.existsSync(testResultsFileNM)){
@@ -116,6 +122,7 @@ router.post('/', function(req, res, next)
             if (err) throw err;
             else
                 console.log("saved testResultsToHiveJsonObj to testResults file Succesfully");
+                req.app.locals.savingresults =  "false";
         });
     }
     var response = {"status": "Uploaded Succesfully"};
