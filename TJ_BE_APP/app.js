@@ -125,8 +125,8 @@ function savetohive(line){
                 console.log("appended to failed file");
             });
         }
-        else if(!fs.existsSync(testResults_FailedFileNM)){
-            fs.writeFileSync(testResults_FailedFileNM, JSON.stringify(TestResultsData), function (err) {
+        else {
+            fs.writeFile(testResults_FailedFileNM, JSON.stringify(TestResultsData), function (err) {
                 if (err) throw err;
                 else
                     console.log("created failed file");

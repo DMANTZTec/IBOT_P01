@@ -116,7 +116,7 @@ router.post('/', function(req, res, next)
             req.app.locals.savingresults =  "false";
         });
     }
-    else if(!fs.existsSync(testResultsFileNM)){
+    else {
         console.log("create loop");
         fs.writeFile(testResultsFileNM, JSON.stringify(testResultsToHiveJsonObj), function (err) {
             if (err) throw err;
