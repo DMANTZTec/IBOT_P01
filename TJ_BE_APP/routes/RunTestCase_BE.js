@@ -34,51 +34,8 @@ router.all('/', function(req, res, next)
     var StepNum=jsonrequest.StepNum;
     console.log(DUTID_TCID + StepNum);
     var b = require('bonescript');
-
-    function checksum8(inputStr,checksumValue) {
-
-        // convert input value to upper case
-        strN = new String(inputStr);
-        strN = strN.toUpperCase();
-
-        strHex = new String("0123456789ABCDEF");
-        result = 0;
-        fctr = 16;
-
-        for (i=0; i<strN.length; i++) {
-            if (strN.charAt(i) == " ") continue;
-
-            v = strHex.indexOf(strN.charAt(i));
-            if (v < 0) {
-                result = -1;
-                break;
-            }
-            result += v * fctr;
-
-            if (fctr == 16) fctr = 1;
-            else            fctr = 16;
-        }
-
-        if (result < 0) {
-            strResult = new String("Non-hex character");
-        }
-        else if (fctr == 1) {
-            strResult = new String("Odd number of characters");
-        }
-        else {
-            // Calculate 2's complement
-            result = (~(result & 0xff) + 1) & 0xFF;
-            // Convert result to string
-            //strResult = new String(result.toString());
-            strResult = strHex.charAt(Math.floor(result/16)) + strHex.charAt(result%16);
-        }
-        if (strResult === checksumValue){
-            return true;
-        }
-        else{
-            return false;
-        }
-    }
+    var ackData='*1;K;e4#';
+    var nackData='*2;R;dc#';
 
     function Success()
     {
@@ -174,8 +131,6 @@ router.all('/', function(req, res, next)
 		var fNfcTimeOut;
 		var fNfcTimeInt;
 		var nfcTagData;
-		var ackData='*1;K;e4#';
-		var nackData='*2;R;dc#';
 		var readStr = '';
 		var prevStr = '';
 		var writeSKU1 = "*n;ABCDEFGH;990099009;b6#";
@@ -201,9 +156,8 @@ router.all('/', function(req, res, next)
             else {
             var dataStrArray = dataStr.split("#");
 		    //below statement gives number of substrings that are ending with #
-            var fullMessageCount = (dataStr.match(/#/g) || []).length;
-	    var poundEndStrCount = fullMessageCount;
-            for(i=0;i<dataStrArray.length;i++) {
+            var poundEndStrCount = (dataStr.match(/#/g) || []).length;
+	        for(i=0;i<dataStrArray.length;i++) {
 
                //check if it is begining of string and mark that real reading started
                readStr = dataStrArray[i];
@@ -314,12 +268,8 @@ router.all('/', function(req, res, next)
 		var nfcTagData;
 		var irInData="*j;31#" ;
 		var irOutData="*k;30#";
-		var ackData='*1,K;f3#';
-		var nackData='*2,R;29#';
 		var readStr = '';
 		var prevStr = '';
-		var writeSKU1 = "*d;1;0999;B5#";
-		var writeSKU2 = "*d;1;0000;D0#";
 		var readSKU = "*l;2f#";
 		var checkSumVal;
 		var inputToa2hex;
@@ -338,62 +288,68 @@ router.all('/', function(req, res, next)
 			 useIRNFCData = '';
 			}
 		  else{
-		//check if it is begining of string and mark that real reading started
-		readStr = (data.toString()).trim();
-		console.log("irnfc raw data: " + readStr);
-		console.log("Previoysly read  data: " + prevStr);
-		//for some reason same string is getting sent multiple times. So for now ignore such strings.
-		if (readStr === prevStr){
-			 console.log("Same as Prev String so flusing");
-			 flushIRNFCData = data.toString();
-			 readStr='';
-		}
-		prevStr = readStr;
-		// If first char is * then start collecting data
-		if(readStr.substr(0,1) === "*"){
-		  console.log("Found * as first char");
-		  validReading = true;
-		  //whenever * found in first letter think that it is start of message again
-		  useIRNFCData='';
-		}
-		if(validReading){
-			useIRNFCData=useIRNFCData + readStr;
-			if (readStr.substr(readStr.length-1,1) === "#"){
-			validReading = false; 
-			console.log("Message To be Used: " + useIRNFCData);
-			//Check If it is IR IN Message
-			if(useIRNFCData === irInData ){
-				console.log("IR IN Match Found");
-				irInFound = true;
-			}
-			if(useIRNFCData === irOutData ){
-				console.log("IR Out Match Found");
-				irOutFound = true;
-			}
-		   if(useIRNFCData.substr(0,2) === "*f"){
+                var dataStrArray = dataStr.split("#");
+                //below statement gives number of substrings that are ending with #
+                var poundEndStrCount = (dataStr.match(/#/g) || []).length;
+                for(i=0;i<dataStrArray.length;i++) {
 
-			   checkSumVal = useIRNFCData.substr(useIRNFCData.length-3,2); 
-			   console.log("Message String: " + useIRNFCData.substr(0,useIRNFCData.length-3));
-			   //console.log(a2hex(useIRNFCData.substr(0,useIRNFCData.length-3)));
-			   inputToa2hex = useIRNFCData.substr(0,useIRNFCData.length-3);
-			   console.log("Input: " + inputToa2hex);
-			   console.log("Input Checksum Value: ", checkSumVal);
-			   if(checksum8(a2hex(inputToa2hex),checkSumVal)){
+                    //check if it is begining of string and mark that real reading started
+                    readStr = dataStrArray[i];
+                    console.log("irnfc raw data: " + readStr);
+                    console.log("Previoysly read  data: " + prevStr);
+                    //for some reason same string is getting sent multiple times. So for now ignore such strings.
+                    if (readStr === prevStr) {
+                        console.log("Same as Prev String so flusing");
+                        flushIRNFCData = data.toString();
+                        readStr = '';
+                    }
+                    prevStr = readStr;
+                    // If first char is * then start collecting data
+                    if (readStr.substr(0, 1) === "*") {
+                        console.log("Found * as first char");
+                        validReading = true;
+                        //whenever * found in first letter think that it is start of message again
+                        useIRNFCData = '';
+                    }
+                    if (validReading) {
+                        useIRNFCData = useIRNFCData + readStr;
+                        if (readStr.substr(readStr.length - 1, 1) === "#") {
+                            validReading = false;
+                            console.log("Message To be Used: " + useIRNFCData);
+                            //Check If it is IR IN Message
+                            if (useIRNFCData === irInData) {
+                                console.log("IR IN Match Found");
+                                irInFound = true;
+                            }
+                            if (useIRNFCData === irOutData) {
+                                console.log("IR Out Match Found");
+                                irOutFound = true;
+                            }
+                            if (useIRNFCData.substr(0, 2) === "*f") {
 
-				console.log("CheckSum Good.Sending Ack Data");
-					irnfcTagDetected = true;
-					writeToUart(ackData,irnfcWritePort);
-					//writeToUart(writeSKU1);
-			   }
-			   else{ 
-				console.log("CheckSum Failed Writing Nack Data");
-					writeToUart(nackData,irnfcWritePort);
-				   }
-				
-		   }
-		   useIRNFCData = '';
-			}
-		}
+                                checkSumVal = useIRNFCData.substr(useIRNFCData.length - 3, 2);
+                                console.log("Message String: " + useIRNFCData.substr(0, useIRNFCData.length - 3));
+                                //console.log(a2hex(useIRNFCData.substr(0,useIRNFCData.length-3)));
+                                inputToa2hex = useIRNFCData.substr(0, useIRNFCData.length - 3);
+                                console.log("Input: " + inputToa2hex);
+                                console.log("Input Checksum Value: ", checkSumVal);
+                                if (checksum8(a2hex(inputToa2hex), checkSumVal)) {
+
+                                    console.log("CheckSum Good.Sending Ack Data");
+                                    irnfcTagDetected = true;
+                                    writeToUart(ackData, irnfcWritePort);
+                                    //writeToUart(writeSKU1);
+                                }
+                                else {
+                                    console.log("CheckSum Failed Writing Nack Data");
+                                    writeToUart(nackData, irnfcWritePort);
+                                }
+
+                            }
+                            useIRNFCData = '';
+                        }
+                    }
+                }
 		}
 		});
 		}
@@ -404,7 +360,8 @@ router.all('/', function(req, res, next)
 		    console.log(irInFound);
 		    console.log(irOutFound);
 		    console.log(irnfcTagDetected);
-		 if(irInFound === true  && irOutFound === true && irnfcTagDetected === true){
+		    //IR OUT Test result ignoored
+		 if(irInFound === true  && irnfcTagDetected === true){
                        console.log("IR Test Passed" );
 			           Success();
 		  }else{
