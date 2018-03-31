@@ -749,7 +749,7 @@ function RunTestCase(tcid,StepNum)
             Enable();
             break;
         case "HUL1_1":
-            myConsole.log("running testcase HUL_1");
+            myConsole.log("running testcase HUL1_1");
             xhttp=new XMLHttpRequest();
             xhttp.open("POST",url,false);
             xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
@@ -761,7 +761,7 @@ function RunTestCase(tcid,StepNum)
             Enable();
             break;
         case "HUL1_2":
-            myConsole.log("running testcase HUL_2");
+            myConsole.log("running testcase HUL1_2");
             xhttp=new XMLHttpRequest();
             xhttp.open("POST",url,false);
             xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
@@ -773,7 +773,7 @@ function RunTestCase(tcid,StepNum)
             Enable();
             break;
         case "HUL1_3":
-            myConsole.log("running testcase HUL_2");
+            myConsole.log("running testcase HUL1_3");
             xhttp=new XMLHttpRequest();
             xhttp.open("POST",url,false);
             xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
@@ -785,7 +785,7 @@ function RunTestCase(tcid,StepNum)
             Enable();
             break;
         case "HUL1_4":
-            myConsole.log("running testcase HUL_2");
+            myConsole.log("running testcase HUL1_4");
             xhttp=new XMLHttpRequest();
             xhttp.open("POST",url,false);
             xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
@@ -797,7 +797,7 @@ function RunTestCase(tcid,StepNum)
             Enable();
             break;
         case "HUL1_5":
-            myConsole.log("running testcase HUL_2");
+            myConsole.log("running testcase HUL1_5");
             xhttp=new XMLHttpRequest();
             xhttp.open("POST",url,false);
             xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
@@ -809,7 +809,7 @@ function RunTestCase(tcid,StepNum)
             Enable();
             break;
         case "HUL1_6":
-            myConsole.log("running testcase HUL_2");
+            myConsole.log("running testcase HUL1_6");
             xhttp=new XMLHttpRequest();
             xhttp.open("POST",url,false);
             xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
@@ -821,7 +821,7 @@ function RunTestCase(tcid,StepNum)
             Enable();
             break;
         case "HUL1_7":
-            myConsole.log("running testcase HUL_2");
+            myConsole.log("running testcase HUL1_7");
             xhttp=new XMLHttpRequest();
             xhttp.open("POST",url,false);
             xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
@@ -833,7 +833,7 @@ function RunTestCase(tcid,StepNum)
             Enable();
             break;
         case "HUL1_8":
-            myConsole.log("running testcase HUL_2");
+            myConsole.log("running testcase HUL1_8");
             xhttp=new XMLHttpRequest();
             xhttp.open("POST",url,false);
             xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
@@ -845,7 +845,7 @@ function RunTestCase(tcid,StepNum)
             Enable();
             break;
         case "HUL1_9":
-            myConsole.log("running testcase HUL_2");
+            myConsole.log("running testcase HUL1_9");
             xhttp=new XMLHttpRequest();
             xhttp.open("POST",url,false);
             xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
@@ -857,7 +857,7 @@ function RunTestCase(tcid,StepNum)
             Enable();
             break;
         case "HUL1_10":
-            myConsole.log("running testcase HUL_2");
+            myConsole.log("running testcase HUL1_10");
             xhttp=new XMLHttpRequest();
             xhttp.open("POST",url,false);
             xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
@@ -869,7 +869,7 @@ function RunTestCase(tcid,StepNum)
             Enable();
             break;
         case "HUL1_11":
-            myConsole.log("running testcase HUL_2");
+            myConsole.log("running testcase HUL1_11");
             xhttp=new XMLHttpRequest();
             xhttp.open("POST",url,false);
             xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
@@ -881,7 +881,7 @@ function RunTestCase(tcid,StepNum)
             Enable();
             break;
         case "HUL1_12":
-            myConsole.log("running testcase HUL_2");
+            myConsole.log("running testcase HUL1_12");
             xhttp=new XMLHttpRequest();
             xhttp.open("POST",url,false);
             xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
@@ -893,7 +893,7 @@ function RunTestCase(tcid,StepNum)
             Enable();
             break;
         case "HUL1_13":
-            myConsole.log("running testcase HUL_2");
+            myConsole.log("running testcase HUL1_13");
             xhttp=new XMLHttpRequest();
             xhttp.open("POST",url,false);
             xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
@@ -905,7 +905,7 @@ function RunTestCase(tcid,StepNum)
             Enable();
             break;
         case "HUL1_14":
-            myConsole.log("running testcase HUL_2");
+            myConsole.log("running testcase HUL1_14");
             xhttp=new XMLHttpRequest();
             xhttp.open("POST",url,false);
             xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
@@ -917,7 +917,7 @@ function RunTestCase(tcid,StepNum)
             Enable();
             break;
         case "HUL1_15":
-            myConsole.log("running testcase HUL_2");
+            myConsole.log("running testcase HUL1_15");
             xhttp=new XMLHttpRequest();
             xhttp.open("POST",url,false);
             xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
@@ -929,7 +929,7 @@ function RunTestCase(tcid,StepNum)
             Enable();
             break;
         case "HUL1_16":
-            myConsole.log("running testcase HUL_2");
+            myConsole.log("running testcase HUL1_16");
             xhttp=new XMLHttpRequest();
             xhttp.open("POST",url,false);
             xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
@@ -941,7 +941,7 @@ function RunTestCase(tcid,StepNum)
             Enable();
             break;
         case "HUL1_17":
-            myConsole.log("running testcase HUL_2");
+            myConsole.log("running testcase HUL1_17");
             xhttp=new XMLHttpRequest();
             xhttp.open("POST",url,false);
             xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
@@ -953,7 +953,7 @@ function RunTestCase(tcid,StepNum)
             Enable();
             break;
         case "HUL1_18":
-            myConsole.log("running testcase HUL_2");
+            myConsole.log("running testcase HUL1_18");
             xhttp=new XMLHttpRequest();
             xhttp.open("POST",url,false);
             xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
@@ -965,7 +965,7 @@ function RunTestCase(tcid,StepNum)
             Enable();
             break;
         case "HUL1_19":
-            myConsole.log("running testcase HUL_2");
+            myConsole.log("running testcase HUL1_19");
             xhttp=new XMLHttpRequest();
             xhttp.open("POST",url,false);
             xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
@@ -977,7 +977,7 @@ function RunTestCase(tcid,StepNum)
             Enable();
             break;
         case "HUL1_20":
-            myConsole.log("running testcase HUL_2");
+            myConsole.log("running testcase HUL1_20");
             xhttp=new XMLHttpRequest();
             xhttp.open("POST",url,false);
             xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
@@ -989,7 +989,7 @@ function RunTestCase(tcid,StepNum)
             Enable();
             break;
         case "HUL1_21":
-            myConsole.log("running testcase HUL_2");
+            myConsole.log("running testcase HUL1_21");
             xhttp=new XMLHttpRequest();
             xhttp.open("POST",url,false);
             xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
@@ -1013,7 +1013,7 @@ function RunTestCase(tcid,StepNum)
             Enable();
             break;
         case "HUL1_23":
-            myConsole.log("running testcase HUL_2");
+            myConsole.log("running testcase HUL1_23");
             xhttp=new XMLHttpRequest();
             xhttp.open("POST",url,false);
             xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
@@ -1025,7 +1025,7 @@ function RunTestCase(tcid,StepNum)
             Enable();
             break;
         case "HUL1_24":
-            myConsole.log("running testcase HUL_2");
+            myConsole.log("running testcase HUL1_24");
             xhttp=new XMLHttpRequest();
             xhttp.open("POST",url,false);
             xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
@@ -1036,8 +1036,22 @@ function RunTestCase(tcid,StepNum)
             UpdateTestResults(tcid,result);
             Enable();
             break;
+        case "HUL1_25":
+            myConsole.log("running testcase HUL1_25");
+            xhttp=new XMLHttpRequest();
+            xhttp.open("POST",url,false);
+            xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            xhttp.send(params);
+            myConsole.log("after getting response" + xhttp.responseText);
+            response = JSON.parse(xhttp.responseText);
+            result=response.status;
+            UpdateTestResults(tcid,result);
+            Enable();
+            break;
+
+
         case "HUL2_1":
-            myConsole.log("running testcase HUL_2");
+            myConsole.log("running testcase HUL2_1");
             xhttp=new XMLHttpRequest();
             xhttp.open("POST",url,false);
             xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
@@ -1049,7 +1063,7 @@ function RunTestCase(tcid,StepNum)
             Enable();
             break;
         case "HUL2_2":
-            myConsole.log("running testcase HUL_2");
+            myConsole.log("running testcase HUL2_2");
             xhttp=new XMLHttpRequest();
             xhttp.open("POST",url,false);
             xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
@@ -1061,7 +1075,7 @@ function RunTestCase(tcid,StepNum)
             Enable();
             break;
         case "HUL2_3":
-            myConsole.log("running testcase HUL_2");
+            myConsole.log("running testcase HUL2_3");
             xhttp=new XMLHttpRequest();
             xhttp.open("POST",url,false);
             xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
@@ -1073,7 +1087,7 @@ function RunTestCase(tcid,StepNum)
             Enable();
             break;
         case "HUL2_4":
-            myConsole.log("running testcase HUL_2");
+            myConsole.log("running testcase HUL2_4");
             xhttp=new XMLHttpRequest();
             xhttp.open("POST",url,false);
             xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
@@ -1085,7 +1099,7 @@ function RunTestCase(tcid,StepNum)
             Enable();
             break;
         case "HUL2_5":
-            myConsole.log("running testcase HUL_2");
+            myConsole.log("running testcase HUL2_5");
             xhttp=new XMLHttpRequest();
             xhttp.open("POST",url,false);
             xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
@@ -1097,7 +1111,7 @@ function RunTestCase(tcid,StepNum)
             Enable();
             break;
         case "HUL2_6":
-            myConsole.log("running testcase HUL_2");
+            myConsole.log("running testcase HU2_6");
             xhttp=new XMLHttpRequest();
             xhttp.open("POST",url,false);
             xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
@@ -1109,7 +1123,7 @@ function RunTestCase(tcid,StepNum)
             Enable();
             break;
         case "HUL2_7":
-            myConsole.log("running testcase HUL_2");
+            myConsole.log("running testcase HUL2_7");
             xhttp=new XMLHttpRequest();
             xhttp.open("POST",url,false);
             xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
@@ -1121,7 +1135,7 @@ function RunTestCase(tcid,StepNum)
             Enable();
             break;
         case "HUL2_8":
-            myConsole.log("running testcase HUL_2");
+            myConsole.log("running testcase HUL2_8");
             xhttp=new XMLHttpRequest();
             xhttp.open("POST",url,false);
             xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
@@ -1133,7 +1147,7 @@ function RunTestCase(tcid,StepNum)
             Enable();
             break;
         case "HUL2_9":
-            myConsole.log("running testcase HUL_2");
+            myConsole.log("running testcase HUL2_9");
             xhttp=new XMLHttpRequest();
             xhttp.open("POST",url,false);
             xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");

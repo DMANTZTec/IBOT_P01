@@ -436,9 +436,269 @@ router.all('/', function(req, res, next)
 
 	    break;
 
-	    /*
-        console.log("ESR_1 selected");
-        console.log("Just Sending Success");
+    }
+	    case "HUL1_1": {
+            console.log("HUL_1 start");
+            var b = require('bonescript');
+            var poweron = b.HIGH;
+            var poweroff = b.LOW;
+            var powerpin = "P8_8";
+            var readpin5v = "P9_36";
+            b.pinMode(powerpin, b.OUTPUT);
+            b.digitalWrite(powerpin, poweron);
+            console.log("after digtalwrite");
+            b.digitalWrite(powerpin, poweroff);
+            b.analogRead(readpin5v, check5vinput);
+            firstTimer = setTimeout(function () {
+                console.log("firstTimerTimeOutCalled");
+                console.log("timeout cleared");
+            }, 2000);
+            break;
+        }
+
+        case "HUL1_2": {
+            console.log("HUL1_2 start");
+            var b = require('bonescript');
+            var poweron = b.HIGH;
+            var poweroff = b.LOW;
+            var powerpin = "P8_8";
+            var readpin = "P9_36";
+            b.pinMode(powerpin, b.OUTPUT);
+            b.digitalWrite(powerpin, poweron);
+            console.log("after digtalwrite");
+            b.digitalWrite(powerpin, poweroff);
+            b.analogRead(readpin, checkvinput);
+            firstTimer = setTimeout(function () {
+                console.log("firstTimerTimeOutCalled");
+                console.log("timeout cleared");
+            }, 2000);
+            break;
+
+        }
+        case "HUL1_3": {
+            console.log("HUL1_3 start");
+            var serialport=require('serialport');
+            var wrport=new serialport('/dev/tty04');
+            var rdport=wrport;
+            var data='testcase3';
+            wrport.write(data,function(err){
+                if(err) throw err;
+                console.log("message written");
+            });
+            rdport.on('data',function(data){
+                console.log(data);
+                if(data.toString()=="success"){
+                    Success();
+                }
+                else
+                    Failed();
+            });
+            break;
+        }
+        case "HUL1_4": {
+            console.log("HUL1_4 start");
+            Success();
+            break;
+        }
+        case "HUL1_5": {
+            console.log("HUL1_5 start");
+            Success();
+            break;
+        }
+        case "HUL1_6": {
+            console.log("HUL1_6 start");
+            Success();
+            break;
+        }
+        case "HUL1_7": {
+            console.log("HUL1_7 start");
+            var b = require('bonescript');
+            var SVPoweron = b.HIGH;
+            var SVPoweroff = b.LOW;
+            var SVPowerPin = " P8_7";
+            var SVShortPin = " P8_14";
+            b.pinMode(SVPowerPin, b.OUTPUT);
+            b.digitalWrite(SVPowerPin, SVPoweron);
+            b.digitalWrite(SVPowerPin, SVPoweroff);
+            console.log('after digtalwritewrite');
+            b.digitalRead(SVShortPin, checksvvoltage());
+            firstTimer = setTimeout(function () {
+                console.log("firstTimer");
+            }, 2000);
+            break;
+        }
+
+        case "HUL1_8": {
+            console.log("HUL1_8 start");
+            var b = require('bonescript');
+            var RVPoweron = b.HIGH;
+            var RVPoweroff = b.LOW;
+            var RVPowerPin = "P8_10";
+            var RVShortPin = "P8_13";
+            b.pinMode(RVPowerPin, b.OUTPUT);
+            b.digitalWrite(RVPowerPin, RVPoweron);
+            b.digitalWrite(RVPowerPin, RVPoweroff);
+            console.log('after digtalwritewrite');
+            b.digitalRead(RVShortPin, checkrvvoltage());
+            firstTimer = setTimeout(function () {
+                console.log("firstTimer");
+            }, 2000);
+            break;
+        }
+
+        case "HUL1_9": {
+            console.log("HUL1_9 start");
+            var b=require('bonescript');
+            var BPPoweron=b.HIGH;
+            var BPPoweroff=b.LOW;
+            var BPPowerPin="P8_9";
+            var BPShortPin = "P8_16";
+            b.pinMode(BPPowerPin,b.OUTPUT);
+            b.digitalWrite(BPPowerPin , BPPoweron);
+            b.digitalWrite(BPPowerPin , BPPoweroff);
+            console.log('after digtalwritewrite');
+            b.digitalRead(BPShortPin , checkbpvoltage());
+            firstTimer=setTimeout(function (){
+                console.log("firstTimer");
+            },2000);
+        break;
+        }
+
+        case "HUL1_10": {
+            console.log("HUL1_10");
+            Success();
+            break;
+        }
+        case "HUL1_11": {
+            console.log("HUL1_11");
+            Success();
+            break;
+        }
+        case "HUL1_12": {
+            console.log("HUL1_12");
+            Success();
+            break;
+        }
+        case "HUL1_13": {
+            console.log("HUL1_13");
+            Success();
+            break;
+        }
+        case "HUL1_14": {
+            console.log("HUL1_14");
+            Success();
+            break;
+        }
+        case "HUL1_10": {
+            console.log("HUL1_10");
+            Success();
+            break;
+        }
+        case "HUL1_15": {
+            console.log("HUL1_15");
+            Success();
+            break;
+        }
+        case "HUL1_16": {
+            console.log("HUL1_16");
+            Success();
+            break;
+        }
+        case "HUL1_17": {
+            console.log("HUL1_17");
+            Success();
+            break;
+        }
+        case "HUL1_18": {
+            console.log("HUL1_18");
+            Success();
+            break;
+        }
+        case "HUL1_19": {
+            console.log("HUL1_19");
+            Success();
+            break;
+        }
+        case "HUL1_20": {
+            console.log("HUL1_20");
+            Success();
+            break;
+        }
+        case "HUL1_21": {
+            console.log("HUL1_21");
+            Success();
+            break;
+        }
+        case "HUL1_22": {
+            console.log("HUL1_22");
+            Success();
+            break;
+        }
+        case "HUL1_23": {
+            console.log("HUL1_23");
+            Success();
+            break;
+        }
+        case "HUL1_24": {
+            console.log("HUL1_24");
+            Success();
+            break;
+        }
+        case "HUL1_25": {
+            console.log("HUL1_25");
+            Success();
+            break;
+        }
+        case "HUL2_1": {
+            console.log("HUL2_1 start");
+            Success();
+            break;
+        }
+        case "HUL2_2": {
+            console.log("HUL2_2 start");
+            Success();
+            break;
+        }
+        case "HUL2_3": {
+            console.log("HUL2_3 start");
+            Success();
+            break;
+        }
+        case "HUL2_4": {
+            console.log("HUL2_4 start");
+            Success();
+            break;
+        }
+        case "HUL2_5": {
+            console.log("HUL2_5 start");
+            Success();
+            break;
+        }
+        case "HUL2_6": {
+            console.log("HUL2_6 start");
+            Success();
+            break;
+        }
+        case "HUL2_7": {
+            console.log("HUL2_7 start");
+            Success();
+            break;
+        }
+        case "HUL2_8": {
+            console.log("HUL2_8 start");
+            Success();
+            break;
+        }
+        case "HUL2_9": {
+            console.log("HUL2_9 start");
+            Success();
+            break;
+        }
+
+
+                /*
+                console.log("ESR_1 selected");
+                console.log("Just Sending Success");
 
         var firstTimer = setTimeout(function () {
             console.log("Second function called");
@@ -454,7 +714,7 @@ router.all('/', function(req, res, next)
 //        Success();
         break;
 	    */
-    }
+
 }
 
 function writeToUart(message,toPort){
@@ -575,6 +835,107 @@ function checkResultTRIAC1(result){
 		                  Failed();
 		            }
 }
+
+    function check5vinput (result) {
+       // var b = require('bonescript');
+        var voltage = 5;
+        var deviation = 0.3;
+        //let result.value=5.3;
+        if((result.value <= voltage+deviation)&&(result.value > voltage - deviation))
+        {
+            console.log('result.value = ' + result.value);
+            console.log('HUL1_1:Success');
+        clearTimeout(firstTimer);
+        Success();
+        }
+        else {
+            console.log('result.err ='+result.err );
+            console.log('HUL1_1:Fail');
+        clearTimeout(firstTimer);
+        Failed();
+        }
+    }
+
+
+    function checkvinput (result)
+    {
+        var voltage = 3;
+        var deviation = 0.3;
+        //let result.value=2;
+        if((result.value <= voltage+deviation)&&(result.value > voltage - deviation))
+        {
+            console.log('result.value = ' + result.value);
+            console.log('HUL2_1:Success');
+            clearTimeout(firstTimer);
+            Success();
+        }
+        else {
+            console.log('result.err ='+result.err );
+            console.log('HUL2_1:Fail');
+            clearTimeout(firstTimer);
+            Failed();
+        }
+    }
+
+
+    function checksvvoltage(result)
+    {
+        var b2 = require('bonescript');
+        var SV_ShortPin="P8_14";
+        var expectedInput =b2.HIGH;
+        if(SV_ShortPin == expectedInput)
+        {
+            console.log('SVAlertCheck: Success');
+           // b2.digitalWrite(SV_ShortPin,b2.HIGH);
+            clearTimeout(firstTimer);
+            Success();
+        }
+        else
+        {
+            console.log('SVAlertCheck: Fail');
+           // b2.digitalWrite(SV_ShortPin,b2.HIGH);
+            clearTimeout(firstTimer);
+            Failed();
+        }
+    }
+    function checkrvvoltage(result)
+    {
+        var b2 = require('bonescript');
+        var RV_ShortPin="P8_13";
+        var expectedInput =b2.HIGH;
+        if(RV_ShortPin == expectedInput)
+        {
+            console.log('RVAlertCheck: Success');
+            clearTimeout(firstTimer);
+            Success();
+        }
+        else
+        {
+            console.log('RVAlertCheck: Fail');
+            clearTimeout(firstTimer);
+            Failed();
+        }
+    }
+    function checkbpvoltage(result)
+    {
+        var b2 = require('bonescript');
+        var BP_ShortPin="P8_16";
+        var expectedInput =b2.HIGH;
+        if(BP_ShortPin == expectedInput)
+        {
+            console.log('BPAlertCheck: Success');
+            clearTimeout(firstTimer);
+            Success();
+        }
+        else
+        {
+            console.log('BPAlertCheck: Fail');
+            clearTimeout(firstTimer);
+            Failed();
+        }
+    }
+
+
 });
 
 module.exports = router;

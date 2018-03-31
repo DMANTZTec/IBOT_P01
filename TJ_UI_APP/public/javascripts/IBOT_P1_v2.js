@@ -2,7 +2,7 @@ var modal1 = document.getElementById('myModal1');
 var modal = document.getElementById('SettingsModalID');
 var modal2 = document.getElementById('myModal2');
 var jigtype = document.getElementById('TestJigSelectList');
-var producttype=document.getElementById('producttype');
+var producttype = document.getElementById('producttype');
 var testModeOption = document.getElementById('testModeOption');
 
 var testMode = "manual"; //default to auto testing mode
@@ -124,10 +124,11 @@ function UpdateTestResults(testCaseId,result)
         {
             if (testCaseData.TestCases[i].TCID == testCaseId)
             {
+
                 testResultSummary.TestedCnt=testResultSummary.TestedCnt+1;
                 testResultDetails.objTestCaseResults[i].TEST_RUN_ID=9999999;
                 testResultDetails.objTestCaseResults[i].TCID=LoadedTestCase.TCID;
-                //testResultDetails.objTestCaseResults[i].TCSHORTNM=LoadedTestCase.TCSHORTNM;
+                testResultDetails.objTestCaseResults[i].TCSHORTNM=LoadedTestCase.TCSHORTNM;
                 testResultDetails.objTestCaseResults[i].DESC=LoadedTestCase.DESC;
                 testResultDetails.objTestCaseResults[i].LAST_STATUS = result;
                 testResultDetails.objTestCaseResults[i].TRY_CNT = 1;
@@ -140,10 +141,12 @@ function UpdateTestResults(testCaseId,result)
                 }
                 else {
                     testResultDetails.objTestCaseResults[i].TD_FAIL_CNT = 1;
-                    testResultSummary.FailCnt=testResultSummary.FailCnt+1;
-                    document.getElementById('TestCaseRunStatus').style.color="red";
+                    testResultSummary.FailCnt = testResultSummary.FailCnt + 1;
+                    document.getElementById('TestCaseRunStatus').style.color = "red";
                     document.getElementById('TestCaseRunStatus').value = "FAILED";
                 }
+
+
             }
         }
     }
@@ -743,7 +746,7 @@ function RunTestCase(tcid,StepNum)
             Enable();
             break;
         case "HUL1_1":
-            console.log("running testcase HUL_1");
+            console.log("running testcase HUL1_1");
             xhttp=new XMLHttpRequest();
             xhttp.open("POST",url,false);
             xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
@@ -755,7 +758,7 @@ function RunTestCase(tcid,StepNum)
             Enable();
             break;
         case "HUL1_2":
-            console.log("running testcase HUL_2");
+            console.log("running testcase HUL1_2");
             xhttp=new XMLHttpRequest();
             xhttp.open("POST",url,false);
             xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
@@ -767,7 +770,7 @@ function RunTestCase(tcid,StepNum)
             Enable();
             break;
         case "HUL1_3":
-            console.log("running testcase HUL_2");
+            console.log("running testcase HUL1_3");
             xhttp=new XMLHttpRequest();
             xhttp.open("POST",url,false);
             xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
@@ -779,7 +782,7 @@ function RunTestCase(tcid,StepNum)
             Enable();
             break;
         case "HUL1_4":
-            console.log("running testcase HUL_2");
+            console.log("running testcase HUL1_4");
             xhttp=new XMLHttpRequest();
             xhttp.open("POST",url,false);
             xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
@@ -791,7 +794,7 @@ function RunTestCase(tcid,StepNum)
             Enable();
             break;
         case "HUL1_5":
-            console.log("running testcase HUL_2");
+            console.log("running testcase HUL1_5");
             xhttp=new XMLHttpRequest();
             xhttp.open("POST",url,false);
             xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
@@ -803,7 +806,7 @@ function RunTestCase(tcid,StepNum)
             Enable();
             break;
         case "HUL1_6":
-            console.log("running testcase HUL_2");
+            console.log("running testcase HUL1_6");
             xhttp=new XMLHttpRequest();
             xhttp.open("POST",url,false);
             xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
@@ -815,7 +818,7 @@ function RunTestCase(tcid,StepNum)
             Enable();
             break;
         case "HUL1_7":
-            console.log("running testcase HUL_2");
+            console.log("running testcase HUL1_7");
             xhttp=new XMLHttpRequest();
             xhttp.open("POST",url,false);
             xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
@@ -827,7 +830,7 @@ function RunTestCase(tcid,StepNum)
             Enable();
             break;
         case "HUL1_8":
-            console.log("running testcase HUL_2");
+            console.log("running testcase HUL1_8");
             xhttp=new XMLHttpRequest();
             xhttp.open("POST",url,false);
             xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
@@ -839,7 +842,7 @@ function RunTestCase(tcid,StepNum)
             Enable();
             break;
         case "HUL1_9":
-            console.log("running testcase HUL_2");
+            console.log("running testcase HUL1_9");
             xhttp=new XMLHttpRequest();
             xhttp.open("POST",url,false);
             xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
@@ -851,7 +854,7 @@ function RunTestCase(tcid,StepNum)
             Enable();
             break;
         case "HUL1_10":
-            console.log("running testcase HUL_2");
+            console.log("running testcase HUL1_10");
             xhttp=new XMLHttpRequest();
             xhttp.open("POST",url,false);
             xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
@@ -863,7 +866,7 @@ function RunTestCase(tcid,StepNum)
             Enable();
             break;
         case "HUL1_11":
-            console.log("running testcase HUL_2");
+            console.log("running testcase HUL1_11");
             xhttp=new XMLHttpRequest();
             xhttp.open("POST",url,false);
             xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
@@ -875,7 +878,7 @@ function RunTestCase(tcid,StepNum)
             Enable();
             break;
         case "HUL1_12":
-            console.log("running testcase HUL_2");
+            console.log("running testcase HUL1_12");
             xhttp=new XMLHttpRequest();
             xhttp.open("POST",url,false);
             xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
@@ -887,7 +890,7 @@ function RunTestCase(tcid,StepNum)
             Enable();
             break;
         case "HUL1_13":
-            console.log("running testcase HUL_2");
+            console.log("running testcase HUL1_13");
             xhttp=new XMLHttpRequest();
             xhttp.open("POST",url,false);
             xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
@@ -899,7 +902,7 @@ function RunTestCase(tcid,StepNum)
             Enable();
             break;
         case "HUL1_14":
-            console.log("running testcase HUL_2");
+            console.log("running testcase HUL1_14");
             xhttp=new XMLHttpRequest();
             xhttp.open("POST",url,false);
             xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
@@ -911,7 +914,7 @@ function RunTestCase(tcid,StepNum)
             Enable();
             break;
         case "HUL1_15":
-            console.log("running testcase HUL_2");
+            console.log("running testcase HUL1_15");
             xhttp=new XMLHttpRequest();
             xhttp.open("POST",url,false);
             xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
@@ -923,7 +926,7 @@ function RunTestCase(tcid,StepNum)
             Enable();
             break;
         case "HUL1_16":
-            console.log("running testcase HUL_2");
+            console.log("running testcase HUL1_16");
             xhttp=new XMLHttpRequest();
             xhttp.open("POST",url,false);
             xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
@@ -935,7 +938,7 @@ function RunTestCase(tcid,StepNum)
             Enable();
             break;
         case "HUL1_17":
-            console.log("running testcase HUL_2");
+            console.log("running testcase HUL1_17");
             xhttp=new XMLHttpRequest();
             xhttp.open("POST",url,false);
             xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
@@ -947,7 +950,7 @@ function RunTestCase(tcid,StepNum)
             Enable();
             break;
         case "HUL1_18":
-            console.log("running testcase HUL_2");
+            console.log("running testcase HUL1_18");
             xhttp=new XMLHttpRequest();
             xhttp.open("POST",url,false);
             xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
@@ -959,7 +962,7 @@ function RunTestCase(tcid,StepNum)
             Enable();
             break;
         case "HUL1_19":
-            console.log("running testcase HUL_2");
+            console.log("running testcase HUL1_19");
             xhttp=new XMLHttpRequest();
             xhttp.open("POST",url,false);
             xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
@@ -971,7 +974,7 @@ function RunTestCase(tcid,StepNum)
             Enable();
             break;
         case "HUL1_20":
-            console.log("running testcase HUL_2");
+            console.log("running testcase HUL1_20");
             xhttp=new XMLHttpRequest();
             xhttp.open("POST",url,false);
             xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
@@ -983,7 +986,7 @@ function RunTestCase(tcid,StepNum)
             Enable();
             break;
         case "HUL1_21":
-            console.log("running testcase HUL_2");
+            console.log("running testcase HUL1_21");
             xhttp=new XMLHttpRequest();
             xhttp.open("POST",url,false);
             xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
@@ -995,7 +998,7 @@ function RunTestCase(tcid,StepNum)
             Enable();
             break;
         case "HUL1_22":
-            console.log("running testcase HUL_2");
+            console.log("running testcase HUL1_22");
             xhttp=new XMLHttpRequest();
             xhttp.open("POST",url,false);
             xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
@@ -1007,7 +1010,7 @@ function RunTestCase(tcid,StepNum)
             Enable();
             break;
         case "HUL1_23":
-            console.log("running testcase HUL_2");
+            console.log("running testcase HUL1_23");
             xhttp=new XMLHttpRequest();
             xhttp.open("POST",url,false);
             xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
@@ -1019,7 +1022,19 @@ function RunTestCase(tcid,StepNum)
             Enable();
             break;
         case "HUL1_24":
-            console.log("running testcase HUL_2");
+            console.log("running testcase HUL1_24");
+            xhttp=new XMLHttpRequest();
+            xhttp.open("POST",url,false);
+            xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            xhttp.send(params);
+            console.log("after getting response" + xhttp.responseText);
+            response = JSON.parse(xhttp.responseText);
+            result=response.status;
+            UpdateTestResults(tcid,result);
+            Enable();
+            break;
+        case "HUL1_25":
+            console.log("running testcase HUL1_25");
             xhttp=new XMLHttpRequest();
             xhttp.open("POST",url,false);
             xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
@@ -1031,7 +1046,7 @@ function RunTestCase(tcid,StepNum)
             Enable();
             break;
         case "HUL2_1":
-            console.log("running testcase HUL_2");
+            console.log("running testcase HUL2_1");
             xhttp=new XMLHttpRequest();
             xhttp.open("POST",url,false);
             xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
@@ -1043,7 +1058,7 @@ function RunTestCase(tcid,StepNum)
             Enable();
             break;
         case "HUL2_2":
-            console.log("running testcase HUL_2");
+            console.log("running testcase HUL2_2");
             xhttp=new XMLHttpRequest();
             xhttp.open("POST",url,false);
             xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
@@ -1055,7 +1070,7 @@ function RunTestCase(tcid,StepNum)
             Enable();
             break;
         case "HUL2_3":
-            console.log("running testcase HUL_2");
+            console.log("running testcase HUL2_3");
             xhttp=new XMLHttpRequest();
             xhttp.open("POST",url,false);
             xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
@@ -1067,7 +1082,7 @@ function RunTestCase(tcid,StepNum)
             Enable();
             break;
         case "HUL2_4":
-            console.log("running testcase HUL_2");
+            console.log("running testcase HUL2_4");
             xhttp=new XMLHttpRequest();
             xhttp.open("POST",url,false);
             xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
@@ -1079,7 +1094,7 @@ function RunTestCase(tcid,StepNum)
             Enable();
             break;
         case "HUL2_5":
-            console.log("running testcase HUL_2");
+            console.log("running testcase HUL2_5");
             xhttp=new XMLHttpRequest();
             xhttp.open("POST",url,false);
             xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
@@ -1091,7 +1106,7 @@ function RunTestCase(tcid,StepNum)
             Enable();
             break;
         case "HUL2_6":
-            console.log("running testcase HUL_2");
+            console.log("running testcase HUL2_6");
             xhttp=new XMLHttpRequest();
             xhttp.open("POST",url,false);
             xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
@@ -1103,7 +1118,7 @@ function RunTestCase(tcid,StepNum)
             Enable();
             break;
         case "HUL2_7":
-            console.log("running testcase HUL_2");
+            console.log("running testcase HUL2_7");
             xhttp=new XMLHttpRequest();
             xhttp.open("POST",url,false);
             xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
@@ -1115,7 +1130,7 @@ function RunTestCase(tcid,StepNum)
             Enable();
             break;
         case "HUL2_8":
-            console.log("running testcase HUL_2");
+            console.log("running testcase HUL2_8");
             xhttp=new XMLHttpRequest();
             xhttp.open("POST",url,false);
             xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
@@ -1127,7 +1142,7 @@ function RunTestCase(tcid,StepNum)
             Enable();
             break;
         case "HUL2_9":
-            console.log("running testcase HUL_2");
+            console.log("running testcase HUL2_9");
             xhttp=new XMLHttpRequest();
             xhttp.open("POST",url,false);
             xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
@@ -1331,7 +1346,7 @@ function DisplayTimeIPInfo()
 {
     var strcount;
     var dateTime = new Date();
-    document.getElementById('date_time').innerHTML = dateTime.toLocaleString('en-IN', { timeZone: 'UTC' })
+    document.getElementById('date_time').innerHTML = dateTime.toLocaleString('en-IN', { timeZone: 'UTC' });
     DT=displayDateTime();
 }
 function displayDateTime()
@@ -1361,14 +1376,15 @@ function viewResults() {
         "<th id='th1'>DESC</th>" +
         "<th>LAST_STATUS</th></tr>";
     for (x in testResultDetails.objTestCaseResults) {
-        txt += "<tr id='tr'><td>" + testResultDetails.objTestCaseResults[x].TCID + "</td>" +
-            "<td>" + testResultDetails.objTestCaseResults[x].TCSHORTNM + "</td>" +
-            "<td>" + testResultDetails.objTestCaseResults[x].DESC + "</td>" +
-            "<td>" + testResultDetails.objTestCaseResults[x].LAST_STATUS + "</td>" +
-            "</tr>";
+            txt += "<tr id='tr'><td>" + testResultDetails.objTestCaseResults[x].TCID + "</td>" +
+                "<td>" + testResultDetails.objTestCaseResults[x].TCSHORTNM + "</td>" +
+                "<td>" + testResultDetails.objTestCaseResults[x].DESC + "</td>" +
+                "<td>" + testResultDetails.objTestCaseResults[x].LAST_STATUS + "</td>" +
+                "</tr>";
     }
     txt += "</table></div>";
     document.getElementById("show1").innerHTML = txt;
+    //modal2.innerHTML="";
 }
 
 function UploadTestResults()
