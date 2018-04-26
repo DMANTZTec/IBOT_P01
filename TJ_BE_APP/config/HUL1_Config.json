@@ -1,6 +1,6 @@
 {
-  "DUT_ID":"HUL1",
-  "DUT_NM":"HUL1_app_1",
+  "DUT_ID":"PCBA",
+  "DUT_NM":"PCBA Test Fixture",
   "HW_VER": "1.2.3",
   "SW_VER": "1.0.3",
   "TestCaseFile":"./config/HUL1_TestCases.json"

@@ -3,8 +3,8 @@
   "TestCases": [
     {
       "TCID": "1",
-      "TCSHORTNM":"HUl1_1",
-      "DESC": "Voltage of 5V from Regulator",
+      "TCSHORTNM":"HUL1_1",
+      "DESC": "Instructions",
       "COMMENT": "S",
       "Steps" : [
         {
@@ -15,7 +15,19 @@
     },
     {
       "TCID": "2",
-      "TCSHORTNM":"HUl1_2",
+      "TCSHORTNM":"HUL1_2",
+      "DESC": "Voltage of 5V from Regulator",
+      "COMMENT": "S",
+      "Steps" : [
+        {
+          "StepNumber": 1,
+          "StepPromptText":"Check if HDMI Cable is Connected",
+          "StepInputText":["Value1","Value2","Value3"]
+        }]
+    },
+    {
+      "TCID": "3",
+      "TCSHORTNM":"HUL1_3",
       "DESC": "Voltage 3.3 from Regulator",
       "COMMENT": "S",
       "Steps" : [
@@ -33,28 +45,9 @@
 
     },
     {
-      "TCID": "3",
-      "TCSHORTNM":"HUl1_3",
-      "DESC": "MSP430_Flashing",
-      "COMMENT": "S",
-      "Steps" : [
-        {
-          "StepNumber": 1,
-          "StepPromptText":"Push the power button",
-          "StepInputText":["Value1","Value2","Value3"]
-        },
-
-        {
-          "StepNumber": 2,
-          "StepPromptText":"Is the Power LED Turned Green?",
-          "StepInputText":["Value1","Value2","Value3"]
-        }]
-
-    },
-    {
       "TCID": "4",
-      "TCSHORTNM":"HUl1_4",
-      "DESC": "SV Voltage Check",
+      "TCSHORTNM":"HUL1_4",
+      "DESC": "Base Board Flashing",
       "COMMENT": "S",
       "Steps" : [
         {
@@ -72,34 +65,52 @@
     },
     {
       "TCID": "5",
-      "TCSHORTNM":"HUl1_5",
-      "DESC": "RV Voltage Check",
+      "TCSHORTNM":"HUL1_5",
+      "DESC": "Normal Working condition",
       "COMMENT": "S",
       "Steps" : [
         {
           "StepNumber": 1,
-          "StepPromptText":"Check if HDMI Cable is Connected",
+          "StepPromptText":"Push the power button",
+          "StepInputText":["Value1","Value2","Value3"]
+        },
+
+        {
+          "StepNumber": 2,
+          "StepPromptText":"Is the Power LED Turned Green?",
           "StepInputText":["Value1","Value2","Value3"]
         }]
 
     },
     {
       "TCID": "6",
-      "TCSHORTNM":"HUl1_6",
-      "DESC": "BP Voltage Check",
+      "TCSHORTNM":"HUL1_6",
+      "DESC": "LCS Test",
       "COMMENT": "S",
       "Steps" : [
         {
           "StepNumber": 1,
-          "StepPromptText":"Check if HDMI Cable is Connected",
+          "StepPromptText":"Check Filter NFC Tag Detect,Write and Reading",
           "StepInputText":["Value1","Value2","Value3"]
-        }
-      ]
+        }]
 
     },
     {
       "TCID": "7",
-      "TCSHORTNM":"HUl1_7",
+      "TCSHORTNM":"HUL1_7",
+      "DESC": "LPS Test",
+      "COMMENT": "S",
+      "Steps" : [
+        {
+          "StepNumber": 1,
+          "StepPromptText":"Check Filter NFC Tag Detect,Write and Reading",
+          "StepInputText":["Value1","Value2","Value3"]
+        }]
+
+    },
+    {
+      "TCID": "8",
+      "TCSHORTNM":"HUL1_8",
       "DESC": "SV Alert Check",
       "COMMENT": " H Enable SV Relay and checking for Signal at SV Alert Reboot required",
       "Steps" : [
@@ -110,9 +121,9 @@
         }]
     },
     {
-      "TCID": "8",
-      "TCSHORTNM":"HUl1_8",
-      "DESC": "RV Alert Check ",
+      "TCID": "9",
+      "TCSHORTNM":"HUL1_9",
+      "DESC": "RO Alert Check ",
       "COMMENT": "H Restart required",
       "Steps" : [
         {
@@ -122,8 +133,8 @@
         }]
     },
     {
-      "TCID": "9",
-      "TCSHORTNM":"HUl1_9",
+      "TCID": "10",
+      "TCSHORTNM":"HUL1_10",
       "DESC": "BP Alert Check",
       "COMMENT": "H Restart required",
       "Steps" : [
@@ -132,65 +143,36 @@
           "StepPromptText":"Check if HDMI Cable is Connected",
           "StepInputText":["Value1","Value2","Value3"]
         }]
-
-    },
-    {
-      "TCID": "10",
-      "TCSHORTNM":"HUl1_10",
-      "DESC": "Pump Enable  Check",
-      "COMMENT": "S",
-      "Steps" : [
-        {
-          "StepNumber": 1,
-          "StepPromptText":"Check if HDMI Cable is Connected",
-          "StepInputText":["Value1","Value2","Value3"]
-        }]
-
-    },
-    {
-      "TCID": "11",
-      "TCSHORTNM":"HUl1_11",
-      "DESC": "BP Enable  Check",
-      "COMMENT": "S",
-      "Steps" : [
-        {
-          "StepNumber": 1,
-          "StepPromptText":"Check if HDMI Cable is Connected",
-          "StepInputText":["Value1","Value2","Value3"]
-        }]
-
     },
     {
       "TCID": "12",
-      "TCSHORTNM":"HUl1_12",
-      "DESC": "LPS Check",
-      "COMMENT": "S",
+      "TCSHORTNM":"HUL1_12",
+      "DESC": "FS Tamper",
+      "COMMENT": "M",
       "Steps" : [
         {
           "StepNumber": 1,
-          "StepPromptText":"Check Filter NFC Tag Detect,Write and Reading",
+          "StepPromptText":"IRNFC Check if HDMI Cable is Connected",
           "StepInputText":["Value1","Value2","Value3"]
         }]
-
     },
     {
       "TCID": "13",
-      "TCSHORTNM":"HUl1_13",
-      "DESC": "LCS Check",
-      "COMMENT": "S",
+      "TCSHORTNM":"HUL1_13",
+      "DESC": "RO Tamper",
+      "COMMENT": "M",
       "Steps" : [
         {
           "StepNumber": 1,
-          "StepPromptText":"Check Filter NFC Tag Detect,Write and Reading",
+          "StepPromptText":"IRNFC Check if HDMI Cable is Connected",
           "StepInputText":["Value1","Value2","Value3"]
         }]
-
     },
     {
       "TCID": "14",
-      "TCSHORTNM":"HUl1_14",
-      "DESC": "LPS Check",
-      "COMMENT": "S",
+      "TCSHORTNM":"HUL1_14",
+      "DESC": "UART 1",
+      "COMMENT": "M",
       "Steps" : [
         {
           "StepNumber": 1,
@@ -200,8 +182,8 @@
     },
     {
       "TCID": "15",
-      "TCSHORTNM":"HUl1_15",
-      "DESC": "Flow Sensor Check",
+      "TCSHORTNM":"HUL1_15",
+      "DESC": "Base Board Flashing",
       "COMMENT": "M",
       "Steps" : [
         {
@@ -212,92 +194,8 @@
     },
     {
       "TCID": "16",
-      "TCSHORTNM":"HUl1_16",
-      "DESC": "UART 0",
-      "COMMENT": "M",
-      "Steps" : [
-        {
-          "StepNumber": 1,
-          "StepPromptText":"IRNFC Check if HDMI Cable is Connected",
-          "StepInputText":["Value1","Value2","Value3"]
-        }]
-    },
-    {
-      "TCID": "17",
-      "TCSHORTNM":"HUl1_17",
-      "DESC": "UART 0",
-      "COMMENT": "M",
-      "Steps" : [
-        {
-          "StepNumber": 1,
-          "StepPromptText":"IRNFC Check if HDMI Cable is Connected",
-          "StepInputText":["Value1","Value2","Value3"]
-        }]
-    },
-    {
-      "TCID": "18",
-      "TCSHORTNM":"HUl1_18",
-      "DESC":"LCD Signal Check ?",
-      "COMMENT": "M",
-      "Steps" : [
-        {
-          "StepNumber": 1,
-          "StepPromptText":"IRNFC Check if HDMI Cable is Connected",
-          "StepInputText":["Value1","Value2","Value3"]
-        }]
-    },
-    {
-      "TCID": "19",
-      "TCSHORTNM":"HUl1_19",
-      "DESC": "JTAG Signal Check ( If Flashing is working then no need to test)",
-      "COMMENT": "S",
-      "Steps" : [
-        {
-          "StepNumber": 1,
-          "StepPromptText":"IRNFC Check if HDMI Cable is Connected",
-          "StepInputText":["Value1","Value2","Value3"]
-        }]
-    },
-    {
-      "TCID": "20",
-      "TCSHORTNM":"HUl1_20",
-      "DESC": "LCS Disable & LCS Check ",
-      "COMMENT": "H Puts in Stand By Mode",
-      "Steps" : [
-        {
-          "StepNumber": 1,
-          "StepPromptText":"IRNFC Check if HDMI Cable is Connected",
-          "StepInputText":["Value1","Value2","Value3"]
-        }]
-    },
-    {
-      "TCID": "21",
-      "TCSHORTNM":"HUl1_21",
-      "DESC": "Pump Enable Check",
-      "COMMENT": "H For LOW",
-      "Steps" : [
-        {
-          "StepNumber": 1,
-          "StepPromptText":"IRNFC Check if HDMI Cable is Connected",
-          "StepInputText":["Value1","Value2","Value3"]
-        }]
-    },
-    {
-      "TCID": "22",
-      "TCSHORTNM":"HUl1_22",
-      "DESC": "BP Enable Check ",
-      "COMMENT": "H For LOW",
-      "Steps" : [
-        {
-          "StepNumber": 1,
-          "StepPromptText":"IRNFC Check if HDMI Cable is Connected",
-          "StepInputText":["Value1","Value2","Value3"]
-        }]
-    },
-    {
-      "TCID": "23",
-      "TCSHORTNM":"HUl1_23",
-      "DESC": "LCS Enable & LPS Disable",
+      "TCSHORTNM":"HUL1_16",
+      "DESC": "iQu Barcode Scanning ",
       "COMMENT": "H",
       "Steps" : [
         {
@@ -305,30 +203,6 @@
           "StepPromptText":"IRNFC Check if HDMI Cable is Connected",
           "StepInputText":["Value1","Value2","Value3"]
         }]
-    },
-    {
-      "TCID": "24",
-      "TCSHORTNM":"HUl1_24",
-      "DESC": "Pump Enable Check ",
-      "COMMENT": "H",
-      "Steps" : [
-        {
-          "StepNumber": 1,
-          "StepPromptText":"IRNFC Check if HDMI Cable is Connected",
-          "StepInputText":["Value1","Value2","Value3"]
-        }]
-    },
-    {
-      "TCID": "25",
-      "TCSHORTNM":"HUl1_25",
-      "DESC": "If all cases are successful , prompt for IQ Bar Code ",
-      "COMMENT": "H – Bar Code need to be read twice",
-      "Steps" : [
-      {
-        "StepNumber": 1,
-        "StepPromptText":"IRNFC Check if HDMI Cable is Connected",
-        "StepInputText":["Value1","Value2","Value3"]
-      }]
     }
 
   ]

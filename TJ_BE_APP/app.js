@@ -8,6 +8,8 @@ var fs=require('fs');
 var cors=require('cors');
 var index = require('./routes/index');
 var users = require('./routes/users');
+var hivestatus = require('./routes/hivestatus');
+var hive_BE = require('./routes/hive_BE');
 var RunTestCase_BE=require('./routes/RunTestCase_BE');
 var RunTestCase_BE_stub=require('./routes/RunTestCase_BE_stub');
 var LoadTestJigData_BE=require('./routes/LoadTestJigData_BE');
@@ -175,6 +177,8 @@ app.use(express.static(path.join(__dirname, 'config')));
 
 app.use('/', index);
 app.use('/users', users);
+app.use('/hive_BE',hive_BE);
+app.use('/hivestatus',hivestatus);
 app.use('/RunTestCase_BE',RunTestCase_BE);
 app.use('/RunTestCase_BE_stub',RunTestCase_BE_stub);
 app.use('/LoadTestJigData_BE',LoadTestJigData_BE);

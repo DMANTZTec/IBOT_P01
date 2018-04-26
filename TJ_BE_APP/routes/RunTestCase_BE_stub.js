@@ -41,7 +41,6 @@ var hiveMappingData =
     {"FIXTURE_NM":"F19"}
 ]
 };
-
 router.all('/', function(req, res, next)
 {
     var request = req.body.inputJsonStr;
@@ -72,7 +71,7 @@ router.all('/', function(req, res, next)
             console.log("M10_2 selected");
             console.log("Push the power button");
             console.log("Is the Power LED Turned Green?");
-            Success();
+            Failed();
             break;
         }
         case "M10_3" : {
@@ -210,175 +209,132 @@ router.all('/', function(req, res, next)
 //        Success();
         }
             break;
-
-        /*switch(DUTID_TCID){*/
         case "HUL1_1": {
             console.log("HUL1_1 selected");
             console.log("Voltage of 5V from Regulator");
             Success();
             break;
         }
-
-    case "HUL1_2":
-    {
+         case "HUL1_2":
+        {
         console.log("HUL1_2 selected");
         console.log("Voltage 3.3 from Regulator");
         Success();
         break;
-    }
-    case "HUL1_3":
-    {
+        }
+        case "HUL1_3":
+        {
         console.log("HUL1_3 selected");
+        console.log("MSP430_Flashing");
+        Success();
+        break;
+        }
+        case "HUL1_4":
+        {
+        console.log("HUL1_4 selected");
         console.log("SV Voltage Check");
         Success();
         break;
-    }
-    case "HUL1_4":
-    {
-        console.log("HUL1_4 selected");
+        }
+        case "HUL1_5":
+        {
+        console.log("HUL1_5 selected");
         console.log("RV Voltage Check");
         Success();
         break;
-    }
-    case "HUL1_5":
-    {
-        console.log("HUL1_5 selected");
+        }
+        case "HUL1_6":
+        {
+        console.log("HUL1_6 selected");
         console.log("BP Voltage Check");
         Success();
         break;
-    }
-    case "HUL1_6":
-    {
-        console.log("HUL1_6 selected");
+        }
+        case "HUL1_7":
+        {
+        console.log("HUL1_7 selected");
         console.log("SV Alert Check");
         Success();
         break;
-    }
-    case "HUL1_7":
-    {
-        console.log("HUL1_7 selected");
+        }
+        case "HUL1_8":
+        {
+        console.log("HUL1_8 selected");
         console.log("RV Alert Check");
         Success();
         break;
-    }
-    case "HUL1_8":
-    {
-        console.log("HUL1_8 selected");
-        console.log("Voltage 3.3 from Regulator");
-        Success();
-        break;
-    }
-    case "HUL1_9":
-    {
+        }
+        case "HUL1_9":
+        {
         console.log("HUL1_9 selected");
         console.log("BP Alert Check");
         Success();
         break;
-    }
-    case "HUL1_10":
-    {
+        }
+        case "HUL1_10":
+        {
         console.log("HUL1_10 selected");
+        console.log("Pump Enable  Check");
+        Success();
+        break;
+        }
+        case "HUL1_11":
+        {
+        console.log("HUL1_11 selected");
         console.log("BP Enable  Check");
         Success();
         break;
-    }
-    case "HUL1_11":
-    {
-        console.log("HUL1_11 selected");
+        }
+        case "HUL1_12":
+        {
+        console.log("HUL1_12 selected");
         console.log("LPS Check");
         Success();
         break;
-    }
-    case "HUL1_12":
-    {
-        console.log("HUL1_12 selected");
+        }
+        case "HUL1_13":
+        {
+        console.log("HUL1_13 selected");
         console.log("LCS Check");
         Success();
         break;
-    }
-    case "HUL1_13":
-    {
-        console.log("HUL1_13 selected");
+        }
+        case "HUL1_14":
+        {
+        console.log("HUL1_14 selected");
         console.log("LPS Check");
         Success();
         break;
-    }
-    case "HUL1_14":
-    {
-        console.log("HUL1_14 selected");
+        }
+        case "HUL1_15":
+        {
+        console.log("HUL1_15 selected");
         console.log("Flow Sensor Check");
         Success();
         break;
-    }
-    case "HUL1_15":
-    {
-        console.log("HUL1_15 selected");
-        console.log("UART 0");
-        Success();
-        break;
-    }
-    case "HUL1_16":
-    {
+        }
+        case "HUL1_16":
+        {
         console.log("HUL1_16 selected");
         console.log("UART 0");
         Success();
         break;
-    }
-    case "HUL1_17":
-    {
+        }
+        case "HUL1_17":
+        {
         console.log("HUL1_17 selected");
+        console.log(" UART 0");
+        Success();
+        break;
+        }
+        case "HUL1_18":
+        {
+        console.log("HUL1_18 selected");
         console.log("LCD Signal Check ?");
         Success();
         break;
-    }
-    case "HUL1_18":
-    {
-        console.log("HUL1_18 selected");
-        console.log("JTAG Signal Check ( If Flashing is working then no need to test)");
-        Success();
-        break;
-    }
-    case "HUL1_19":
-    {
-        console.log("HUL1_19 selected");
-        console.log("LCS Disable & LCS Check");
-        Success();
-        break;
-    }
-    case "HUL1_20":
-    {
-        console.log("HUL1_20 selected");
-        console.log("Pump Enable Check");
-        Success();
-        break;
-    } case "HUL1_21":
-    {
-    console.log("HUL1_21 selected");
-    console.log("BP Enable Check ");
-    Success();
-    break;
-    }
-    case "HUL1_22":
-    {
-        console.log("HUL1_21 selected");
-        console.log("LCS Enable & LPS Disable");
-        Success();
-        break;
-    }
-    case "HUL1_23":
-    {
-        console.log("HUL1_23 selected");
-        console.log("Pump Enable Check");
-        Success();
-        break;
-    }
-    case "HUL1_24":
-    {
-        console.log("HUL1_24 selected");
-        console.log("If all cases are successful , prompt for IQ Bar Code");
-        Success();
-        break;
-    }
+        }
+
     case "HUL2_1":
     {
         console.log("HUL2_1 selected");
@@ -395,7 +351,7 @@ router.all('/', function(req, res, next)
         break;
 
     }
-        case  "HUL2_3":
+    case  "HUL2_3":
     {
         console.log("HUL2_3 selected");
         console.log("SV Short & Check");
@@ -403,7 +359,7 @@ router.all('/', function(req, res, next)
         break;
 
     }
-        case  "HUL2_4":
+    case  "HUL2_4":
     {
         console.log("HUL2_4 selected");
         console.log("RO Short & Check");
@@ -411,7 +367,7 @@ router.all('/', function(req, res, next)
         break;
 
     }
-        case  "HUL2_5":
+    case  "HUL2_5":
     {
         console.log("HUL2_5 selected");
         console.log("BP Short & Check");
@@ -419,7 +375,7 @@ router.all('/', function(req, res, next)
         break;
 
     }
-        case  "HUL2_6":
+    case  "HUL2_6":
     {
         console.log("HUL2_6 selected");
         console.log("FS Tamper Check");
@@ -427,15 +383,15 @@ router.all('/', function(req, res, next)
         break;
 
     }
-        case  "HUL2_7":
+    case  "HUL2_7":
     {
         console.log("HUL2_7 selected");
         console.log("RO Tamper Check");
         Success();
         break;
 
-    }case  "HUL2_8":
-
+    }
+    case  "HUL2_8":
     {
         console.log("HUL2_8 selected");
         console.log("If all cases are successful wait for 3 minutes ");
@@ -443,7 +399,7 @@ router.all('/', function(req, res, next)
         break;
 
     }
-        case  "HUL2_9":
+    case  "HUL2_9":
     {
         console.log("HUL2_9 selected");
         console.log("If 1-8 are successful Generate Bar Code & communicate to printer");
@@ -451,10 +407,29 @@ router.all('/', function(req, res, next)
         break;
 
     }
-
-
+    case "HUL2_10":
+    {
+    console.log("HUL2_10 selected");
+    Success();
+    break;
+    }
 }
 });
+router.all('/Recovery_BE',function (req,res) {
+    function Success()
+    {
+        var response={"status":"success"};
+        console.log(response);
+        res.send(response);
+    }
+    function Failed()
+    {
+        var response={"status":"Failed"};
+        res.send(response);
+    }
+    Success();
+});
+
 
 module.exports = router;
 

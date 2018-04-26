@@ -10,8 +10,11 @@ var readline = require('readline');
 
 var TestJigType;
 var TestJigList;
+var Manufacturer;
 //var testCaseConfigFileNm='./TestCaseData.json';
 var testJigConfigFileNm = './config/TestJigData.json';
+var manufacturerfilenm = './config/manufacturer.json';
+
 var testjiglistConfigFile='./config/TestJigList.json';
 //var testjiglist=JSON.parse(fs.readFileSync(testjiglistConfigFile));
 //var testjiglist='./config/TestJigList.json';
@@ -39,6 +42,10 @@ router.all('/', function(req, res, next)
         TestJigList=JSON.parse(fs.readFileSync(testjiglistConfigFile));
         console.log(TestJigList);
     }
+    if(fs.existsSync(manufacturerfilenm)){
+        Manufacturer=JSON.parse(fs.readFileSync(manufacturerfilenm));
+        console.log(Manufacturer);
+    }
     if (fs.existsSync(testJigConfigFileNm))
     {
         var TestJigData = JSON.parse(fs.readFileSync(testJigConfigFileNm));
@@ -57,7 +64,8 @@ router.all('/', function(req, res, next)
                 status: "success",
                 TestJigList: TestJigList,
                 TestJigData: TestJigData,
-                TestCaseData: TestCaseData
+                TestCaseData: TestCaseData,
+                Manufacturer:Manufacturer
             };
         res.send(response);
     }
@@ -145,5 +153,16 @@ router.all('/ReloadProductType_BE', function(req, res, next) {
            res.send(response);
        },2000);
 
+});
+router.all('/Manufacturer_BE', function(req, res, next) {
+    var request = req.body.inputJsonStr;
+    //var manufacturer=JSON.parse(request);
+    var reponse={"status":"success"};
+    fs.writeFile(manufacturerfilenm, request, function (err) {
+        if (err) throw err;
+        else
+            console.log("manufacturer saved into file");
+    });
+    res.send(reponse);
 });
 module.exports = router;

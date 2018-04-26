@@ -1,33 +1,15 @@
 {
-"TestJigList":[
-{
-"DUT_ID":"M10",
-"DUT_NM":"M10 Card",
-"DESC_FILE":"M10_TJ_Config.json"
-},
-{
-"DUT_ID":"CC",
-"DUT_NM":"Control Card",
-"DESC_FILE":"CC_TJ_Config.json"
-},
-{
-"DUT_ID":"IRNFC",
-"DUT_NM":"IR NFC Board",
-"DESC_FILE":"IRNFC_TJ_Config.json"
-},
-{
-"DUT_ID":"FNFC",
-"DUT_NM":"Filter NFC Board",
-"DESC_FILE":"FNFC_TJ_Config.json"
-},
-{
-"DUT_ID":"TRIAC",
-"DUT_NM":"TRIAC Board",
-"DESC_FILE":"TRIAC_TJ_Config.json"
-},{
-"DUT_ID":"ESR",
-"DUT_NM":"ESR Board",
-"DESC_FILE":"ESR_TJ_Config.json"
-}
-]
+  "Producttype":"HUL",
+  "TestJigList": [
+    {
+      "DUT_ID": "PCBA",
+      "DUT_NM": "PCBA TEST FIXTURE",
+      "DESC_FILE": "HUL1_Config.json"
+    },
+    {
+      "DUT_ID": "FUNCTIONALITY",
+      "DUT_NM": "FUNCTIONALITY TEST FIXTURE",
+      "DESC_FILE": "HUL2_Config.json"
+    }
+  ]
 }

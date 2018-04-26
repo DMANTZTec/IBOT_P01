@@ -50,6 +50,13 @@
                     </option>
                 </select>
 
+            <button id="manufacturer">Manufacturer</button>
+            <select id="manufacturertype" onchange="setManufacturerMode(this.value)">
+                <option value="">Select Manufacturer type</option>
+                <option value="UnKnownAdmin">UnKnownAdmin</option>
+                <option value="SGSAdmin">SGSAdmin</option>
+            </select>
+
 
             <span class="close" onclick="closeSettingsModal()">&times;</span>
         </div>
@@ -89,18 +96,34 @@
     </div>
     -->
     <div id="inner_table">
-	    <!--
-<texearea id="TestCaseTitle" readonly></textarea>
-	    -->
-<textarea id="TestCaseRunText" readonly></textarea>
-<textarea id="TestCaseRunStatus" readonly></textarea>
-<textarea id="TestCaseRunInstruction" readonly></textarea>
-<textarea id="TestCaseRunTimer" readonly></textarea>
-<textarea id="TestCasesFinalResult" readonly></textarea>
+    <textarea id="TestCaseTitle" readonly></textarea>
+    <textarea id="TestCaseRunText" readonly></textarea>
+        <textarea id="TestCaseRunStatus" readonly></textarea>
+        <textarea id="instructions"  readonly style="display: none;">
+            1.Ensure lever is completely open.
+            2.Open the Lid
+            3.Place the Baseboard into the fixture as in SOP
+            4.Close the Lid
+            5.Lock the lid as in SOP
+            6.Ensure Lock and PULL the Lever down.
+        </textarea>
+        <textarea id="TestCaseRunInstruction" readonly></textarea>
+        <div id="hul1_dialogbox">
+        <button id="hul1_yesbutton">YES</button>
+        <button id="hul1_nobutton">NO</button>
+        </div>
+        <button id="ok">OK</button>
+        <input type="text" id="BoardDetail1" autofocus onchange="appendBoardDetails(this.value)"/>
+
+         <h3 id="status"></h3>
+
+        <textarea id="TestCaseRunTimer" readonly></textarea>
+        <textarea id="TestCasesFinalResult" readonly></textarea>
     </div>
     <div id="start_icon" onclick="RunTestCase(LoadedTestCase.TCID,LoadedTestCase.Steps[0].StepNumber)" disabled></div>
     <div id="retry_icon" onclick="retryTestCase()" disabled></div>
     <div id="next_icon" onclick="nextTestCase()" disabled></div>
+    <div id="prev_icon" onclick="prevTestCase()" disabled></div>
     <div id="tc"></div>
     <!--<button id="tc1" onclick="LoadTestCase(testCaseData.TestCases[0].TCID,this.id)">
         TC1
@@ -127,6 +150,8 @@
     <button id="reset" onclick="reset()">
         Reset
     </button>
+
+    <h3 id="hivestatus"></h3>
 
 
     <div id="TestcasesModalId" class="TestcasesModalclass">
@@ -155,7 +180,7 @@
         <div class="modal_content2">
             <div id="show1"></div>
             <div id="uploaddata"></div>
-            <button id="UPLOAD" onclick="UploadTestResults()">UPLOAD</button>
+	    <!-- <button id="UPLOAD" onclick="UploadTestResults()">UPLOAD</button>-->
             <span class="close2" onclick="closeViewResultsModal()">&times;</span>
         </div>
     </div>

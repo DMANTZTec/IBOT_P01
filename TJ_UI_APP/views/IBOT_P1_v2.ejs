@@ -76,7 +76,6 @@
     <svg id="svg_2">
         <line id="line_2" x1="0" x2="970" y1="5" y2="0" />
     </svg>
-
 <!--XXX
     <button id="BoardDetail">SN:XXXXXXXX&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;MFGDT:DD-MM-YY&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;HW Ver: XXX&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;SW Ver:XXX&nbsp; &nbsp;
     </button>
@@ -84,7 +83,6 @@
     <input type="text" id="BoardDetail" autofocus onchange="setBoardDetails(this.value)">
     </input>
     <div id="scanner_image" onclick="ScanBarCode()"></div>
-
     <!--<div id="inner_table">
         <input type="text" id="testcase_id" readonly/>
         <input type="text" id="testcase_nm" readonly/>
@@ -95,12 +93,24 @@
     -->
     <div id="inner_table">
     <textarea id="TestCaseTitle" readonly></textarea>
-    <textarea id="TestCaseRunText" readonly>
-    </textarea>
+    <textarea id="TestCaseRunText" readonly></textarea>
         <textarea id="TestCaseRunStatus" readonly></textarea>
         <textarea id="TestCaseRunInstruction" readonly></textarea>
+        <div id="hul1_dialogbox">Did you see error code E5?
+            <button id="hul1_yesbutton" >YES</button>
+            <button id="hul1_nobutton">NO</button>
+        </div>
+
+        <div id="hul1_recovering">Recovering SV Short..</div>
+
+        <div id="hul2_dialogbox">Did you see FULL TANK in Red?
+            <button id="hul2_yesbutton" >YES</button>
+            <button id="hul2_nobutton">NO</button>
+        </div>
+
+        <div id="hul2_recovering">Recovering..</div>
+        <input type="text" id="BoardDetail1" autofocus onchange="appendBoardDetails(this.value)"/>
         <textarea id="TestCaseRunTimer" readonly></textarea>
-        <!--xxx -->
         <textarea id="TestCasesFinalResult" readonly></textarea>
     </div>
     <div id="start_icon" onclick="RunTestCase(LoadedTestCase.TCID,LoadedTestCase.Steps[0].StepNumber)" disabled></div>

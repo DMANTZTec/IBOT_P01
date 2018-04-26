@@ -1,13 +1,14 @@
 {
+  "Producttype":"HUL",
   "TestJigList": [
     {
-      "DUT_ID": "HUL1",
-      "DUT_NM": "HUL1_app",
+      "DUT_ID": "PCBA",
+      "DUT_NM": "PCBA TEST FIXTURE",
       "DESC_FILE": "HUL1_Config.json"
     },
     {
-      "DUT_ID": "HUL2",
-      "DUT_NM": "HUL2_app",
+      "DUT_ID": "FUNCTIONALITY",
+      "DUT_NM": "FUNCTIONALITY TEST FIXTURE",
       "DESC_FILE": "HUL2_Config.json"
     }
   ]
